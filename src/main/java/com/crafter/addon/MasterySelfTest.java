@@ -137,6 +137,7 @@ public final class MasterySelfTest {
             var luckySword = new ItemStack(Items.IRON_SWORD);
             CraftingMastery.finish(player, luckySword, () -> 0.049999);
             check(Math.abs(damage(luckySword) - damage(oldSword) * 1.95) < 0.00001, "Rare damage bonus incorrect");
+            check(luckySword.getMaxDamage() == Math.round(oldSword.getMaxDamage() * 1.95), "Rare durability bonus incorrect");
             var luckyCopy = luckySword.copy();
             CraftingMastery.finish(player, luckySword, () -> 0.0);
             check(ItemStack.isSameItemSameComponents(luckyCopy, luckySword), "Rare bonus rerolled or stacked");
@@ -155,6 +156,8 @@ public final class MasterySelfTest {
             CraftingMastery.finish(player, luckyPickaxe, () -> 0.0);
             check(Math.abs(luckyPickaxe.getDestroySpeed(Blocks.STONE.defaultBlockState()) - speed * 1.95) < 0.001,
                 "Rare mining bonus incorrect");
+            check(luckyPickaxe.getMaxDamage() == Math.round(new ItemStack(Items.IRON_PICKAXE).getMaxDamage() * 1.95),
+                "Rare tool durability bonus incorrect");
             var luckyArmor = new ItemStack(Items.IRON_CHESTPLATE);
             CraftingMastery.finish(player, luckyArmor, () -> 0.0);
             double armorValue = luckyArmor.getAttributeModifiers().modifiers().stream()
