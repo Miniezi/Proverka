@@ -51,7 +51,10 @@ public final class CraftingMastery {
         int weapon = rank(serverPlayer, "weapon");
         int toolRank = rank(serverPlayer, "tool");
         int armor = rank(serverPlayer, "armor");
-        ItemAttributeModifiers attributes = stack.getAttributeModifiers();
+        // Snapshot base item modifiers only. Event-derived modifiers must not be
+        // baked in, otherwise other mods could apply their bonuses twice.
+        ItemAttributeModifiers attributes = stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+        if (attributes.modifiers().isEmpty()) attributes = stack.getItem().getDefaultAttributeModifiers(stack);
         var builder = ItemAttributeModifiers.builder();
         boolean changedAttributes = false;
         for (var entry : attributes.modifiers()) {

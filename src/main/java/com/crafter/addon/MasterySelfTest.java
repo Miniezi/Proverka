@@ -58,11 +58,22 @@ public final class MasterySelfTest {
             check(Math.abs(pickaxe.getDestroySpeed(Blocks.STONE.defaultBlockState()) - speed * 1.5) < 0.001,
                 "Wrong mining speed");
             var armor = new ItemStack(Items.IRON_CHESTPLATE);
+            var originalArmor = armor.getAttributeModifiers();
             CraftingMastery.improve(player, armor);
             check(armor.has(DataComponents.CUSTOM_DATA), "Armor missing snapshot");
+            for (int i = 0; i < originalArmor.modifiers().size(); i++) {
+                var before = originalArmor.modifiers().get(i);
+                var after = armor.getAttributeModifiers().modifiers().get(i);
+                check(before.slot().equals(after.slot()) && before.modifier().id().equals(after.modifier().id()),
+                    "Armor slot or identity changed");
+                if (before.attribute().equals(Attributes.ARMOR)) check(Math.abs(after.modifier().amount()
+                    - before.modifier().amount() * 1.3) < 0.00001, "Wrong armor bonus");
+            }
             var bread = new ItemStack(Items.BREAD);
             check(!CraftingMastery.improve(player, bread) && !bread.has(DataComponents.CUSTOM_DATA), "Food changed");
             var menu = new CraftingMenu(1, player.getInventory(), ContainerLevelAccess.create(level, player.blockPosition()));
+            var experience = category.getExperience().orElseThrow();
+            int xpBefore = experience.getTotal(player);
             player.containerMenu = menu;
             menu.getSlot(1).set(new ItemStack(Items.IRON_INGOT, 2));
             menu.getSlot(4).set(new ItemStack(Items.IRON_INGOT, 2));
@@ -76,15 +87,25 @@ public final class MasterySelfTest {
                 check(Math.abs(damage(item) - damage(oldSword) * 1.3) < 0.00001, "Shift craft lost bonus");
             }
             check(swords == 2, "Shift craft did not produce two swords");
+            check(experience.getTotal(player) > xpBefore, "Crafting did not grant skill XP");
             menu.getSlot(1).set(new ItemStack(Items.IRON_INGOT));
             menu.getSlot(4).set(new ItemStack(Items.IRON_INGOT));
             menu.getSlot(7).set(new ItemStack(Items.STICK));
             menu.clicked(0, 0, ClickType.PICKUP, player);
             check(menu.getCarried().is(Items.IRON_SWORD) && menu.getCarried().has(DataComponents.CUSTOM_DATA),
                 "Normal craft lost bonus");
+            var inventoryMenu = player.inventoryMenu;
+            player.containerMenu = inventoryMenu;
+            inventoryMenu.getSlot(2).set(new ItemStack(Items.IRON_INGOT));
+            inventoryMenu.getSlot(3).set(new ItemStack(Items.IRON_INGOT));
+            check(inventoryMenu.getSlot(0).getItem().is(Items.SHEARS), "2x2 recipe output missing");
+            inventoryMenu.clicked(0, 0, ClickType.PICKUP, player);
+            check(inventoryMenu.getCarried().has(DataComponents.CUSTOM_DATA), "2x2 craft lost bonus");
             category.resetSkills(player);
             check(CraftingMastery.rank(player, "weapon") == 0, "Reset failed");
             check(ItemStack.isSameItemSameComponents(saved, sword), "Reset changed crafted item");
+            var restored = ItemStack.parseOptional(server.registryAccess(), (net.minecraft.nbt.CompoundTag) sword.save(server.registryAccess()));
+            check(ItemStack.isSameItemSameComponents(saved, restored), "Bonus lost on serialization");
             var fresh = new ItemStack(Items.IRON_SWORD);
             check(!CraftingMastery.improve(player, fresh), "Reset still buffs new items");
             System.out.println("CRAFTING_MASTERY_SELFTEST_PASSED");
