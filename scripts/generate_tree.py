@@ -32,7 +32,7 @@ for branch, name, item, x, step, stat in [
     for level in range(1, 21):
         key = f'{branch}_{level}'
         material = 'iron' if level <= 7 else 'diamond' if level <= 14 else 'netherite'
-        description = (f'Эта ступень: +{step}%. Итого после открытия: +{step * level}% к {stat}. '
+        description = (f'Эта ступень: +{step}%. Итого после открытия: +{step * level}% к {stat} и максимальной прочности подходящего предмета. '
                        'Цена: 1 очко. Бонус получает только новое изделие; старые предметы не меняются. '
                        'Бонус сохраняется при передаче предмета и сбросе навыков.')
         definitions[key] = {'title': f'{name} {level}/20', 'description': description,
@@ -41,8 +41,8 @@ for branch, name, item, x, step, stat in [
         edges.append(['root' if level == 1 else f'{branch}_{level-1}', key])
     key = branch + '_master'
     definitions[key] = {'title': name + ': шедевр', 'cost': 1, 'icon': icon('netherite_' + item),
-        'description': 'При получении нового изделия: отдельный шанс 5% умножить характеристику этой ветки на 1,5. '
-                       'С обычным бонусом +30% итог равен +95% к исходной характеристике. '
+        'description': 'При получении нового изделия: отдельный шанс 5% умножить характеристику и максимальную прочность этой ветки на 1,5. '
+                       'С обычным бонусом +30% итог равен +95% к исходной характеристике и прочности. '
                        'Проверки урона, добычи и защиты независимы. Старые предметы не меняются.', 'rewards': []}
     skills[key] = {'x': x, 'y': 21 * 48, 'definition': key}
     edges.append([branch + '_20', key])
