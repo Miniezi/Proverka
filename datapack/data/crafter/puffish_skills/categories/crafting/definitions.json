@@ -337,5 +337,335 @@
         }
       }
     ]
+  },
+  "weapon_6": {
+    "title": "Урон Оружия 6",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_sword"
+      }
+    },
+    "description": "Уровень 6: улучшение урон оружия.",
+    "cost": 1,
+    "required_spent_points": 5,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.attack_damage",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "weapon_7": {
+    "title": "Урон Оружия 7",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_sword"
+      }
+    },
+    "description": "Уровень 7: улучшение урон оружия.",
+    "cost": 1,
+    "required_spent_points": 6,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.attack_damage",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "weapon_8": {
+    "title": "Урон Оружия 8",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_sword"
+      }
+    },
+    "description": "Уровень 8: улучшение урон оружия.",
+    "cost": 1,
+    "required_spent_points": 7,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.attack_damage",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "weapon_9": {
+    "title": "Урон Оружия 9",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_sword"
+      }
+    },
+    "description": "Уровень 9: улучшение урон оружия.",
+    "cost": 1,
+    "required_spent_points": 8,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.attack_damage",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "weapon_10": {
+    "title": "Урон Оружия 10",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_sword"
+      }
+    },
+    "description": "Уровень 10: улучшение урон оружия.",
+    "cost": 1,
+    "required_spent_points": 9,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.attack_damage",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "tool_6": {
+    "title": "Скорость Добычи 6",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_pickaxe"
+      }
+    },
+    "description": "Уровень 6: улучшение скорость добычи.",
+    "cost": 1,
+    "required_spent_points": 5,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "puffish_attributes:mining_speed",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "tool_7": {
+    "title": "Скорость Добычи 7",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_pickaxe"
+      }
+    },
+    "description": "Уровень 7: улучшение скорость добычи.",
+    "cost": 1,
+    "required_spent_points": 6,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "puffish_attributes:mining_speed",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "tool_8": {
+    "title": "Скорость Добычи 8",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_pickaxe"
+      }
+    },
+    "description": "Уровень 8: улучшение скорость добычи.",
+    "cost": 1,
+    "required_spent_points": 7,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "puffish_attributes:mining_speed",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "tool_9": {
+    "title": "Скорость Добычи 9",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_pickaxe"
+      }
+    },
+    "description": "Уровень 9: улучшение скорость добычи.",
+    "cost": 1,
+    "required_spent_points": 8,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "puffish_attributes:mining_speed",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "tool_10": {
+    "title": "Скорость Добычи 10",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_pickaxe"
+      }
+    },
+    "description": "Уровень 10: улучшение скорость добычи.",
+    "cost": 1,
+    "required_spent_points": 9,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "puffish_attributes:mining_speed",
+          "value": 0.03,
+          "operation": "multiply_base"
+        }
+      }
+    ]
+  },
+  "armor_6": {
+    "title": "Защита Брони 6",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_chestplate"
+      }
+    },
+    "description": "Уровень 6: улучшение защита брони.",
+    "cost": 1,
+    "required_spent_points": 5,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.armor",
+          "value": 1,
+          "operation": "addition"
+        }
+      }
+    ]
+  },
+  "armor_7": {
+    "title": "Защита Брони 7",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_chestplate"
+      }
+    },
+    "description": "Уровень 7: улучшение защита брони.",
+    "cost": 1,
+    "required_spent_points": 6,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.armor",
+          "value": 1,
+          "operation": "addition"
+        }
+      }
+    ]
+  },
+  "armor_8": {
+    "title": "Защита Брони 8",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_chestplate"
+      }
+    },
+    "description": "Уровень 8: улучшение защита брони.",
+    "cost": 1,
+    "required_spent_points": 7,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.armor",
+          "value": 1,
+          "operation": "addition"
+        }
+      }
+    ]
+  },
+  "armor_9": {
+    "title": "Защита Брони 9",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_chestplate"
+      }
+    },
+    "description": "Уровень 9: улучшение защита брони.",
+    "cost": 1,
+    "required_spent_points": 8,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.armor",
+          "value": 1,
+          "operation": "addition"
+        }
+      }
+    ]
+  },
+  "armor_10": {
+    "title": "Защита Брони 10",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:netherite_chestplate"
+      }
+    },
+    "description": "Уровень 10: улучшение защита брони.",
+    "cost": 1,
+    "required_spent_points": 9,
+    "rewards": [
+      {
+        "type": "puffish_skills:attribute",
+        "data": {
+          "attribute": "minecraft:generic.armor",
+          "value": 1,
+          "operation": "addition"
+        }
+      }
+    ]
   }
 }
