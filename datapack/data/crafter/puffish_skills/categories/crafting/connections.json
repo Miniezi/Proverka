@@ -1,6 +1,6 @@
 {
   "normal": {
-    "bidirectional": [
+    "unidirectional": [
       [
         "root",
         "weapon_1"

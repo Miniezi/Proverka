@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.util.FakePlayerFactory;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.puffish.skillsmod.api.SkillsAPI;
+import net.puffish.skillsmod.api.Skill;
 
 /** Runs only in the isolated CI world when explicitly enabled with a JVM property. */
 public final class MasterySelfTest {
@@ -44,12 +45,29 @@ public final class MasterySelfTest {
             var oldCopy = oldSword.copy();
             player.experienceLevel = 100;
             check(!CraftingMastery.improve(player, oldSword), "Vanilla XP must not grant bonuses");
-            category.setExtraPoints(player, 50);
+            check(category.getSkill("root").orElseThrow().getState(player) != Skill.State.AFFORDABLE,
+                "Root must require an earned point");
+            category.setExtraPoints(player, 31);
+            check(category.getSkill("root").orElseThrow().getState(player) == Skill.State.AFFORDABLE,
+                "Root must be reachable");
+            for (String branch : new String[]{"weapon", "tool", "armor"})
+                check(category.getSkill(branch + "_1").orElseThrow().getState(player) == Skill.State.LOCKED,
+                    "Branch opened before root");
             category.getSkill("root").orElseThrow().unlock(player);
             for (String branch : new String[]{"weapon", "tool", "armor"}) {
-                for (int i = 1; i <= 10; i++) category.getSkill(branch + "_" + i).orElseThrow().unlock(player);
+                for (int i = 1; i <= 10; i++) {
+                    var skill = category.getSkill(branch + "_" + i).orElseThrow();
+                    check(skill.getState(player) == Skill.State.AFFORDABLE, "Unreachable node: " + skill.getId());
+                    if (i < 10) check(category.getSkill(branch + "_" + (i + 1)).orElseThrow()
+                        .getState(player) == Skill.State.LOCKED, "Skipped a prerequisite");
+                    int before = category.getPointsLeft(player);
+                    skill.unlock(player);
+                    check(category.getPointsLeft(player) == before - 1, "Incorrect node cost");
+                }
                 check(CraftingMastery.rank(player, branch) == 10, "Skill unlock failed: " + branch);
             }
+            check(category.getPointsLeft(player) == 0, "Tree must cost exactly 31 points");
+            System.out.println("CRAFTING_TREE_PROGRESSION_PASSED: all 31 nodes, prerequisites and costs");
             check(ItemStack.isSameItemSameComponents(oldSword, oldCopy), "Old item changed");
             var sword = new ItemStack(Items.IRON_SWORD);
             check(CraftingMastery.improve(player, sword), "Sword not improved");
