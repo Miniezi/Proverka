@@ -1,671 +1,374 @@
 {
   "root": {
     "title": "Начинающий мастер",
+    "description": "Открывает три ветки мастерства.",
     "icon": {
       "type": "item",
       "data": {
         "item": "minecraft:crafting_table"
       }
     },
-    "description": "Получайте опыт за крафт инструментов и оружия.",
     "cost": 1,
     "rewards": []
   },
   "weapon_1": {
-    "title": "Оружейник I",
+    "title": "Оружейник 1/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
         "item": "minecraft:iron_sword"
       }
     },
-    "description": "Новые мечи и топоры получают +2% к урону.",
     "cost": 1,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.02,
-          "operation": "multiply_base"
-        }
-      }
-    ]
+    "rewards": []
   },
   "weapon_2": {
-    "title": "Оружейник II",
+    "title": "Оружейник 2/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:diamond_sword"
+        "item": "minecraft:iron_sword"
       }
     },
-    "description": "Ещё +3% к урону созданного оружия.",
     "cost": 1,
-    "required_spent_points": 1,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
+    "rewards": []
+  },
+  "weapon_3": {
+    "title": "Оружейник 3/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
       }
-    ]
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "weapon_4": {
+    "title": "Оружейник 4/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "weapon_5": {
+    "title": "Оружейник 5/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "weapon_6": {
+    "title": "Оружейник 6/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "weapon_7": {
+    "title": "Оружейник 7/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "weapon_8": {
+    "title": "Оружейник 8/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "weapon_9": {
+    "title": "Оружейник 9/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "weapon_10": {
+    "title": "Оружейник 10/10",
+    "description": "+3% к базовому бонусу урона нового оружия за ступень (до +30%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_sword"
+      }
+    },
+    "cost": 1,
+    "rewards": []
   },
   "tool_1": {
-    "title": "Инструментальщик I",
+    "title": "Инструментальщик 1/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
         "item": "minecraft:iron_pickaxe"
       }
     },
-    "description": "Новые инструменты получают +5% к скорости добычи.",
     "cost": 1,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.05,
-          "operation": "multiply_base"
-        }
-      }
-    ]
+    "rewards": []
   },
   "tool_2": {
-    "title": "Инструментальщик II",
+    "title": "Инструментальщик 2/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:diamond_pickaxe"
+        "item": "minecraft:iron_pickaxe"
       }
     },
-    "description": "Ещё +5% к скорости добычи созданных инструментов.",
     "cost": 1,
-    "required_spent_points": 1,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.05,
-          "operation": "multiply_base"
-        }
+    "rewards": []
+  },
+  "tool_3": {
+    "title": "Инструментальщик 3/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
       }
-    ]
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "tool_4": {
+    "title": "Инструментальщик 4/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "tool_5": {
+    "title": "Инструментальщик 5/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "tool_6": {
+    "title": "Инструментальщик 6/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "tool_7": {
+    "title": "Инструментальщик 7/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "tool_8": {
+    "title": "Инструментальщик 8/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "tool_9": {
+    "title": "Инструментальщик 9/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
+      }
+    },
+    "cost": 1,
+    "rewards": []
+  },
+  "tool_10": {
+    "title": "Инструментальщик 10/10",
+    "description": "+5% к скорости добычи новых инструментов за ступень (до +50%). Старые предметы не меняются.",
+    "icon": {
+      "type": "item",
+      "data": {
+        "item": "minecraft:iron_pickaxe"
+      }
+    },
+    "cost": 1,
+    "rewards": []
   },
   "armor_1": {
-    "title": "Бронник I",
+    "title": "Бронник 1/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
         "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Новая броня получает +1 к защите.",
     "cost": 1,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_2": {
-    "title": "Бронник II",
+    "title": "Бронник 2/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:diamond_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Новая броня получает ещё +1 к защите.",
     "cost": 1,
-    "required_spent_points": 1,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
-  },
-  "weapon_3": {
-    "title": "Урон Оружия 3",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Дополнительное улучшение: урон оружия.",
-    "cost": 1,
-    "required_spent_points": 2,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "weapon_4": {
-    "title": "Урон Оружия 4",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Дополнительное улучшение: урон оружия.",
-    "cost": 1,
-    "required_spent_points": 3,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "weapon_5": {
-    "title": "Урон Оружия 5",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Дополнительное улучшение: урон оружия.",
-    "cost": 1,
-    "required_spent_points": 4,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_3": {
-    "title": "Скорость Добычи 3",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Дополнительное улучшение: скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 2,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_4": {
-    "title": "Скорость Добычи 4",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Дополнительное улучшение: скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 3,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_5": {
-    "title": "Скорость Добычи 5",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Дополнительное улучшение: скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 4,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_3": {
-    "title": "Защита Брони 3",
+    "title": "Бронник 3/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Дополнительное улучшение: защита брони.",
     "cost": 1,
-    "required_spent_points": 2,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_4": {
-    "title": "Защита Брони 4",
+    "title": "Бронник 4/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Дополнительное улучшение: защита брони.",
     "cost": 1,
-    "required_spent_points": 3,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_5": {
-    "title": "Защита Брони 5",
+    "title": "Бронник 5/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Дополнительное улучшение: защита брони.",
     "cost": 1,
-    "required_spent_points": 4,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
-  },
-  "weapon_6": {
-    "title": "Урон Оружия 6",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Уровень 6: улучшение урон оружия.",
-    "cost": 1,
-    "required_spent_points": 5,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "weapon_7": {
-    "title": "Урон Оружия 7",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Уровень 7: улучшение урон оружия.",
-    "cost": 1,
-    "required_spent_points": 6,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "weapon_8": {
-    "title": "Урон Оружия 8",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Уровень 8: улучшение урон оружия.",
-    "cost": 1,
-    "required_spent_points": 7,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "weapon_9": {
-    "title": "Урон Оружия 9",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Уровень 9: улучшение урон оружия.",
-    "cost": 1,
-    "required_spent_points": 8,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "weapon_10": {
-    "title": "Урон Оружия 10",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_sword"
-      }
-    },
-    "description": "Уровень 10: улучшение урон оружия.",
-    "cost": 1,
-    "required_spent_points": 9,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.attack_damage",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_6": {
-    "title": "Скорость Добычи 6",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Уровень 6: улучшение скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 5,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_7": {
-    "title": "Скорость Добычи 7",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Уровень 7: улучшение скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 6,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_8": {
-    "title": "Скорость Добычи 8",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Уровень 8: улучшение скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 7,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_9": {
-    "title": "Скорость Добычи 9",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Уровень 9: улучшение скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 8,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
-  },
-  "tool_10": {
-    "title": "Скорость Добычи 10",
-    "icon": {
-      "type": "item",
-      "data": {
-        "item": "minecraft:netherite_pickaxe"
-      }
-    },
-    "description": "Уровень 10: улучшение скорость добычи.",
-    "cost": 1,
-    "required_spent_points": 9,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "puffish_attributes:mining_speed",
-          "value": 0.03,
-          "operation": "multiply_base"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_6": {
-    "title": "Защита Брони 6",
+    "title": "Бронник 6/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Уровень 6: улучшение защита брони.",
     "cost": 1,
-    "required_spent_points": 5,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_7": {
-    "title": "Защита Брони 7",
+    "title": "Бронник 7/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Уровень 7: улучшение защита брони.",
     "cost": 1,
-    "required_spent_points": 6,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_8": {
-    "title": "Защита Брони 8",
+    "title": "Бронник 8/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Уровень 8: улучшение защита брони.",
     "cost": 1,
-    "required_spent_points": 7,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_9": {
-    "title": "Защита Брони 9",
+    "title": "Бронник 9/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Уровень 9: улучшение защита брони.",
     "cost": 1,
-    "required_spent_points": 8,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   },
   "armor_10": {
-    "title": "Защита Брони 10",
+    "title": "Бронник 10/10",
+    "description": "+3% к базовой защите новой брони за ступень (до +30%). Старые предметы не меняются.",
     "icon": {
       "type": "item",
       "data": {
-        "item": "minecraft:netherite_chestplate"
+        "item": "minecraft:iron_chestplate"
       }
     },
-    "description": "Уровень 10: улучшение защита брони.",
     "cost": 1,
-    "required_spent_points": 9,
-    "rewards": [
-      {
-        "type": "puffish_skills:attribute",
-        "data": {
-          "attribute": "minecraft:generic.armor",
-          "value": 1,
-          "operation": "addition"
-        }
-      }
-    ]
+    "rewards": []
   }
 }

@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -13,7 +14,30 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.14.3'
+      - name: Download official Skills dependency
+        run: |
+          mkdir -p libs
+          curl --fail --location --retry 3 https://cdn.modrinth.com/data/hqQqvaa4/versions/uqAz8XFU/puffish_skills-0.19.1-1.21-neoforge.jar -o libs/puffish_skills.jar
       - run: gradle build
+      - name: Server integration tests
+        run: |
+          mkdir -p run
+          echo 'eula=true' > run/eula.txt
+          printf 'online-mode=false\nlevel-type=minecraft:flat\nspawn-protection=0\n' > run/server.properties
+          set -o pipefail
+          timeout 480 gradle runServer 2>&1 | tee server-test.log
+          grep -q CRAFTING_MASTERY_SELFTEST_PASSED server-test.log
+          ! grep -q CRAFTING_MASTERY_SELFTEST_FAILED server-test.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: server-test-logs
+          path: |
+            server-test.log
+            run/logs/
+            run/crash-reports/
       - uses: actions/upload-artifact@v4
         with:
           name: crafting-mastery-addon

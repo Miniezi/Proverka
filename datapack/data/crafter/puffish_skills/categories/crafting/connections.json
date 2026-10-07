@@ -10,22 +10,6 @@
         "weapon_2"
       ],
       [
-        "root",
-        "tool_1"
-      ],
-      [
-        "tool_1",
-        "tool_2"
-      ],
-      [
-        "root",
-        "armor_1"
-      ],
-      [
-        "armor_1",
-        "armor_2"
-      ],
-      [
         "weapon_2",
         "weapon_3"
       ],
@@ -36,30 +20,6 @@
       [
         "weapon_4",
         "weapon_5"
-      ],
-      [
-        "tool_2",
-        "tool_3"
-      ],
-      [
-        "tool_3",
-        "tool_4"
-      ],
-      [
-        "tool_4",
-        "tool_5"
-      ],
-      [
-        "armor_2",
-        "armor_3"
-      ],
-      [
-        "armor_3",
-        "armor_4"
-      ],
-      [
-        "armor_4",
-        "armor_5"
       ],
       [
         "weapon_5",
@@ -82,6 +42,26 @@
         "weapon_10"
       ],
       [
+        "root",
+        "tool_1"
+      ],
+      [
+        "tool_1",
+        "tool_2"
+      ],
+      [
+        "tool_2",
+        "tool_3"
+      ],
+      [
+        "tool_3",
+        "tool_4"
+      ],
+      [
+        "tool_4",
+        "tool_5"
+      ],
+      [
         "tool_5",
         "tool_6"
       ],
@@ -100,6 +80,26 @@
       [
         "tool_9",
         "tool_10"
+      ],
+      [
+        "root",
+        "armor_1"
+      ],
+      [
+        "armor_1",
+        "armor_2"
+      ],
+      [
+        "armor_2",
+        "armor_3"
+      ],
+      [
+        "armor_3",
+        "armor_4"
+      ],
+      [
+        "armor_4",
+        "armor_5"
       ],
       [
         "armor_5",

@@ -1,7 +1,22 @@
-plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.107' }
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
 version = mod_version
 group = 'com.crafter.addon'
 base { archivesName = mod_id }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-neoForge { version = neo_version; runs { client { client() } }; mods { crafting_mastery { sourceSet sourceSets.main } } }
-repositories { maven { url = 'https://maven.neoforged.net/releases' } }
+neoForge {
+    version = neo_version
+    runs {
+        client { client() }
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'crafting_mastery.selftest', 'true'
+        }
+    }
+    mods { crafting_mastery { sourceSet sourceSets.main } }
+}
+dependencies { implementation files('libs/puffish_skills.jar') }
+sourceSets.main.resources.srcDir 'datapack'

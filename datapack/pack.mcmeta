@@ -1,2 +1,6 @@
-{"pack":{"pack_format":48,"description":"Crafting Mastery skill tree for Pufferfish's Skills"}}
-
+{
+  "pack": {
+    "pack_format": 48,
+    "description": "Crafting Mastery: 31 skills"
+  }
+}

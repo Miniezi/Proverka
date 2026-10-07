@@ -1,74 +1,92 @@
 package com.crafter.addon;
 
+import java.util.ArrayList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.neoforged.bus.api.SubscribeEvent;
+import net.minecraft.world.item.component.Tool;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.puffish.skillsmod.api.SkillsAPI;
+import net.puffish.skillsmod.api.Skill;
 
-/**
- * Applies a snapshot only to the newly crafted stack. Existing items never
- * receive a retroactive modifier. Modded equipment is supported when it
- * exposes standard ItemAttributeModifiers.
- */
 @Mod(CraftingMastery.MOD_ID)
 public final class CraftingMastery {
     public static final String MOD_ID = "crafting_mastery";
-    public static final String TAG = "crafting_mastery";
-    public static final String BONUS = "bonus_level";
-    private static final ResourceLocation ATTACK_ID =
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "crafted_attack");
-    private static final ResourceLocation ARMOR_ID =
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "crafted_armor");
+    public static final ResourceLocation CATEGORY = ResourceLocation.fromNamespaceAndPath("crafter", "crafting");
 
-    public CraftingMastery() {}
+    public CraftingMastery() {
+        NeoForge.EVENT_BUS.addListener(CraftingMastery::onCraft);
+        if (Boolean.getBoolean("crafting_mastery.selftest")) NeoForge.EVENT_BUS.addListener(MasterySelfTest::run);
+    }
 
-    @SubscribeEvent
-    public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
-        Player player = event.getEntity();
-        ItemStack stack = event.getCrafting();
-        if (stack.isEmpty()) return;
+    public static int rank(ServerPlayer player, String branch) {
+        return SkillsAPI.getCategory(CATEGORY).map(category -> {
+            int count = 0;
+            for (int i = 1; i <= 10; i++) {
+                if (category.getSkill(branch + "_" + i)
+                    .map(skill -> skill.getState(player) == Skill.State.UNLOCKED).orElse(false)) count++;
+            }
+            return count;
+        }).orElse(0);
+    }
 
-        int level = Math.max(0, Math.min(15, player.experienceLevel / 10));
-        ItemAttributeModifiers existing =
-                stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
-        boolean hasAttack = false;
-        boolean hasArmor = false;
-        ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-        for (ItemAttributeModifiers.Entry entry : existing.modifiers()) {
-            builder.add(entry.attribute(), entry.modifier(), entry.slot());
-            hasAttack |= entry.attribute().equals(Attributes.ATTACK_DAMAGE);
-            hasArmor |= entry.attribute().equals(Attributes.ARMOR);
+    private static void onCraft(PlayerEvent.ItemCraftedEvent event) {
+        // Fallback for modded tables publishing the standard crafting event.
+        improve(event.getEntity(), event.getCrafting());
+    }
+
+    /** Mutates only freshly assembled outputs, never the player's inventory. */
+    public static boolean improve(Player player, ItemStack stack) {
+        if (!(player instanceof ServerPlayer serverPlayer) || stack.isEmpty()) return false;
+        if (stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).contains(MOD_ID)) return false;
+        int weapon = rank(serverPlayer, "weapon");
+        int toolRank = rank(serverPlayer, "tool");
+        int armor = rank(serverPlayer, "armor");
+        ItemAttributeModifiers attributes = stack.getAttributeModifiers();
+        var builder = ItemAttributeModifiers.builder();
+        boolean changedAttributes = false;
+        for (var entry : attributes.modifiers()) {
+            AttributeModifier modifier = entry.modifier();
+            double factor = 1.0;
+            if (modifier.operation() == AttributeModifier.Operation.ADD_VALUE && modifier.amount() > 0) {
+                if (entry.attribute().equals(Attributes.ATTACK_DAMAGE)) factor += weapon * 0.03;
+                if (entry.attribute().equals(Attributes.ARMOR)) factor += armor * 0.03;
+            }
+            if (factor != 1.0) {
+                modifier = new AttributeModifier(modifier.id(), modifier.amount() * factor, modifier.operation());
+                changedAttributes = true;
+            }
+            builder.add(entry.attribute(), modifier, entry.slot());
         }
-
-        // Every 10 player levels gives one crafting tier, capped at 15.
-        // Attack and armor values are additive to the item's own modifiers.
-        if (level > 0 && hasAttack) {
-            builder.add(Attributes.ATTACK_DAMAGE,
-                    new AttributeModifier(ATTACK_ID, level * 0.05D, Operation.ADD_MULTIPLIED_BASE),
-                    net.minecraft.world.entity.EquipmentSlotGroup.MAINHAND);
+        Tool tool = stack.get(DataComponents.TOOL);
+        boolean changedTool = tool != null && toolRank > 0;
+        if (!changedAttributes && !changedTool) return false;
+        if (changedAttributes) stack.set(DataComponents.ATTRIBUTE_MODIFIERS,
+            builder.build().withTooltip(attributes.showInTooltip()));
+        if (changedTool) {
+            float factor = 1.0F + toolRank * 0.05F;
+            var rules = new ArrayList<Tool.Rule>();
+            for (var rule : tool.rules()) rules.add(new Tool.Rule(rule.blocks(),
+                rule.speed().map(speed -> speed * factor), rule.correctForDrops()));
+            stack.set(DataComponents.TOOL, new Tool(rules, tool.defaultMiningSpeed() * factor, tool.damagePerBlock()));
         }
-        if (level > 0 && hasArmor) {
-            builder.add(Attributes.ARMOR,
-                    new AttributeModifier(ARMOR_ID, level * 0.5D, Operation.ADD_VALUE),
-                    net.minecraft.world.entity.EquipmentSlotGroup.ARMOR);
-        }
-        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build());
-
-        final int snapshot = level;
         CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> {
-            CompoundTag root = tag.getCompound(TAG);
-            root.putInt(BONUS, snapshot);
-            root.putString("source", player.getUUID().toString());
-            tag.put(TAG, root);
+            CompoundTag snapshot = new CompoundTag();
+            snapshot.putInt("version", 2);
+            snapshot.putInt("weapon", weapon);
+            snapshot.putInt("tool", toolRank);
+            snapshot.putInt("armor", armor);
+            tag.put(MOD_ID, snapshot);
         });
+        return true;
     }
 }

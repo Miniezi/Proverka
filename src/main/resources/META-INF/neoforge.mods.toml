@@ -3,10 +3,12 @@ loaderVersion="[4,)"
 license="MIT"
 [[mods]]
 modId="crafting_mastery"
-version="1.0.0"
+version="1.1.0"
 displayName="Crafting Mastery Addon"
 authors="Codex"
-description="Marks newly crafted equipment with crafting mastery bonuses."
+description="Permanent crafted item bonuses from a 31-node Pufferfish skill tree."
+[[mixins]]
+config="crafting_mastery.mixins.json"
 [[dependencies.crafting_mastery]]
 modId="neoforge"
 type="required"
@@ -22,4 +24,3 @@ modId="puffish_skills"
 type="required"
 versionRange="[0.19.1,0.20)"
 side="BOTH"
-
