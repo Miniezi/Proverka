@@ -83,6 +83,11 @@ public final class CraftingMastery {
                 rule.speed().map(speed -> speed * factor), rule.correctForDrops()));
             stack.set(DataComponents.TOOL, new Tool(rules, tool.defaultMiningSpeed() * factor, tool.damagePerBlock()));
         }
+        int durabilityRank = Math.max(weapon, Math.max(toolRank, armor));
+        if (stack.isDamageableItem() && durabilityRank > 0) {
+            int base = stack.getMaxDamage();
+            stack.set(DataComponents.MAX_DAMAGE, Math.max(base + 1, Math.round(base * (1.0F + durabilityRank * 0.015F))));
+        }
         CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> {
             CompoundTag snapshot = new CompoundTag();
             snapshot.putInt("version", 3);
@@ -128,6 +133,10 @@ public final class CraftingMastery {
             for (var rule : mining.rules()) rules.add(new Tool.Rule(rule.blocks(),
                 rule.speed().map(speed -> speed * 1.5F), rule.correctForDrops()));
             stack.set(DataComponents.TOOL, new Tool(rules, mining.defaultMiningSpeed() * 1.5F, mining.damagePerBlock()));
+        }
+        if (stack.isDamageableItem()) {
+            int base = stack.getMaxDamage();
+            stack.set(DataComponents.MAX_DAMAGE, Math.max(base + 1, Math.round(base * 1.5F)));
         }
         snapshot.putBoolean("rolled", true);
         snapshot.putBoolean("rare_weapon", weapon);
