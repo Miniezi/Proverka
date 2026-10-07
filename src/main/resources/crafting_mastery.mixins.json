@@ -3,6 +3,6 @@
   "minVersion": "0.8",
   "package": "com.crafter.addon.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["CraftingMenuMixin"],
+  "mixins": ["CraftingMenuMixin", "TakeResultMixin", "QuickCraftMixin"],
   "injectors": {"defaultRequire": 1}
 }

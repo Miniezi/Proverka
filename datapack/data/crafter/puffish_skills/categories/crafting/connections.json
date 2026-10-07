@@ -42,6 +42,50 @@
         "weapon_10"
       ],
       [
+        "weapon_10",
+        "weapon_11"
+      ],
+      [
+        "weapon_11",
+        "weapon_12"
+      ],
+      [
+        "weapon_12",
+        "weapon_13"
+      ],
+      [
+        "weapon_13",
+        "weapon_14"
+      ],
+      [
+        "weapon_14",
+        "weapon_15"
+      ],
+      [
+        "weapon_15",
+        "weapon_16"
+      ],
+      [
+        "weapon_16",
+        "weapon_17"
+      ],
+      [
+        "weapon_17",
+        "weapon_18"
+      ],
+      [
+        "weapon_18",
+        "weapon_19"
+      ],
+      [
+        "weapon_19",
+        "weapon_20"
+      ],
+      [
+        "weapon_20",
+        "weapon_master"
+      ],
+      [
         "root",
         "tool_1"
       ],
@@ -82,6 +126,50 @@
         "tool_10"
       ],
       [
+        "tool_10",
+        "tool_11"
+      ],
+      [
+        "tool_11",
+        "tool_12"
+      ],
+      [
+        "tool_12",
+        "tool_13"
+      ],
+      [
+        "tool_13",
+        "tool_14"
+      ],
+      [
+        "tool_14",
+        "tool_15"
+      ],
+      [
+        "tool_15",
+        "tool_16"
+      ],
+      [
+        "tool_16",
+        "tool_17"
+      ],
+      [
+        "tool_17",
+        "tool_18"
+      ],
+      [
+        "tool_18",
+        "tool_19"
+      ],
+      [
+        "tool_19",
+        "tool_20"
+      ],
+      [
+        "tool_20",
+        "tool_master"
+      ],
+      [
         "root",
         "armor_1"
       ],
@@ -120,6 +208,50 @@
       [
         "armor_9",
         "armor_10"
+      ],
+      [
+        "armor_10",
+        "armor_11"
+      ],
+      [
+        "armor_11",
+        "armor_12"
+      ],
+      [
+        "armor_12",
+        "armor_13"
+      ],
+      [
+        "armor_13",
+        "armor_14"
+      ],
+      [
+        "armor_14",
+        "armor_15"
+      ],
+      [
+        "armor_15",
+        "armor_16"
+      ],
+      [
+        "armor_16",
+        "armor_17"
+      ],
+      [
+        "armor_17",
+        "armor_18"
+      ],
+      [
+        "armor_18",
+        "armor_19"
+      ],
+      [
+        "armor_19",
+        "armor_20"
+      ],
+      [
+        "armor_20",
+        "armor_master"
       ]
     ]
   }

@@ -31,7 +31,7 @@ public final class CraftingMastery {
     public static int rank(ServerPlayer player, String branch) {
         return SkillsAPI.getCategory(CATEGORY).map(category -> {
             int count = 0;
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 20; i++) {
                 if (category.getSkill(branch + "_" + i)
                     .map(skill -> skill.getState(player) == Skill.State.UNLOCKED).orElse(false)) count++;
             }
@@ -42,6 +42,7 @@ public final class CraftingMastery {
     private static void onCraft(PlayerEvent.ItemCraftedEvent event) {
         // Fallback for modded tables publishing the standard crafting event.
         improve(event.getEntity(), event.getCrafting());
+        finish(event.getEntity(), event.getCrafting());
     }
 
     /** Mutates only freshly assembled outputs, never the player's inventory. */
@@ -61,8 +62,8 @@ public final class CraftingMastery {
             AttributeModifier modifier = entry.modifier();
             double factor = 1.0;
             if (modifier.operation() == AttributeModifier.Operation.ADD_VALUE && modifier.amount() > 0) {
-                if (entry.attribute().equals(Attributes.ATTACK_DAMAGE)) factor += weapon * 0.03;
-                if (entry.attribute().equals(Attributes.ARMOR)) factor += armor * 0.03;
+                if (entry.attribute().equals(Attributes.ATTACK_DAMAGE)) factor += weapon * 0.015;
+                if (entry.attribute().equals(Attributes.ARMOR)) factor += armor * 0.015;
             }
             if (factor != 1.0) {
                 modifier = new AttributeModifier(modifier.id(), modifier.amount() * factor, modifier.operation());
@@ -76,7 +77,7 @@ public final class CraftingMastery {
         if (changedAttributes) stack.set(DataComponents.ATTRIBUTE_MODIFIERS,
             builder.build().withTooltip(attributes.showInTooltip()));
         if (changedTool) {
-            float factor = 1.0F + toolRank * 0.05F;
+            float factor = 1.0F + toolRank * 0.015F;
             var rules = new ArrayList<Tool.Rule>();
             for (var rule : tool.rules()) rules.add(new Tool.Rule(rule.blocks(),
                 rule.speed().map(speed -> speed * factor), rule.correctForDrops()));
@@ -84,12 +85,60 @@ public final class CraftingMastery {
         }
         CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> {
             CompoundTag snapshot = new CompoundTag();
-            snapshot.putInt("version", 2);
+            snapshot.putInt("version", 3);
             snapshot.putInt("weapon", weapon);
             snapshot.putInt("tool", toolRank);
             snapshot.putInt("armor", armor);
             tag.put(MOD_ID, snapshot);
         });
         return true;
+    }
+
+    public static void finish(Player player, ItemStack stack) {
+        finish(player, stack, () -> player.getRandom().nextDouble());
+    }
+
+    // Chance is rolled when taking the output, never while browsing recipe previews.
+    static void finish(Player player, ItemStack stack, java.util.function.DoubleSupplier random) {
+        if (!(player instanceof ServerPlayer serverPlayer) || stack.isEmpty()) return;
+        improve(player, stack);
+        var data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        var snapshot = data.getCompound(MOD_ID);
+        if (snapshot.getInt("version") != 3 || snapshot.getBoolean("rolled")) return;
+        boolean weapon = lucky(serverPlayer, "weapon", random);
+        boolean tool = lucky(serverPlayer, "tool", random);
+        boolean armor = lucky(serverPlayer, "armor", random);
+        var attributes = stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+        var builder = ItemAttributeModifiers.builder();
+        boolean changed = false;
+        for (var entry : attributes.modifiers()) {
+            var modifier = entry.modifier();
+            if (modifier.operation() == AttributeModifier.Operation.ADD_VALUE && modifier.amount() > 0 &&
+                ((weapon && entry.attribute().equals(Attributes.ATTACK_DAMAGE)) ||
+                 (armor && entry.attribute().equals(Attributes.ARMOR)))) {
+                modifier = new AttributeModifier(modifier.id(), modifier.amount() * 1.5, modifier.operation());
+                changed = true;
+            }
+            builder.add(entry.attribute(), modifier, entry.slot());
+        }
+        if (changed) stack.set(DataComponents.ATTRIBUTE_MODIFIERS, builder.build().withTooltip(attributes.showInTooltip()));
+        Tool mining = stack.get(DataComponents.TOOL);
+        if (tool && mining != null) {
+            var rules = new ArrayList<Tool.Rule>();
+            for (var rule : mining.rules()) rules.add(new Tool.Rule(rule.blocks(),
+                rule.speed().map(speed -> speed * 1.5F), rule.correctForDrops()));
+            stack.set(DataComponents.TOOL, new Tool(rules, mining.defaultMiningSpeed() * 1.5F, mining.damagePerBlock()));
+        }
+        snapshot.putBoolean("rolled", true);
+        snapshot.putBoolean("rare_weapon", weapon);
+        snapshot.putBoolean("rare_tool", tool);
+        snapshot.putBoolean("rare_armor", armor);
+        data.put(MOD_ID, snapshot);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+    }
+
+    private static boolean lucky(ServerPlayer player, String branch, java.util.function.DoubleSupplier random) {
+        return SkillsAPI.getCategory(CATEGORY).flatMap(c -> c.getSkill(branch + "_master"))
+            .map(s -> s.getState(player) == Skill.State.UNLOCKED).orElse(false) && random.getAsDouble() < 0.05;
     }
 }

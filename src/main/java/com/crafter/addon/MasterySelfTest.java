@@ -38,7 +38,7 @@ public final class MasterySelfTest {
             player.connection = FakePlayerFactory.get(level, profile).connection;
             var category = SkillsAPI.getCategory(CraftingMastery.CATEGORY).orElseThrow(
                 () -> new AssertionError("Bundled tree did not load"));
-            check(category.streamSkills().count() == 31, "Expected 31 nodes");
+            check(category.streamSkills().count() == 64, "Expected 64 nodes");
             category.erase(player);
             category.unlock(player);
             var oldSword = new ItemStack(Items.IRON_SWORD);
@@ -47,7 +47,7 @@ public final class MasterySelfTest {
             check(!CraftingMastery.improve(player, oldSword), "Vanilla XP must not grant bonuses");
             check(category.getSkill("root").orElseThrow().getState(player) != Skill.State.AFFORDABLE,
                 "Root must require an earned point");
-            category.setExtraPoints(player, 31);
+            category.setExtraPoints(player, 64);
             check(category.getSkill("root").orElseThrow().getState(player) == Skill.State.AFFORDABLE,
                 "Root must be reachable");
             for (String branch : new String[]{"weapon", "tool", "armor"})
@@ -55,19 +55,22 @@ public final class MasterySelfTest {
                     "Branch opened before root");
             category.getSkill("root").orElseThrow().unlock(player);
             for (String branch : new String[]{"weapon", "tool", "armor"}) {
-                for (int i = 1; i <= 10; i++) {
+                for (int i = 1; i <= 20; i++) {
+                    check(category.getSkill(branch + "_master").orElseThrow().getState(player) == Skill.State.LOCKED,
+                        "Master skill opened before rank 20");
                     var skill = category.getSkill(branch + "_" + i).orElseThrow();
                     check(skill.getState(player) == Skill.State.AFFORDABLE, "Unreachable node: " + skill.getId());
-                    if (i < 10) check(category.getSkill(branch + "_" + (i + 1)).orElseThrow()
+                    if (i < 20) check(category.getSkill(branch + "_" + (i + 1)).orElseThrow()
                         .getState(player) == Skill.State.LOCKED, "Skipped a prerequisite");
                     int before = category.getPointsLeft(player);
                     skill.unlock(player);
                     check(category.getPointsLeft(player) == before - 1, "Incorrect node cost");
                 }
-                check(CraftingMastery.rank(player, branch) == 10, "Skill unlock failed: " + branch);
+                check(CraftingMastery.rank(player, branch) == 20, "Skill unlock failed: " + branch);
+                check(category.getSkill(branch + "_master").orElseThrow().getState(player) == Skill.State.AFFORDABLE,
+                    "Master skill must follow the last rank");
             }
-            check(category.getPointsLeft(player) == 0, "Tree must cost exactly 31 points");
-            System.out.println("CRAFTING_TREE_PROGRESSION_PASSED: all 31 nodes, prerequisites and costs");
+            check(category.getPointsLeft(player) == 3, "Must leave three points for master skills");
             check(ItemStack.isSameItemSameComponents(oldSword, oldCopy), "Old item changed");
             var sword = new ItemStack(Items.IRON_SWORD);
             check(CraftingMastery.improve(player, sword), "Sword not improved");
@@ -78,7 +81,7 @@ public final class MasterySelfTest {
             var pickaxe = new ItemStack(Items.IRON_PICKAXE);
             float speed = pickaxe.getDestroySpeed(Blocks.STONE.defaultBlockState());
             CraftingMastery.improve(player, pickaxe);
-            check(Math.abs(pickaxe.getDestroySpeed(Blocks.STONE.defaultBlockState()) - speed * 1.5) < 0.001,
+            check(Math.abs(pickaxe.getDestroySpeed(Blocks.STONE.defaultBlockState()) - speed * 1.3) < 0.001,
                 "Wrong mining speed");
             var armor = new ItemStack(Items.IRON_CHESTPLATE);
             var originalArmor = armor.getAttributeModifiers();
@@ -103,11 +106,15 @@ public final class MasterySelfTest {
             menu.getSlot(7).set(new ItemStack(Items.STICK, 2));
             check(menu.getSlot(0).getItem().is(Items.IRON_SWORD), "Recipe output missing");
             check(menu.getSlot(0).getItem().has(DataComponents.CUSTOM_DATA), "Mixin output hook failed");
+            check(!menu.getSlot(0).getItem().get(DataComponents.CUSTOM_DATA).copyTag()
+                .getCompound(CraftingMastery.MOD_ID).getBoolean("rolled"), "Preview rolled rare bonus");
             menu.clicked(0, 0, ClickType.QUICK_MOVE, player);
             int swords = 0;
             for (var item : player.getInventory().items) if (item.is(Items.IRON_SWORD)) {
                 swords += item.getCount();
                 check(Math.abs(damage(item) - damage(oldSword) * 1.3) < 0.00001, "Shift craft lost bonus");
+                check(item.get(DataComponents.CUSTOM_DATA).copyTag().getCompound(CraftingMastery.MOD_ID)
+                    .getBoolean("rolled"), "Shift craft bypassed finalization");
             }
             check(swords == 2, "Shift craft did not produce two swords");
             check(experience.getTotal(player) > xpBefore, "Crafting did not grant skill XP");
@@ -124,6 +131,36 @@ public final class MasterySelfTest {
             check(inventoryMenu.getSlot(0).getItem().is(Items.SHEARS), "2x2 recipe output missing");
             inventoryMenu.clicked(0, 0, ClickType.PICKUP, player);
             check(inventoryMenu.getCarried().has(DataComponents.CUSTOM_DATA), "2x2 craft lost bonus");
+            for (String branch : new String[]{"weapon", "tool", "armor"})
+                category.getSkill(branch + "_master").orElseThrow().unlock(player);
+            check(category.getPointsLeft(player) == 0, "64 nodes must cost 64 points");
+            var luckySword = new ItemStack(Items.IRON_SWORD);
+            CraftingMastery.finish(player, luckySword, () -> 0.049999);
+            check(Math.abs(damage(luckySword) - damage(oldSword) * 1.95) < 0.00001, "Rare damage bonus incorrect");
+            var luckyCopy = luckySword.copy();
+            CraftingMastery.finish(player, luckySword, () -> 0.0);
+            check(ItemStack.isSameItemSameComponents(luckyCopy, luckySword), "Rare bonus rerolled or stacked");
+            var unluckySword = new ItemStack(Items.IRON_SWORD);
+            CraftingMastery.finish(player, unluckySword, () -> 0.05);
+            check(Math.abs(damage(unluckySword) - damage(oldSword) * 1.3) < 0.00001, "5% threshold incorrect");
+            var independent = new ItemStack(Items.IRON_PICKAXE);
+            int[] rolls = {0};
+            CraftingMastery.finish(player, independent, () -> new double[]{0.01, 0.9, 0.01}[rolls[0]++]);
+            var recorded = independent.get(DataComponents.CUSTOM_DATA).copyTag().getCompound(CraftingMastery.MOD_ID);
+            check(rolls[0] == 3 && recorded.getBoolean("rare_weapon") && !recorded.getBoolean("rare_tool")
+                && recorded.getBoolean("rare_armor"), "Stat rolls are not independent");
+            check(Math.abs(independent.getDestroySpeed(Blocks.STONE.defaultBlockState()) - speed * 1.3) < 0.001,
+                "Weapon roll incorrectly boosted mining speed");
+            var luckyPickaxe = new ItemStack(Items.IRON_PICKAXE);
+            CraftingMastery.finish(player, luckyPickaxe, () -> 0.0);
+            check(Math.abs(luckyPickaxe.getDestroySpeed(Blocks.STONE.defaultBlockState()) - speed * 1.95) < 0.001,
+                "Rare mining bonus incorrect");
+            var luckyArmor = new ItemStack(Items.IRON_CHESTPLATE);
+            CraftingMastery.finish(player, luckyArmor, () -> 0.0);
+            double armorValue = luckyArmor.getAttributeModifiers().modifiers().stream()
+                .filter(e -> e.attribute().equals(Attributes.ARMOR)).mapToDouble(e -> e.modifier().amount()).sum();
+            check(Math.abs(armorValue - 6 * 1.95) < 0.00001, "Rare armor bonus incorrect");
+            System.out.println("CRAFTING_TREE_PROGRESSION_PASSED: 64 nodes; independent 5% rolls; 30% and 95% bonuses");
             category.resetSkills(player);
             check(CraftingMastery.rank(player, "weapon") == 0, "Reset failed");
             check(ItemStack.isSameItemSameComponents(saved, sword), "Reset changed crafted item");

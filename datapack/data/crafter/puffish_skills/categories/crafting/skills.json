@@ -55,6 +55,61 @@
     "y": 480,
     "definition": "weapon_10"
   },
+  "weapon_11": {
+    "x": -120,
+    "y": 528,
+    "definition": "weapon_11"
+  },
+  "weapon_12": {
+    "x": -120,
+    "y": 576,
+    "definition": "weapon_12"
+  },
+  "weapon_13": {
+    "x": -120,
+    "y": 624,
+    "definition": "weapon_13"
+  },
+  "weapon_14": {
+    "x": -120,
+    "y": 672,
+    "definition": "weapon_14"
+  },
+  "weapon_15": {
+    "x": -120,
+    "y": 720,
+    "definition": "weapon_15"
+  },
+  "weapon_16": {
+    "x": -120,
+    "y": 768,
+    "definition": "weapon_16"
+  },
+  "weapon_17": {
+    "x": -120,
+    "y": 816,
+    "definition": "weapon_17"
+  },
+  "weapon_18": {
+    "x": -120,
+    "y": 864,
+    "definition": "weapon_18"
+  },
+  "weapon_19": {
+    "x": -120,
+    "y": 912,
+    "definition": "weapon_19"
+  },
+  "weapon_20": {
+    "x": -120,
+    "y": 960,
+    "definition": "weapon_20"
+  },
+  "weapon_master": {
+    "x": -120,
+    "y": 1008,
+    "definition": "weapon_master"
+  },
   "tool_1": {
     "x": 0,
     "y": 48,
@@ -105,6 +160,61 @@
     "y": 480,
     "definition": "tool_10"
   },
+  "tool_11": {
+    "x": 0,
+    "y": 528,
+    "definition": "tool_11"
+  },
+  "tool_12": {
+    "x": 0,
+    "y": 576,
+    "definition": "tool_12"
+  },
+  "tool_13": {
+    "x": 0,
+    "y": 624,
+    "definition": "tool_13"
+  },
+  "tool_14": {
+    "x": 0,
+    "y": 672,
+    "definition": "tool_14"
+  },
+  "tool_15": {
+    "x": 0,
+    "y": 720,
+    "definition": "tool_15"
+  },
+  "tool_16": {
+    "x": 0,
+    "y": 768,
+    "definition": "tool_16"
+  },
+  "tool_17": {
+    "x": 0,
+    "y": 816,
+    "definition": "tool_17"
+  },
+  "tool_18": {
+    "x": 0,
+    "y": 864,
+    "definition": "tool_18"
+  },
+  "tool_19": {
+    "x": 0,
+    "y": 912,
+    "definition": "tool_19"
+  },
+  "tool_20": {
+    "x": 0,
+    "y": 960,
+    "definition": "tool_20"
+  },
+  "tool_master": {
+    "x": 0,
+    "y": 1008,
+    "definition": "tool_master"
+  },
   "armor_1": {
     "x": 120,
     "y": 48,
@@ -154,5 +264,60 @@
     "x": 120,
     "y": 480,
     "definition": "armor_10"
+  },
+  "armor_11": {
+    "x": 120,
+    "y": 528,
+    "definition": "armor_11"
+  },
+  "armor_12": {
+    "x": 120,
+    "y": 576,
+    "definition": "armor_12"
+  },
+  "armor_13": {
+    "x": 120,
+    "y": 624,
+    "definition": "armor_13"
+  },
+  "armor_14": {
+    "x": 120,
+    "y": 672,
+    "definition": "armor_14"
+  },
+  "armor_15": {
+    "x": 120,
+    "y": 720,
+    "definition": "armor_15"
+  },
+  "armor_16": {
+    "x": 120,
+    "y": 768,
+    "definition": "armor_16"
+  },
+  "armor_17": {
+    "x": 120,
+    "y": 816,
+    "definition": "armor_17"
+  },
+  "armor_18": {
+    "x": 120,
+    "y": 864,
+    "definition": "armor_18"
+  },
+  "armor_19": {
+    "x": 120,
+    "y": 912,
+    "definition": "armor_19"
+  },
+  "armor_20": {
+    "x": 120,
+    "y": 960,
+    "definition": "armor_20"
+  },
+  "armor_master": {
+    "x": 120,
+    "y": 1008,
+    "definition": "armor_master"
   }
 }
