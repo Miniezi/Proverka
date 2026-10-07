@@ -3,6 +3,8 @@ package com.crafter.addon;
 import com.mojang.authlib.GameProfile;
 import java.util.UUID;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ClientInformation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.CraftingMenu;
@@ -28,8 +30,11 @@ public final class MasterySelfTest {
         var server = event.getServer();
         try {
             var level = server.overworld();
-            var player = FakePlayerFactory.get(level, new GameProfile(
-                UUID.fromString("92a2f4ca-0cb1-4ad2-bd51-d558371ec901"), "MasteryTest"));
+            var profile = new GameProfile(UUID.fromString("92a2f4ca-0cb1-4ad2-bd51-d558371ec901"), "MasteryTest");
+            // Skills deliberately suppresses XP for FakePlayer. Use a real player
+            // entity with NeoForge's no-network connection in this isolated test.
+            var player = new ServerPlayer(server, level, profile, ClientInformation.createDefault());
+            player.connection = FakePlayerFactory.get(level, profile).connection;
             var category = SkillsAPI.getCategory(CraftingMastery.CATEGORY).orElseThrow(
                 () -> new AssertionError("Bundled tree did not load"));
             check(category.streamSkills().count() == 31, "Expected 31 nodes");
