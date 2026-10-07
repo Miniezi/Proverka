@@ -83,7 +83,9 @@ public final class CraftingMastery {
                 rule.speed().map(speed -> speed * factor), rule.correctForDrops()));
             stack.set(DataComponents.TOOL, new Tool(rules, tool.defaultMiningSpeed() * factor, tool.damagePerBlock()));
         }
-        int durabilityRank = Math.max(weapon, Math.max(toolRank, armor));
+        boolean hasAttack = attributes.modifiers().stream().anyMatch(e -> e.attribute().equals(Attributes.ATTACK_DAMAGE));
+        boolean hasArmor = attributes.modifiers().stream().anyMatch(e -> e.attribute().equals(Attributes.ARMOR));
+        int durabilityRank = tool != null ? toolRank : Math.max(hasAttack ? weapon : 0, hasArmor ? armor : 0);
         if (stack.isDamageableItem() && durabilityRank > 0) {
             int base = stack.getMaxDamage();
             stack.set(DataComponents.MAX_DAMAGE, Math.max(base + 1, Math.round(base * (1.0F + durabilityRank * 0.015F))));
