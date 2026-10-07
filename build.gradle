@@ -1,0 +1,9 @@
+plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.107' }
+version = mod_version
+group = 'com.crafter.addon'
+base { archivesName = mod_id }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+neoForge { version = neo_version; runs { client { client() } }; mods { crafting_mastery { sourceSet sourceSets.main } } }
+repositories { maven { url = 'https://maven.neoforged.net/releases' } }
+dependencies { compileOnly 'net.puffish:puffish-skills:0.19.1-1.21-neoforge'; compileOnly 'net.puffish:puffish-attributes:0.8.3-1.21-neoforge' }
+
