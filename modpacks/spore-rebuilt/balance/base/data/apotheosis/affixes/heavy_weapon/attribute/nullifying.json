@@ -1,0 +1,1 @@
+{"type":"apotheosis:attribute","attribute":"attributeslib:prot_shred","operation":"ADDITION","values":{"rare":{"min":0.045,"steps":5,"step":0.003},"epic":{"min":0.06,"steps":10,"step":0.003},"mythic":{"min":0.09,"steps":10,"step":0.003},"ancient":{"min":0.12,"steps":10,"step":0.003}},"types":["heavy_weapon"]}

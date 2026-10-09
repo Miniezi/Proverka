@@ -1,0 +1,1 @@
+{"type":"apotheosis_modern_ragnarok:ammo_capacity","values":{"common":{"min":1,"steps":1,"step":1},"uncommon":{"min":2,"steps":2,"step":1},"rare":{"min":4,"steps":3,"step":1},"epic":{"min":7,"steps":3,"step":1},"mythic":{"min":10,"steps":4,"step":1},"ancient":{"min":14,"steps":6,"step":1}},"types":["GUN"]}

@@ -1,0 +1,1 @@
+{"type":"apotheosis:attribute","attribute":"minecraft:generic.armor_toughness","operation":"MULTIPLY_BASE","values":{"rare":{"min":0.09,"steps":5,"step":0.006},"epic":{"min":0.09,"steps":5,"step":0.006},"mythic":{"min":0.09,"steps":10,"step":0.006},"ancient":{"min":0.09,"steps":5,"step":0.006}},"types":["shield"]}

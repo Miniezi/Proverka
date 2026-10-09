@@ -1,0 +1,2 @@
+Modified balance data, 2026-10-09. Original data: Apotheosis by Shadows_of_Fire (MIT).
+JSON files inside this archive are the complete editable source of this data-only patch.

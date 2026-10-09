@@ -1,0 +1,1 @@
+{"type":"apotheosis:damage_reduction","damage_type":"FIRE","values":{"rare":{"min":0.0266667,"steps":5,"step":0.0026667},"epic":{"min":0.0266667,"steps":10,"step":0.0026667},"mythic":{"min":0.0266667,"steps":15,"step":0.0026667},"ancient":{"min":0.04,"steps":15,"step":0.0026667}},"types":["chestplate","leggings"]}

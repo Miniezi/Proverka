@@ -1,0 +1,2 @@
+Modified balance data, 2026-10-09. Original data: Apotheosis Modern Ragnarok by ChloePrime (GPL-3.0).
+JSON files inside this archive are the complete editable source of this data-only patch.

@@ -1,0 +1,1 @@
+{"type":"apotheosis:attribute","attribute":"attributeslib:prot_pierce","operation":"ADDITION","values":{"rare":{"min":1.0909091,"steps":8,"step":0.0681818},"epic":{"min":1.3636364,"steps":12,"step":0.0681818},"mythic":{"min":1.3636364,"steps":16,"step":0.0681818},"ancient":{"min":2.1818182,"steps":12,"step":0.0681818}},"types":["sword","trident"]}

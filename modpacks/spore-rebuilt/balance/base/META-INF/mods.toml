@@ -1,0 +1,20 @@
+modLoader="lowcodefml"
+loaderVersion="[47,)"
+license="MIT"
+[[mods]]
+modId="spore_apotheosis_balance"
+version="1.0.0"
+displayName="Spore Apotheosis Balance"
+description="Combat affix and gem balance for infection survival."
+[[dependencies.spore_apotheosis_balance]]
+modId="apotheosis"
+mandatory=true
+versionRange="[7.4.8]"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.spore_apotheosis_balance]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="NONE"
+side="BOTH"
