@@ -6,10 +6,10 @@
 |---|---|---|
 | Fungal Infection: Spore | основная инфекция | подтверждена ветка 1.21.1 NeoForge; выбрать актуальный стабильный файл |
 | TaCZ | оружейная система | проверить актуальный NeoForge-файл и версию паков |
-| Mekanism | производство и энергия | подобрать 1.21.1 NeoForge-файл |
-| Immersive Engineering | механизмы и генерация | подобрать 1.21.1 NeoForge-файл |
-| Apotheosis | боссы, аффиксы, gems | проверить 1.21.1 NeoForge-файл и совместимость баланса |
-| Pufferfish's Skills | дерево навыков | проверить 1.21.1 NeoForge-файл и конфигурацию |
+| Mekanism | производство и энергия | подтверждён CurseForge fileID `7904058`, 1.21.1 NeoForge 10.7.19.85 |
+| Immersive Engineering | механизмы и генерация | подтверждён CurseForge fileID `6733669`, 1.21.1 NeoForge 12.4.2-194 |
+| Apotheosis | боссы, аффиксы, gems | подтверждён CurseForge fileID `8993983`, 1.21.1 NeoForge 8.9.0 |
+| Pufferfish's Skills | дерево навыков | найти точный 1.21.1-файл; результаты CurseForge смешивают 1.21.1 и 1.21.x |
 | MCA Reborn | жители и отношения | подобрать 1.21.1 NeoForge-файл |
 | Easy Villagers | автоматизация жителей | подобрать 1.21.1 NeoForge-файл |
 | MCA Reborn x Easy Villagers Compat | совместимость | проверить зависимость от обеих сторон |
