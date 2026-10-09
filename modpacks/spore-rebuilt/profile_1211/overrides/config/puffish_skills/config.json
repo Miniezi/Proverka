@@ -1,7 +1,1 @@
-{
-  "version": 3,
-  "show_warnings": true,
-  "categories": [
-    "survival"
-  ]
-}
+{"version":3,"show_warnings":true,"categories":["quarantine"]}
