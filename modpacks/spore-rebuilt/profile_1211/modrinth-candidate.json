@@ -1,0 +1,774 @@
+{
+  "target": {
+    "minecraft": "1.21.1",
+    "loader": "neoforge"
+  },
+  "launch_tested": false,
+  "roots": [
+    {
+      "requested": "mekanism",
+      "version_id": "5KzzycBT",
+      "error": null
+    },
+    {
+      "requested": "immersiveengineering",
+      "version_id": "uNRARSH2",
+      "error": null
+    },
+    {
+      "requested": "apotheosis",
+      "version_id": "veL1ccTb",
+      "error": null
+    },
+    {
+      "requested": "puffish-skills",
+      "version_id": null,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "requested": "minecraft-comes-alive-reborn",
+      "version_id": "S2Ln2tIn",
+      "error": null
+    },
+    {
+      "requested": "easy-villagers",
+      "version_id": "vkY28WLb",
+      "error": null
+    },
+    {
+      "requested": "jei",
+      "version_id": "ufHUqt9b",
+      "error": null
+    },
+    {
+      "requested": "fungal-infection-spore",
+      "version_id": null,
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "requested": "tacz",
+      "version_id": null,
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "versions": [
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "5KzzycBT",
+      "project_id": "Ce6I4WUE",
+      "author_id": "81DWsUKb",
+      "featured": false,
+      "name": "10.7.19.85",
+      "version_number": "10.7.19.85",
+      "changelog_url": null,
+      "date_published": "2026-04-10T10:30:24.782944Z",
+      "downloads": 332041,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "fxLkVL6L",
+          "hashes": {
+            "sha1": "b78945c40cfe7640408f3fd1e44da385a8c8b805",
+            "sha512": "66745825330a98f3e4a5ea3a44aff8b00870f715c144edc38dd2f61b4240589600b58ae89efac3b54dbb5aa430b1059dac1a28fd71cac5cc9002bbeb5ba3f22b"
+          },
+          "url": "https://cdn.modrinth.com/data/Ce6I4WUE/versions/5KzzycBT/Mekanism-1.21.1-10.7.19.85.jar",
+          "filename": "Mekanism-1.21.1-10.7.19.85.jar",
+          "primary": true,
+          "size": 11976009,
+          "file_type": null
+        },
+        {
+          "id": "Bd1xru8H",
+          "hashes": {
+            "sha512": "b565c34b04ddf16900eca5d2938e9c3d494d6ab8c75775ded1e987e014e0e3f513072287c4c06cd60e5070e8c236bce84ccf470d8d6690142d7002726165974d",
+            "sha1": "f542e3491bdf293969397d87133d62a9186f9403"
+          },
+          "url": "https://cdn.modrinth.com/data/Ce6I4WUE/versions/5KzzycBT/Mekanism-1.21.1-10.7.19.85-api.jar",
+          "filename": "Mekanism-1.21.1-10.7.19.85-api.jar",
+          "primary": false,
+          "size": 526092,
+          "file_type": null
+        }
+      ],
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "R2OftAxM",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "nvQzSEkH",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "NTi7d3Xc",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "qXkLFB0L",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "EiEOyeoL",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "u6dRKJwZ",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "Xg35A4rS",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "6AQIaxuO",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "fRiHVvU7",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "gu7yAYhd",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "XxWD5pD3",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "bcOsQHnC",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "Eyw0UxEx",
+          "file_name": null,
+          "dependency_type": "optional"
+        }
+      ]
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "uNRARSH2",
+      "project_id": "tIm2nV03",
+      "author_id": "uF0leaD8",
+      "featured": true,
+      "name": "12.4.2-194",
+      "version_number": "12.4.2-194",
+      "changelog_url": null,
+      "date_published": "2025-07-05T15:42:47.124938Z",
+      "downloads": 579244,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "zCJiYEzR",
+          "hashes": {
+            "sha512": "862523e84747a8b7eaa65f9b3c337fa832ef9efd0545c27f68e350e01f482c7a1242d0e4bdc2caff3d7eb033508b43a353fcd7150c9b544d0c05765ca2a551b3",
+            "sha1": "a4e90c2df8009040f6d022433c5d76635944dd59"
+          },
+          "url": "https://cdn.modrinth.com/data/tIm2nV03/versions/uNRARSH2/ImmersiveEngineering-1.21.1-12.4.2-194.jar",
+          "filename": "ImmersiveEngineering-1.21.1-12.4.2-194.jar",
+          "primary": true,
+          "size": 14232121,
+          "file_type": null
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "veL1ccTb",
+      "project_id": "rqFWfVlz",
+      "author_id": "8Wslh1Np",
+      "featured": false,
+      "name": "Apotheosis 1.21.1-8.9.0",
+      "version_number": "1.21.1-8.9.0",
+      "changelog_url": null,
+      "date_published": "2026-09-27T20:12:06.220130Z",
+      "downloads": 14451,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "nGhZ52Qc",
+          "hashes": {
+            "sha1": "2d8b59070a221bcc2e3ea08b3b48cbf034b77c71",
+            "sha512": "b3022bc31f4e9f99d298c36486e09cad308d4aa87e2aa65a341809aeca41f0067e744086768884959036a46685d4c0babc4274600884ad8962fe9d080d8ef3ee"
+          },
+          "url": "https://cdn.modrinth.com/data/rqFWfVlz/versions/veL1ccTb/Apotheosis-1.21.1-8.9.0.jar",
+          "filename": "Apotheosis-1.21.1-8.9.0.jar",
+          "primary": true,
+          "size": 7184314,
+          "file_type": null
+        },
+        {
+          "id": "d7tU8YsH",
+          "hashes": {
+            "sha1": "4f68f30f565b01400b16e9ff810ef12891639957",
+            "sha512": "25fa26be76533eab0140f86933b94312b71e91db1a70b888f13f2b7cf4336cf0d163861e1ff58e356755c4b6ba385cbcd414547d56cdcf5c96e6a6adf8be72a3"
+          },
+          "url": "https://cdn.modrinth.com/data/rqFWfVlz/versions/veL1ccTb/Apotheosis-1.21.1-8.9.0-sources.jar",
+          "filename": "Apotheosis-1.21.1-8.9.0-sources.jar",
+          "primary": false,
+          "size": 6341077,
+          "file_type": null
+        },
+        {
+          "id": "xU0ASbsg",
+          "hashes": {
+            "sha1": "27b00b9465d688a8394c153b1154f8bd0ca444d6",
+            "sha512": "7b2bbc8b624982aa933043a69f88fb72107f71f0a64ac2a54705e0a1ad3d9a72bf6c6ea7edb864ac26c02eb71faed99828a1e26e32da32dc092c1448525303cc"
+          },
+          "url": "https://cdn.modrinth.com/data/rqFWfVlz/versions/veL1ccTb/Apotheosis-1.21.1-8.9.0-stock_data.zip",
+          "filename": "Apotheosis-1.21.1-8.9.0-stock_data.zip",
+          "primary": false,
+          "size": 328869,
+          "file_type": null
+        }
+      ],
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "nU0bVIaL",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "u6dRKJwZ",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "tCkE8p2N",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "UVtY3ZAC",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "DfxVkOAO",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "DGaH8Rh0",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "pL8MtgqY",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "nvQzSEkH",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "mH8wdmqr",
+          "file_name": null,
+          "dependency_type": "optional"
+        }
+      ]
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "S2Ln2tIn",
+      "project_id": "1W98a849",
+      "author_id": "TJkJC5Fn",
+      "featured": true,
+      "name": "[NeoForge 1.21.1] MCAR - 7.7.36",
+      "version_number": "7.7.36+1.21.1",
+      "changelog_url": null,
+      "date_published": "2026-08-16T00:09:37.917119Z",
+      "downloads": 57888,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "zt3YVYFq",
+          "hashes": {
+            "sha512": "d001d10a3c0481cfe25fb22b89b11608bf3cf1290139edd119f3f9bf8d544c369a5a0ea57293eeac3e1390b97f8ece6d2c85f84b753f54db33c4218545356a01",
+            "sha1": "837241e4da732733c307b7385e14d9ec8e93182f"
+          },
+          "url": "https://cdn.modrinth.com/data/1W98a849/versions/S2Ln2tIn/mca-neoforge-7.7.36-beta.3%2B1.21.1.jar",
+          "filename": "mca-neoforge-7.7.36-beta.3+1.21.1.jar",
+          "primary": true,
+          "size": 12141510,
+          "file_type": null
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "game_versions": [
+        "1.21",
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "vkY28WLb",
+      "project_id": "Kaov2qgi",
+      "author_id": "mqxuCPbU",
+      "featured": false,
+      "name": "[NEOFORGE][1.21.1] Easy Villagers 1.21.1-1.1.45",
+      "version_number": "neoforge-1.21.1-1.1.45",
+      "changelog_url": null,
+      "date_published": "2026-10-05T06:41:29.218881Z",
+      "downloads": 4227,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "AZNqLobe",
+          "hashes": {
+            "sha1": "fa2561b7710910c1ccc12a012986b1c5c3976e27",
+            "sha512": "911cb0b3add19eb9fae13e6321aeec8c9ebc6f819e21eb9e81599a5fbbfd64f83c8b392b737860e54c6a5215b37e72039d44373e67d87324280ac2c3001041c8"
+          },
+          "url": "https://cdn.modrinth.com/data/Kaov2qgi/versions/vkY28WLb/easy-villagers-neoforge-1.21.1-1.1.45.jar",
+          "filename": "easy-villagers-neoforge-1.21.1-1.1.45.jar",
+          "primary": true,
+          "size": 456631,
+          "file_type": null
+        }
+      ],
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "Eyw0UxEx",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "u6dRKJwZ",
+          "file_name": null,
+          "dependency_type": "optional"
+        },
+        {
+          "version_id": null,
+          "project_id": "nvQzSEkH",
+          "file_name": null,
+          "dependency_type": "optional"
+        }
+      ]
+    },
+    {
+      "game_versions": [
+        "1.21",
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_or_server_prefers_both",
+      "id": "ufHUqt9b",
+      "project_id": "u6dRKJwZ",
+      "author_id": "nMXRSbhF",
+      "featured": false,
+      "name": "19.51.0.418 for NeoForge 1.21.1",
+      "version_number": "19.51.0.418",
+      "changelog_url": null,
+      "date_published": "2026-09-02T13:30:20.012105Z",
+      "downloads": 82308,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "S1RMgADu",
+          "hashes": {
+            "sha512": "a6ca3abc3080f6f41033a77cb955fefe9f9ebae795c33546227f555b2d31e8d4131cc705126d14a3fbabb31097fc0e876dc0bbeb05ad907a1b796f21e57527bf",
+            "sha1": "d19552586f686eae4ef5e7199f31604d1d3cfca7"
+          },
+          "url": "https://cdn.modrinth.com/data/u6dRKJwZ/versions/ufHUqt9b/jei-1.21.1-neoforge-19.51.0.418.jar",
+          "filename": "jei-1.21.1-neoforge-19.51.0.418.jar",
+          "primary": true,
+          "size": 1804792,
+          "file_type": null
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "BIogJv2D",
+      "project_id": "nU0bVIaL",
+      "author_id": "kRXgk5E1",
+      "featured": false,
+      "name": "1.21.1-93-neoforge",
+      "version_number": "1.21.1-93-neoforge",
+      "changelog_url": null,
+      "date_published": "2026-03-08T20:49:51.469086Z",
+      "downloads": 711770,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "MSXTA3HQ",
+          "hashes": {
+            "sha1": "5413bb9b8fc35ebe46b06b48bf9afafbd8471140",
+            "sha512": "0b5c172db9a6eeecb5ca44b359a83548c3a60be7ff313959acdfc1e5b8039736c18e57e947d435b52d06da31159d2d02ea36e5742668dbc826308a4c99e4039f"
+          },
+          "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/BIogJv2D/Patchouli-1.21.1-93-NEOFORGE.jar",
+          "filename": "Patchouli-1.21.1-93-NEOFORGE.jar",
+          "primary": true,
+          "size": 646777,
+          "file_type": null
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_or_server_prefers_both",
+      "id": "h326cnw1",
+      "project_id": "tCkE8p2N",
+      "author_id": "8Wslh1Np",
+      "featured": false,
+      "name": "Placebo 1.21.1-9.9.3",
+      "version_number": "1.21.1-9.9.3",
+      "changelog_url": null,
+      "date_published": "2026-10-06T07:37:30.970954Z",
+      "downloads": 11393,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "g2VQuQvM",
+          "hashes": {
+            "sha1": "37b1cf95c23a72caafc5d5c9671bbf1fa62bee14",
+            "sha512": "bf6f770eef68c699e0f9c88be26ddc65015d067d9c99079a5312766906c6310e8cb4027007ff70b9da3bdc33aaafabf58a989b840ddd54a44f14cfd6cd572337"
+          },
+          "url": "https://cdn.modrinth.com/data/tCkE8p2N/versions/h326cnw1/Placebo-1.21.1-9.9.3.jar",
+          "filename": "Placebo-1.21.1-9.9.3.jar",
+          "primary": true,
+          "size": 325017,
+          "file_type": null
+        },
+        {
+          "id": "tHjUTqEW",
+          "hashes": {
+            "sha1": "1591b566555dffb7da58b0f8ac87cec942c5663f",
+            "sha512": "ec70c6be2eef5df3469d91b67a86677c35b21ae6f0bc7aac24062aea9985c26acb8acef5b70918ed50547aa65240c7ef4911211e9647a75fca26526e4fb95c69"
+          },
+          "url": "https://cdn.modrinth.com/data/tCkE8p2N/versions/h326cnw1/Placebo-1.21.1-9.9.3-sources.jar",
+          "filename": "Placebo-1.21.1-9.9.3-sources.jar",
+          "primary": false,
+          "size": 163294,
+          "file_type": null
+        }
+      ],
+      "dependencies": []
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "pWfxcfO2",
+      "project_id": "DfxVkOAO",
+      "author_id": "8Wslh1Np",
+      "featured": false,
+      "name": "Apothic-Spawners 1.21.1-1.4.0",
+      "version_number": "1.21.1-1.4.0",
+      "changelog_url": null,
+      "date_published": "2026-07-20T04:34:46.986449Z",
+      "downloads": 66906,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "dWB1doKI",
+          "hashes": {
+            "sha512": "2fdd49cdb3e6610846c3a746ab0730d6d49412eaf8c21e3d0b9d588d80c8cd1a1d0b7e19ade7fc86fd699ac02e270e5fa01fb5cf106d24a7740692ecc1ad8820",
+            "sha1": "b3be29751daea738e691db8949cce079e5aae3be"
+          },
+          "url": "https://cdn.modrinth.com/data/DfxVkOAO/versions/pWfxcfO2/ApothicSpawners-1.21.1-1.4.0.jar",
+          "filename": "ApothicSpawners-1.21.1-1.4.0.jar",
+          "primary": true,
+          "size": 129784,
+          "file_type": null
+        },
+        {
+          "id": "jNdDYVJz",
+          "hashes": {
+            "sha1": "bb796e4ef7e9e97f90ae8ab58698f80ec4e5d478",
+            "sha512": "b6b7bbc12c4291cc17bf457f3810c64fcfd677101bf42775e3ec86e7973bedf65a3df43fb174ec37e8e0ee7eb515299b41891308abc56dbea1b1c04f5bb4cf2c"
+          },
+          "url": "https://cdn.modrinth.com/data/DfxVkOAO/versions/pWfxcfO2/ApothicSpawners-1.21.1-1.4.0-sources.jar",
+          "filename": "ApothicSpawners-1.21.1-1.4.0-sources.jar",
+          "primary": false,
+          "size": 79879,
+          "file_type": null
+        },
+        {
+          "id": "FH8xKPAp",
+          "hashes": {
+            "sha512": "a93139ea4db05ef6ffb6b233831b76921699163553dcc845d3cd21116711458dc297056f3afda7d5cd6b35bfc8643d221319a83929dc7b85d23946a980046d57",
+            "sha1": "ebf9e7cf1d2b2bb76565b04922564dc64886aec0"
+          },
+          "url": "https://cdn.modrinth.com/data/DfxVkOAO/versions/pWfxcfO2/ApothicSpawners-1.21.1-1.4.0-stock_data.zip",
+          "filename": "ApothicSpawners-1.21.1-1.4.0-stock_data.zip",
+          "primary": false,
+          "size": 20662,
+          "file_type": null
+        }
+      ],
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "tCkE8p2N",
+          "file_name": null,
+          "dependency_type": "required"
+        }
+      ]
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "64fZbLnj",
+      "project_id": "DGaH8Rh0",
+      "author_id": "8Wslh1Np",
+      "featured": false,
+      "name": "Apothic-Attributes 1.21.1-2.11.0",
+      "version_number": "1.21.1-2.11.0",
+      "changelog_url": null,
+      "date_published": "2026-09-29T04:49:30.492394Z",
+      "downloads": 11679,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "FLLw3SYm",
+          "hashes": {
+            "sha512": "568580e68016161151fc0254fb0da949b42cf285fa2bf7c3aec1cd320405c430483e9eb990aaddef537bfac4aa4beb21db82fbff9249131e05b15063b6839611",
+            "sha1": "7ff0e452e10cb582c188626a413037e63db9ca04"
+          },
+          "url": "https://cdn.modrinth.com/data/DGaH8Rh0/versions/64fZbLnj/ApothicAttributes-1.21.1-2.11.0.jar",
+          "filename": "ApothicAttributes-1.21.1-2.11.0.jar",
+          "primary": true,
+          "size": 319609,
+          "file_type": null
+        },
+        {
+          "id": "Zy9kikUy",
+          "hashes": {
+            "sha1": "52eae289f6f1bbdd5990f71b91d19ea5cf6dbb5a",
+            "sha512": "920630351ee549755af0c406c8c27863d4b8271bac37b9e8e02f3ef7f335d4a2c11cba1541ff1f937ef95f607a9dae67dd79b00ea8186a10070e8df914ec8e8d"
+          },
+          "url": "https://cdn.modrinth.com/data/DGaH8Rh0/versions/64fZbLnj/ApothicAttributes-1.21.1-2.11.0-sources.jar",
+          "filename": "ApothicAttributes-1.21.1-2.11.0-sources.jar",
+          "primary": false,
+          "size": 196153,
+          "file_type": null
+        },
+        {
+          "id": "jyjBM8SS",
+          "hashes": {
+            "sha1": "71b79ae249ec12c4d7a08d2dd2a402950e4d0955",
+            "sha512": "382d34926213117adbce1170002e03321a3a749326288c2d4c94fb769448022c16886774002834772f7f73500408c61b9da4845278dd1725069d3849e13fa71c"
+          },
+          "url": "https://cdn.modrinth.com/data/DGaH8Rh0/versions/64fZbLnj/ApothicAttributes-1.21.1-2.11.0-stock_data.zip",
+          "filename": "ApothicAttributes-1.21.1-2.11.0-stock_data.zip",
+          "primary": false,
+          "size": 15258,
+          "file_type": null
+        }
+      ],
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "tCkE8p2N",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "vvuO3ImH",
+          "file_name": null,
+          "dependency_type": "optional"
+        }
+      ]
+    },
+    {
+      "game_versions": [
+        "1.21.1"
+      ],
+      "loaders": [
+        "neoforge"
+      ],
+      "environment": "client_and_server",
+      "id": "JAQJkLJ1",
+      "project_id": "pL8MtgqY",
+      "author_id": "8Wslh1Np",
+      "featured": false,
+      "name": "Apothic-Enchanting 1.21.1-1.6.4",
+      "version_number": "1.21.1-1.6.4",
+      "changelog_url": null,
+      "date_published": "2026-10-08T04:28:30.583030Z",
+      "downloads": 2735,
+      "version_type": "release",
+      "status": "listed",
+      "requested_status": null,
+      "files": [
+        {
+          "id": "LlMpFMWC",
+          "hashes": {
+            "sha1": "d88e75b60e97dae8054ee10f3a92aa2bb812b8b9",
+            "sha512": "b560ed61810030472c42fa39e6199b1db07c19baba8f78d98b44ab3e1d00a1bebff5f69942bd076fea9754f63940df920cfb19906073b77bcc459bb8d88575de"
+          },
+          "url": "https://cdn.modrinth.com/data/pL8MtgqY/versions/JAQJkLJ1/ApothicEnchanting-1.21.1-1.6.4.jar",
+          "filename": "ApothicEnchanting-1.21.1-1.6.4.jar",
+          "primary": true,
+          "size": 5422885,
+          "file_type": null
+        },
+        {
+          "id": "2CxFZ3QJ",
+          "hashes": {
+            "sha512": "fb4da5aac6da60c38c57f81839d3eb61f87c84c0939708830ef47db01c8ed243b0564a4dbc47e314a7798373c2a5f04b03c362f70824772fb3b63e98f4369a9a",
+            "sha1": "bcbc22696c0f6766588078dba89bb69ab9b760ca"
+          },
+          "url": "https://cdn.modrinth.com/data/pL8MtgqY/versions/JAQJkLJ1/ApothicEnchanting-1.21.1-1.6.4-sources.jar",
+          "filename": "ApothicEnchanting-1.21.1-1.6.4-sources.jar",
+          "primary": false,
+          "size": 5219594,
+          "file_type": null
+        },
+        {
+          "id": "5sknB0Ky",
+          "hashes": {
+            "sha512": "aca70aaaeca81e007ffbf015e8282515142d6ca1cca6072dd06bf5263c6f1213934e1e422dcfb5d45505efacf348143ebd90a738f1dcf1bb35d41147e36e311a",
+            "sha1": "6588e6f77539c3bb9c336fd89bd7bb624934c078"
+          },
+          "url": "https://cdn.modrinth.com/data/pL8MtgqY/versions/JAQJkLJ1/ApothicEnchanting-1.21.1-1.6.4-stock_data.zip",
+          "filename": "ApothicEnchanting-1.21.1-1.6.4-stock_data.zip",
+          "primary": false,
+          "size": 68871,
+          "file_type": null
+        }
+      ],
+      "dependencies": [
+        {
+          "version_id": null,
+          "project_id": "DGaH8Rh0",
+          "file_name": null,
+          "dependency_type": "required"
+        },
+        {
+          "version_id": null,
+          "project_id": "tCkE8p2N",
+          "file_name": null,
+          "dependency_type": "required"
+        }
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "requested": "puffish-skills",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "requested": "fungal-infection-spore",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "requested": "tacz",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ]
+}
