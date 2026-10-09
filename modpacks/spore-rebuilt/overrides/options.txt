@@ -1,0 +1,5 @@
+lang:ru_ru
+renderDistance:10
+simulationDistance:6
+maxFps:120
+gamma:0.5

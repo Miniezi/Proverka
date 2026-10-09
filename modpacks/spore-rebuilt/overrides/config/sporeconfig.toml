@@ -1,0 +1,25 @@
+# Spore Rebuilt - only overrides validated against Spore 2.2.0j.
+[Spawns]
+MobCap = 48
+"Should mobs be also able to spawn in daytime?" = false
+
+["Global Variables"]
+"Global Health Modifier" = 1.0
+"Global Damage Modifier" = 1.0
+"Should the infected be weak to cold?" = true
+"Should the infected starve overtime?" = true
+"Hunger in seconds" = 600
+"Should some infected have higher thinking such as opening doors or trying to break certain blocks?" = true
+"Should a calamity load chunks?" = false
+
+["Targeting Tasks"]
+"Should attack Animals?" = true
+
+["Mob Evolutions and Infection System".Evolutions]
+"Evolution Timer in seconds" = 600
+"Evolution Timer in seconds for hyper" = 1200
+"Minimum amount of kills to start the evolution" = 2
+"Minimum amount of kills to start the hyper evolution" = 8
+
+[Mobs."Proto Hivemind"]
+"Should the hivemind generate a chunkloader at its location?" = false

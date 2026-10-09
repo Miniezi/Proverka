@@ -1,0 +1,62 @@
+[
+  {
+    "name": "day_10",
+    "conditions": {
+      "mindaycount": 10
+    }
+  },
+  {
+    "name": "day_20",
+    "conditions": {
+      "mindaycount": 20
+    }
+  },
+  {
+    "name": "day_30",
+    "conditions": {
+      "mindaycount": 30
+    }
+  },
+  {
+    "name": "day_40",
+    "conditions": {
+      "mindaycount": 40
+    }
+  },
+  {
+    "name": "day_50",
+    "conditions": {
+      "mindaycount": 50
+    }
+  },
+  {
+    "name": "day_60",
+    "conditions": {
+      "mindaycount": 60
+    }
+  },
+  {
+    "name": "day_70",
+    "conditions": {
+      "mindaycount": 70
+    }
+  },
+  {
+    "name": "day_80",
+    "conditions": {
+      "mindaycount": 80
+    }
+  },
+  {
+    "name": "day_90",
+    "conditions": {
+      "mindaycount": 90
+    }
+  },
+  {
+    "name": "day_100",
+    "conditions": {
+      "mindaycount": 100
+    }
+  }
+]

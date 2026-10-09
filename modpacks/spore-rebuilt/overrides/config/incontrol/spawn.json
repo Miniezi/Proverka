@@ -1,0 +1,218 @@
+[
+  {
+    "when": "position",
+    "mod": "spore",
+    "maxdaycount": 1,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:inf_pillager",
+      "spore:inf_witch",
+      "spore:inf_vindicator",
+      "spore:inf_evoker"
+    ],
+    "maxdaycount": 9,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:knight",
+      "spore:griefer",
+      "spore:braiomil",
+      "spore:busser",
+      "spore:thorn",
+      "spore:jagd",
+      "spore:scavenger"
+    ],
+    "maxdaycount": 19,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:leaper",
+      "spore:slasher",
+      "spore:spitter",
+      "spore:bloater",
+      "spore:naiad",
+      "spore:protector",
+      "spore:nuclea",
+      "spore:gargoyle"
+    ],
+    "maxdaycount": 29,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:howler",
+      "spore:stalker",
+      "spore:brute",
+      "spore:volatile",
+      "spore:mephitic",
+      "spore:gorgon"
+    ],
+    "maxdaycount": 39,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:wendigo",
+      "spore:inquisitor",
+      "spore:brot",
+      "spore:ogre",
+      "spore:hollen",
+      "spore:grober"
+    ],
+    "maxdaycount": 49,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:vigil",
+      "spore:umarmed",
+      "spore:braurei",
+      "spore:delusioner",
+      "spore:usurper",
+      "spore:verva",
+      "spore:hvindicator",
+      "spore:hevoker"
+    ],
+    "maxdaycount": 59,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:proto",
+      "spore:reconstructor"
+    ],
+    "maxdaycount": 69,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:sieger",
+      "spore:gazenbreacher",
+      "spore:hindenburg"
+    ],
+    "maxdaycount": 79,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:howitzer",
+      "spore:verfall",
+      "spore:stahl"
+    ],
+    "maxdaycount": 89,
+    "result": "deny"
+  },
+  {
+    "when": "position",
+    "mob": [
+      "spore:hohlfresser",
+      "spore:leviathan",
+      "spore:kraken"
+    ],
+    "maxdaycount": 99,
+    "result": "deny"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_100",
+    "healthmultiply": 2.5,
+    "damagemultiply": 1.75,
+    "speedmultiply": 1.1,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_90",
+    "healthmultiply": 2.35,
+    "damagemultiply": 1.675,
+    "speedmultiply": 1.09,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_80",
+    "healthmultiply": 2.2,
+    "damagemultiply": 1.6,
+    "speedmultiply": 1.08,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_70",
+    "healthmultiply": 2.05,
+    "damagemultiply": 1.525,
+    "speedmultiply": 1.07,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_60",
+    "healthmultiply": 1.9,
+    "damagemultiply": 1.45,
+    "speedmultiply": 1.06,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_50",
+    "healthmultiply": 1.75,
+    "damagemultiply": 1.375,
+    "speedmultiply": 1.05,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_40",
+    "healthmultiply": 1.6,
+    "damagemultiply": 1.3,
+    "speedmultiply": 1.04,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_30",
+    "healthmultiply": 1.45,
+    "damagemultiply": 1.225,
+    "speedmultiply": 1.03,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_20",
+    "healthmultiply": 1.3,
+    "damagemultiply": 1.15,
+    "speedmultiply": 1.02,
+    "result": "default"
+  },
+  {
+    "when": "finalize",
+    "mod": "spore",
+    "phase": "day_10",
+    "healthmultiply": 1.15,
+    "damagemultiply": 1.075,
+    "speedmultiply": 1.01,
+    "result": "default"
+  }
+]
