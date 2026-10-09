@@ -1,0 +1,19 @@
+{
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.256",
+  "java": 21,
+  "mod_jars": 38,
+  "additional_gunpacks": 5,
+  "server_started": true,
+  "clean_shutdown": true,
+  "skills_configuration_loaded": true,
+  "apotheosis_affixes": 99,
+  "apotheosis_invaders": 27,
+  "client_tested": false,
+  "long_playtest": false,
+  "known_limitations": [
+    "Four upstream dungeon advancements fail to link",
+    "Mojang key fetch blocked by test environment network"
+  ],
+  "artifact_sha256": "28d7dad4b4e24416453528039b5f69422c1890089c08df6716f375fac3682009"
+}

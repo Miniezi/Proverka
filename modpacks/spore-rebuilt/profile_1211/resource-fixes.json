@@ -1,0 +1,26 @@
+{
+  "removed_broken_indexes": {
+    "throwable_thing_v1.4.0-1.1.5.zip": [],
+    "Apocalypse_v1.1.7_G.zip": [
+      "data/bf1/data/blocks/telegraph.json",
+      "data/bf1/index/blocks/a7v.json",
+      "data/bf1/index/blocks/mark_v.json",
+      "data/bf1/index/blocks/st_chamond.json",
+      "data/bf1/index/blocks/telegraph.json",
+      "data/bf1/recipes/block/a7v.json",
+      "data/bf1/recipes/block/mark_v.json",
+      "data/bf1/recipes/block/mark_v_telegraph.json",
+      "data/bf1/recipes/block/st_chamond.json",
+      "data/bf1/recipes/block/telegraph.json"
+    ],
+    "The Division pack_ver.0.3.3.zip": [],
+    "ChocolateMan V1.2.6a1-Public Edition.zip": [
+      "data/qkl/index/attachments/mu73_bayonet.json"
+    ],
+    "mw2019.zip": [
+      "data/mw19/index/guns/jak12.json"
+    ]
+  },
+  "script_namespace_fixes": {},
+  "excluded_pack": "Nitrogen_Gunpack_0925.zip"
+}

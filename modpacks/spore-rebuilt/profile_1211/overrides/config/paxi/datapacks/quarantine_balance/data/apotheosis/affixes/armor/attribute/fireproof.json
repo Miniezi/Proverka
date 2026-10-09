@@ -1,0 +1,38 @@
+{
+  "type": "apotheosis:attribute",
+  "attribute": "minecraft:generic.burning_time",
+  "categories": [
+    "apotheosis:helmet"
+  ],
+  "definition": {
+    "affix_type": "stat",
+    "exclusive_set": [],
+    "weights": {
+      "quality": 0.1,
+      "weight": 25
+    }
+  },
+  "operation": "add_multiplied_base",
+  "values": {
+    "apotheosis:uncommon": {
+      "min": -0.1,
+      "max": -0.23,
+      "step": -0.01
+    },
+    "apotheosis:rare": {
+      "min": -0.13,
+      "max": -0.26,
+      "step": -0.01
+    },
+    "apotheosis:epic": {
+      "min": -0.23,
+      "max": -0.49,
+      "step": -0.01
+    },
+    "apotheosis:mythic": {
+      "min": -0.39,
+      "max": -0.65,
+      "step": -0.01
+    }
+  }
+}

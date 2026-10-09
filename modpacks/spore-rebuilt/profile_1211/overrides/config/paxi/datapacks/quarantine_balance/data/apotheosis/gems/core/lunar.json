@@ -1,0 +1,68 @@
+{
+  "type": "apotheosis:gem",
+  "weights": {
+    "quality": 0.1,
+    "weight": 100
+  },
+  "bonuses": [
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "apothic_attributes:cold_damage",
+      "gem_class": "apotheosis:melee_weapon",
+      "operation": "add_value",
+      "values": {
+        "cracked": 0.65,
+        "chipped": 0.975,
+        "flawed": 1.625,
+        "normal": 2.6,
+        "flawless": 3.9,
+        "perfect": 5.2
+      }
+    },
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "minecraft:generic.gravity",
+      "gem_class": {
+        "key": "core_armor",
+        "types": [
+          "apotheosis:chestplate",
+          "apotheosis:leggings"
+        ]
+      },
+      "operation": "add_multiplied_total",
+      "values": {
+        "cracked": -0.065,
+        "chipped": -0.1625,
+        "flawed": -0.2925,
+        "normal": -0.4225,
+        "flawless": -0.5525,
+        "perfect": -0.676
+      }
+    },
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "neoforge:swim_speed",
+      "gem_class": "apotheosis:boots",
+      "operation": "add_multiplied_base",
+      "values": {
+        "cracked": 0.065,
+        "chipped": 0.13,
+        "flawed": 0.195,
+        "normal": 0.2925,
+        "flawless": 0.39,
+        "perfect": 0.52
+      }
+    },
+    {
+      "type": "apotheosis:anti_gravity_arrow",
+      "gem_class": {
+        "key": "ranged_weapon",
+        "types": [
+          "apotheosis:bow",
+          "apotheosis:trident"
+        ]
+      },
+      "min_purity": "flawless"
+    }
+  ]
+}

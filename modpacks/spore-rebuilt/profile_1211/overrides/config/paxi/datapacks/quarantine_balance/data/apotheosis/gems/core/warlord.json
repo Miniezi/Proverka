@@ -1,0 +1,77 @@
+{
+  "type": "apotheosis:gem",
+  "weights": {
+    "quality": 0.1,
+    "weight": 100
+  },
+  "bonuses": [
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "apothic_attributes:crit_damage",
+      "gem_class": {
+        "key": "weapons",
+        "types": [
+          "apotheosis:melee_weapon",
+          "apotheosis:bow"
+        ]
+      },
+      "operation": "add_multiplied_base",
+      "values": {
+        "cracked": 0.065,
+        "chipped": 0.13,
+        "flawed": 0.2275,
+        "normal": 0.2925,
+        "flawless": 0.3575,
+        "perfect": 0.455
+      }
+    },
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "minecraft:generic.max_health",
+      "gem_class": "apotheosis:chestplate",
+      "operation": "add_multiplied_base",
+      "values": {
+        "cracked": 0.0325,
+        "chipped": 0.065,
+        "flawed": 0.0975,
+        "normal": 0.13,
+        "flawless": 0.1625,
+        "perfect": 0.2275
+      }
+    },
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "gem_class": "apotheosis:helmet",
+      "operation": "add_multiplied_total",
+      "values": {
+        "cracked": 0.0325,
+        "chipped": 0.065,
+        "flawed": 0.08125,
+        "normal": 0.0975,
+        "flawless": 0.11375,
+        "perfect": 0.14625
+      }
+    },
+    {
+      "type": "apotheosis:mob_effect",
+      "gem_class": "apotheosis:trident",
+      "mob_effect": "minecraft:strength",
+      "stack_on_reapply": true,
+      "stacking_limit": 5,
+      "target": "arrow_self",
+      "values": {
+        "flawless": {
+          "duration": 200,
+          "amplifier": 0,
+          "cooldown": 40
+        },
+        "perfect": {
+          "duration": 200,
+          "amplifier": 1,
+          "cooldown": 40
+        }
+      }
+    }
+  ]
+}

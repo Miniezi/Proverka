@@ -1,0 +1,67 @@
+{
+  "type": "apotheosis:gem",
+  "weights": {
+    "quality": 0.1,
+    "weight": 100
+  },
+  "bonuses": [
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "minecraft:generic.attack_damage",
+      "gem_class": {
+        "key": "light_weapon",
+        "types": [
+          "apotheosis:melee_weapon",
+          "apotheosis:trident"
+        ]
+      },
+      "operation": "add_value",
+      "values": {
+        "cracked": 0.65,
+        "chipped": 1.3,
+        "flawed": 2.275,
+        "normal": 3.25,
+        "flawless": 4.55,
+        "perfect": 6.5
+      }
+    },
+    {
+      "type": "apotheosis:durability",
+      "gem_class": {
+        "key": "tools",
+        "types": [
+          "apotheosis:breaker",
+          "apotheosis:shears"
+        ]
+      },
+      "values": {
+        "cracked": 0.065,
+        "chipped": 0.0975,
+        "flawed": 0.1625,
+        "normal": 0.2275,
+        "flawless": 0.2925,
+        "perfect": 0.39
+      }
+    },
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "minecraft:generic.knockback_resistance",
+      "gem_class": {
+        "key": "core_armor",
+        "types": [
+          "apotheosis:chestplate",
+          "apotheosis:leggings"
+        ]
+      },
+      "operation": "add_value",
+      "values": {
+        "cracked": 0.065,
+        "chipped": 0.13,
+        "flawed": 0.195,
+        "normal": 0.26,
+        "flawless": 0.325,
+        "perfect": 0.455
+      }
+    }
+  ]
+}

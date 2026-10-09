@@ -1,0 +1,15 @@
+{
+  "title": "Карантин: выживание",
+  "description": "Опыт за бои. 60 навыков; выбирай защиту, мобильность или ближний бой.",
+  "icon": {
+    "type": "item",
+    "data": {
+      "item": "minecraft:iron_sword"
+    }
+  },
+  "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+  "unlocked_by_default": true,
+  "exclusive_root": false,
+  "starting_points": 1,
+  "spent_points_limit": 60
+}

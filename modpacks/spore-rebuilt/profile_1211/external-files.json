@@ -1,0 +1,17 @@
+[
+  {
+    "path": "mods/mca-ev-compat-1.21.1-2.2.7.jar",
+    "hashes": {
+      "sha1": "c6ccec887249417ffcae409589b8f20fc9ea1f96",
+      "sha512": "f4ccf7b1686145eb2b9f77af4f63123c0b705a3d0a012dfa625e4fd9bcdc94080c223ca10db4ba180300c4b0718c75b19017de3379fa967af70d61b0fb109409"
+    },
+    "downloads": [
+      "https://mediafilez.forgecdn.net/files/9029/813/mca-ev-compat-1.21.1-2.2.7.jar"
+    ],
+    "fileSize": 220571,
+    "env": {
+      "client": "required",
+      "server": "required"
+    }
+  }
+]

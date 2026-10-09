@@ -1,0 +1,53 @@
+{
+  "type": "apotheosis:gem",
+  "weights": {
+    "quality": 0.1,
+    "weight": 100
+  },
+  "bonuses": [
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "minecraft:generic.luck",
+      "gem_class": {
+        "key": "armor",
+        "types": [
+          "apotheosis:helmet",
+          "apotheosis:chestplate",
+          "apotheosis:leggings",
+          "apotheosis:boots"
+        ]
+      },
+      "operation": "add_value",
+      "values": {
+        "cracked": 0.325,
+        "chipped": 0.8125,
+        "flawed": 1.3,
+        "normal": 1.4625,
+        "flawless": 2.275,
+        "perfect": 3.25
+      }
+    },
+    {
+      "type": "apotheosis:attribute",
+      "attribute": "apothic_attributes:experience_gained",
+      "gem_class": {
+        "key": "weapon_or_tool",
+        "types": [
+          "apotheosis:melee_weapon",
+          "apotheosis:trident",
+          "apotheosis:bow",
+          "apotheosis:breaker"
+        ]
+      },
+      "operation": "add_multiplied_base",
+      "values": {
+        "cracked": 0.04875,
+        "chipped": 0.0975,
+        "flawed": 0.14625,
+        "normal": 0.195,
+        "flawless": 0.26,
+        "perfect": 0.39
+      }
+    }
+  ]
+}

@@ -1,0 +1,362 @@
+{
+  "vitality_1": {
+    "x": -170,
+    "y": 0,
+    "definition": "vitality_1",
+    "root": true
+  },
+  "vitality_2": {
+    "x": -170,
+    "y": 40,
+    "definition": "vitality_2",
+    "root": false
+  },
+  "vitality_3": {
+    "x": -170,
+    "y": 80,
+    "definition": "vitality_3",
+    "root": false
+  },
+  "vitality_4": {
+    "x": -170,
+    "y": 120,
+    "definition": "vitality_4",
+    "root": false
+  },
+  "vitality_5": {
+    "x": -170,
+    "y": 160,
+    "definition": "vitality_5",
+    "root": false
+  },
+  "vitality_6": {
+    "x": -170,
+    "y": 200,
+    "definition": "vitality_6",
+    "root": false
+  },
+  "vitality_7": {
+    "x": -170,
+    "y": 240,
+    "definition": "vitality_7",
+    "root": false
+  },
+  "vitality_8": {
+    "x": -170,
+    "y": 280,
+    "definition": "vitality_8",
+    "root": false
+  },
+  "vitality_9": {
+    "x": -170,
+    "y": 320,
+    "definition": "vitality_9",
+    "root": false
+  },
+  "vitality_10": {
+    "x": -170,
+    "y": 360,
+    "definition": "vitality_10",
+    "root": false
+  },
+  "armor_1": {
+    "x": -102,
+    "y": 0,
+    "definition": "armor_1",
+    "root": true
+  },
+  "armor_2": {
+    "x": -102,
+    "y": 40,
+    "definition": "armor_2",
+    "root": false
+  },
+  "armor_3": {
+    "x": -102,
+    "y": 80,
+    "definition": "armor_3",
+    "root": false
+  },
+  "armor_4": {
+    "x": -102,
+    "y": 120,
+    "definition": "armor_4",
+    "root": false
+  },
+  "armor_5": {
+    "x": -102,
+    "y": 160,
+    "definition": "armor_5",
+    "root": false
+  },
+  "armor_6": {
+    "x": -102,
+    "y": 200,
+    "definition": "armor_6",
+    "root": false
+  },
+  "armor_7": {
+    "x": -102,
+    "y": 240,
+    "definition": "armor_7",
+    "root": false
+  },
+  "armor_8": {
+    "x": -102,
+    "y": 280,
+    "definition": "armor_8",
+    "root": false
+  },
+  "armor_9": {
+    "x": -102,
+    "y": 320,
+    "definition": "armor_9",
+    "root": false
+  },
+  "armor_10": {
+    "x": -102,
+    "y": 360,
+    "definition": "armor_10",
+    "root": false
+  },
+  "speed_1": {
+    "x": -34,
+    "y": 0,
+    "definition": "speed_1",
+    "root": true
+  },
+  "speed_2": {
+    "x": -34,
+    "y": 40,
+    "definition": "speed_2",
+    "root": false
+  },
+  "speed_3": {
+    "x": -34,
+    "y": 80,
+    "definition": "speed_3",
+    "root": false
+  },
+  "speed_4": {
+    "x": -34,
+    "y": 120,
+    "definition": "speed_4",
+    "root": false
+  },
+  "speed_5": {
+    "x": -34,
+    "y": 160,
+    "definition": "speed_5",
+    "root": false
+  },
+  "speed_6": {
+    "x": -34,
+    "y": 200,
+    "definition": "speed_6",
+    "root": false
+  },
+  "speed_7": {
+    "x": -34,
+    "y": 240,
+    "definition": "speed_7",
+    "root": false
+  },
+  "speed_8": {
+    "x": -34,
+    "y": 280,
+    "definition": "speed_8",
+    "root": false
+  },
+  "speed_9": {
+    "x": -34,
+    "y": 320,
+    "definition": "speed_9",
+    "root": false
+  },
+  "speed_10": {
+    "x": -34,
+    "y": 360,
+    "definition": "speed_10",
+    "root": false
+  },
+  "damage_1": {
+    "x": 34,
+    "y": 0,
+    "definition": "damage_1",
+    "root": true
+  },
+  "damage_2": {
+    "x": 34,
+    "y": 40,
+    "definition": "damage_2",
+    "root": false
+  },
+  "damage_3": {
+    "x": 34,
+    "y": 80,
+    "definition": "damage_3",
+    "root": false
+  },
+  "damage_4": {
+    "x": 34,
+    "y": 120,
+    "definition": "damage_4",
+    "root": false
+  },
+  "damage_5": {
+    "x": 34,
+    "y": 160,
+    "definition": "damage_5",
+    "root": false
+  },
+  "damage_6": {
+    "x": 34,
+    "y": 200,
+    "definition": "damage_6",
+    "root": false
+  },
+  "damage_7": {
+    "x": 34,
+    "y": 240,
+    "definition": "damage_7",
+    "root": false
+  },
+  "damage_8": {
+    "x": 34,
+    "y": 280,
+    "definition": "damage_8",
+    "root": false
+  },
+  "damage_9": {
+    "x": 34,
+    "y": 320,
+    "definition": "damage_9",
+    "root": false
+  },
+  "damage_10": {
+    "x": 34,
+    "y": 360,
+    "definition": "damage_10",
+    "root": false
+  },
+  "haste_1": {
+    "x": 102,
+    "y": 0,
+    "definition": "haste_1",
+    "root": true
+  },
+  "haste_2": {
+    "x": 102,
+    "y": 40,
+    "definition": "haste_2",
+    "root": false
+  },
+  "haste_3": {
+    "x": 102,
+    "y": 80,
+    "definition": "haste_3",
+    "root": false
+  },
+  "haste_4": {
+    "x": 102,
+    "y": 120,
+    "definition": "haste_4",
+    "root": false
+  },
+  "haste_5": {
+    "x": 102,
+    "y": 160,
+    "definition": "haste_5",
+    "root": false
+  },
+  "haste_6": {
+    "x": 102,
+    "y": 200,
+    "definition": "haste_6",
+    "root": false
+  },
+  "haste_7": {
+    "x": 102,
+    "y": 240,
+    "definition": "haste_7",
+    "root": false
+  },
+  "haste_8": {
+    "x": 102,
+    "y": 280,
+    "definition": "haste_8",
+    "root": false
+  },
+  "haste_9": {
+    "x": 102,
+    "y": 320,
+    "definition": "haste_9",
+    "root": false
+  },
+  "haste_10": {
+    "x": 102,
+    "y": 360,
+    "definition": "haste_10",
+    "root": false
+  },
+  "resistance_1": {
+    "x": 170,
+    "y": 0,
+    "definition": "resistance_1",
+    "root": true
+  },
+  "resistance_2": {
+    "x": 170,
+    "y": 40,
+    "definition": "resistance_2",
+    "root": false
+  },
+  "resistance_3": {
+    "x": 170,
+    "y": 80,
+    "definition": "resistance_3",
+    "root": false
+  },
+  "resistance_4": {
+    "x": 170,
+    "y": 120,
+    "definition": "resistance_4",
+    "root": false
+  },
+  "resistance_5": {
+    "x": 170,
+    "y": 160,
+    "definition": "resistance_5",
+    "root": false
+  },
+  "resistance_6": {
+    "x": 170,
+    "y": 200,
+    "definition": "resistance_6",
+    "root": false
+  },
+  "resistance_7": {
+    "x": 170,
+    "y": 240,
+    "definition": "resistance_7",
+    "root": false
+  },
+  "resistance_8": {
+    "x": 170,
+    "y": 280,
+    "definition": "resistance_8",
+    "root": false
+  },
+  "resistance_9": {
+    "x": 170,
+    "y": 320,
+    "definition": "resistance_9",
+    "root": false
+  },
+  "resistance_10": {
+    "x": 170,
+    "y": 360,
+    "definition": "resistance_10",
+    "root": false
+  }
+}
