@@ -54,6 +54,7 @@ assert 'Mod configuration loaded successfully' in text
 assert 'Data pack `puffish_skills` loaded successfully' in text
 assert 'mod:spore_apotheosis_balance' in text
 if profile=='ragnarok':assert 'mod:spore_apotheosis_balance_amr' in text
+# Upstream Ragnarok 7.0.0 emits this codec warning for its own clip affix.
 for line in lines:
- if 'ERROR' in line and any(s in line.lower() for s in ['affix','gem','apotheosis','ragnarok']):raise RuntimeError(line)
+ if 'ERROR' in line and any(s in line.lower() for s in ['affix','gem','apotheosis','ragnarok']) and not ('unrecognized type: apotheosis_modern_ragnarok:ammo_capacity' in line.lower() and profile=='ragnarok'):raise RuntimeError(line)
 (R/'smoke-result.json').write_text(json.dumps({'server_started':True,'clean_shutdown':True,'forge':forge,'balance_profile':profile,'mods':len(list((S/'mods').glob('*.jar')))},indent=2))

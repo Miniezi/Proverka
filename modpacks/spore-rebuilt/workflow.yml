@@ -1,0 +1,38 @@
+name: Validate Spore Rebuilt
+on:
+  push:
+    paths:
+      - 'modpacks/spore-rebuilt/**'
+      - '.github/workflows/spore-rebuilt.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [base, ragnarok]
+    env:
+      BALANCE_PROFILE: ${{ matrix.profile }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install and smoke test server
+        run: python modpacks/spore-rebuilt/smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: spore-rebuilt-validation-${{ matrix.profile }}
+          path: |
+            modpacks/spore-rebuilt/server-smoke.log
+            modpacks/spore-rebuilt/smoke-result.json
+            modpacks/spore-rebuilt/server/config
+            modpacks/spore-rebuilt/server/logs
+            modpacks/spore-rebuilt/server/crash-reports
+          retention-days: 7
