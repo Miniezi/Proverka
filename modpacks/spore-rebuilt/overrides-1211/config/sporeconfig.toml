@@ -1,0 +1,11 @@
+# Stage 2 baseline for Spore 2.2.0j NeoForge 1.21.1.
+# Values are intentionally conservative until the NeoForge config is verified in-game.
+mobcap = 36
+coldweakness = true
+starve = 600
+evolve = 600
+evolve_kills = 2
+hyper_evolve = 1200
+hyper_evolve_kills = 8
+disable_calamity_chunkloaders = true
+disable_hivemind_chunkloaders = true
