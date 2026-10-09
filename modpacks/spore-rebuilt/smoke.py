@@ -19,6 +19,7 @@ def mod(f):
  p=S/f['path'];download(f['downloads'][0],p)
  assert hashlib.sha512(p.read_bytes()).hexdigest()==f['hashes']['sha512'],f['path']
 with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:list(pool.map(mod,d['files']))
+subprocess.run([sys.executable,str(R/'fixes.py')],check=True)
 if (R/'overrides').exists():shutil.copytree(R/'overrides',S,dirs_exist_ok=True)
 (S/'eula.txt').write_text('eula=true\n')
 (S/'server.properties').write_text('online-mode=false\nserver-ip=127.0.0.1\nserver-port=25585\nview-distance=4\nsimulation-distance=4\nmax-players=1\ndifficulty=hard\nspawn-protection=0\n')
@@ -37,10 +38,14 @@ deadline=time.time()+540
 while not started.is_set() and p.poll() is None and time.time()<deadline:time.sleep(1)
 if not started.is_set():
  p.terminate();thread.join(timeout=20);raise RuntimeError('Server did not reach Done')
-for c in ['incontrol reload','incontrol showmobs','incontrol days 100','incontrol phases','save-all']:
+for c in ['incontrol reload','incontrol showmobs','forceload add 0 0','incontrol days 0','summon spore:inf_human 0 200 0','data get entity @e[type=spore:inf_human,limit=1] Attributes','kill @e[type=spore:inf_human]','incontrol days 100','incontrol phases','summon spore:inf_human 0 200 0','data get entity @e[type=spore:inf_human,limit=1] Attributes','save-all']:
  p.stdin.write(c+'\n');p.stdin.flush();time.sleep(3)
 p.stdin.write('stop\n');p.stdin.flush();p.wait(timeout=120);thread.join()
 text=''.join(lines)
 assert p.returncode==0
 assert 'Unknown command' not in text
+assert 'Parsing error loading recipe' not in text
+assert 'Spawn data: No key' not in text
+assert 'Mod configuration loaded successfully' in text
+assert 'Data pack `puffish_skills` loaded successfully' in text
 (R/'smoke-result.json').write_text(json.dumps({'server_started':True,'clean_shutdown':True,'forge':forge,'mods':len(list((S/'mods').glob('*.jar')))},indent=2))
