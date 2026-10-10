@@ -1,0 +1,951 @@
+--- a/src/main/java/slimeknights/tconstruct/TConstruct.java
++++ b/src/main/java/slimeknights/tconstruct/TConstruct.java
+@@ -237,7 +237,7 @@
+    */
+   @SuppressWarnings("removal")
+   public static ResourceLocation getResource(String name) {
+-    return new ResourceLocation(MOD_ID, name);
++    return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+   }
+ 
+   /**
+--- a/src/main/java/slimeknights/tconstruct/library/TinkerItemDisplays.java
++++ b/src/main/java/slimeknights/tconstruct/library/TinkerItemDisplays.java
+@@ -56,6 +56,6 @@
+   /** Registers a display type */
+   @SuppressWarnings("removal")
+   private static void register(IForgeRegistry<ItemDisplayContext> registry, ItemDisplayContext context) {
+-    registry.register(new ResourceLocation(context.getSerializedName()), context);
++    registry.register(ResourceLocation.parse(context.getSerializedName()), context);
+   }
+ }
+--- a/src/main/java/slimeknights/tconstruct/common/TinkerTags.java
++++ b/src/main/java/slimeknights/tconstruct/common/TinkerTags.java
+@@ -59,7 +59,7 @@
+ 
+   /** Resource location of the hidden from recipe tags used in JEI. */
+   @SuppressWarnings("removal")
+-  public static final ResourceLocation HIDDEN_FROM_RECIPE_VIEWERS = new ResourceLocation("c", "hidden_from_recipe_viewers");
++  public static final ResourceLocation HIDDEN_FROM_RECIPE_VIEWERS = ResourceLocation.fromNamespaceAndPath("c", "hidden_from_recipe_viewers");
+ 
+   /** Creates a tag that hides things from JEI */
+   @SuppressWarnings("SameParameterValue") // there really is no benefit to migrating to new constructors early; just lose Neo compat
+@@ -214,10 +214,10 @@
+     public static final TagKey<Block> BUDDING = common("budding");
+     // ceramics compat
+     @SuppressWarnings("removal")
+-    public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registries.BLOCK, new ResourceLocation("ceramics", "cistern_connections"));
++    public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("ceramics", "cistern_connections"));
+     // create compat
+     @SuppressWarnings("removal")
+-    public static final TagKey<Block> CREATE_ROOTS = TagKey.create(Registries.BLOCK, new ResourceLocation("create", "roots"));
++    public static final TagKey<Block> CREATE_ROOTS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("create", "roots"));
+ 
+     /** Makes a tag in the tinkers domain */
+     private static TagKey<Block> local(String name) {
+@@ -578,7 +578,7 @@
+     public static final TagKey<Item> BOSS_TROPHIES = local("boss_trophies");
+     /** Create tree attachments */
+     @SuppressWarnings("removal")
+-    public static final TagKey<Item> TREE_ATTACHMENTS = TagKey.create(Registries.ITEM, new ResourceLocation("create", "tree_attachments"));
++    public static final TagKey<Item> TREE_ATTACHMENTS = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("create", "tree_attachments"));
+ 
+     /** Fluids in this tag won't show in JEI */
+     public static final TagKey<Item> HIDDEN_IN_RECIPE_VIEWERS = hiddenFromRecipeViewers(Registries.ITEM);
+--- a/src/main/java/slimeknights/tconstruct/world/WorldClientEvents.java
++++ b/src/main/java/slimeknights/tconstruct/world/WorldClientEvents.java
+@@ -109,25 +109,25 @@
+   static void clientSetup(FMLClientSetupEvent event) {
+     // skull textures
+     event.enqueueWork(() -> {
+-      registerHeadModel(TinkerHeadType.BLAZE, MaterialIds.blaze, new ResourceLocation("textures/entity/blaze.png"));
++      registerHeadModel(TinkerHeadType.BLAZE, MaterialIds.blaze, ResourceLocation.parse("textures/entity/blaze.png"));
+       registerHeadModel(TinkerHeadType.ENDERMAN, MaterialIds.enderPearl, TConstruct.getResource("textures/entity/skull/enderman.png"));
+-      SlimeskullArmorModel.registerHeadModel(MaterialIds.dragonScale, modelSet -> new DragonSkullModel(modelSet.bakeLayer(ModelLayers.DRAGON_SKULL)), new ResourceLocation("textures/entity/enderdragon/dragon.png"));
+-      SlimeskullArmorModel.registerHeadModel(MaterialIds.gunpowder, ModelLayers.CREEPER_HEAD, new ResourceLocation("textures/entity/creeper/creeper.png"));
++      SlimeskullArmorModel.registerHeadModel(MaterialIds.dragonScale, modelSet -> new DragonSkullModel(modelSet.bakeLayer(ModelLayers.DRAGON_SKULL)), ResourceLocation.parse("textures/entity/enderdragon/dragon.png"));
++      SlimeskullArmorModel.registerHeadModel(MaterialIds.gunpowder, ModelLayers.CREEPER_HEAD, ResourceLocation.parse("textures/entity/creeper/creeper.png"));
+       // skeleton
+-      SlimeskullArmorModel.registerHeadModel(MaterialIds.bone, ModelLayers.SKELETON_SKULL, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
+-      SlimeskullArmorModel.registerHeadModel(MaterialIds.necroticBone, ModelLayers.WITHER_SKELETON_SKULL, new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
++      SlimeskullArmorModel.registerHeadModel(MaterialIds.bone, ModelLayers.SKELETON_SKULL, ResourceLocation.parse("textures/entity/skeleton/skeleton.png"));
++      SlimeskullArmorModel.registerHeadModel(MaterialIds.necroticBone, ModelLayers.WITHER_SKELETON_SKULL, ResourceLocation.parse("textures/entity/skeleton/wither_skeleton.png"));
+       registerHeadModel(TinkerHeadType.STRAY, MaterialIds.ice, TConstruct.getResource("textures/entity/skull/stray.png"));
+       // zombies
+-      SlimeskullArmorModel.registerHeadModel(MaterialIds.leather, ModelLayers.ZOMBIE_HEAD, new ResourceLocation("textures/entity/zombie/zombie.png"));
+-      registerHeadModel(TinkerHeadType.HUSK, MaterialIds.iron, new ResourceLocation("textures/entity/zombie/husk.png"));
++      SlimeskullArmorModel.registerHeadModel(MaterialIds.leather, ModelLayers.ZOMBIE_HEAD, ResourceLocation.parse("textures/entity/zombie/zombie.png"));
++      registerHeadModel(TinkerHeadType.HUSK, MaterialIds.iron, ResourceLocation.parse("textures/entity/zombie/husk.png"));
+       registerHeadModel(TinkerHeadType.DROWNED, MaterialIds.copper, TConstruct.getResource("textures/entity/skull/drowned.png"));
+       // spider
+-      registerHeadModel(TinkerHeadType.SPIDER, MaterialIds.string, new ResourceLocation("textures/entity/spider/spider.png"));
+-      registerHeadModel(TinkerHeadType.CAVE_SPIDER, MaterialIds.darkthread, new ResourceLocation("textures/entity/spider/cave_spider.png"));
++      registerHeadModel(TinkerHeadType.SPIDER, MaterialIds.string, ResourceLocation.parse("textures/entity/spider/spider.png"));
++      registerHeadModel(TinkerHeadType.CAVE_SPIDER, MaterialIds.darkthread, ResourceLocation.parse("textures/entity/spider/cave_spider.png"));
+       // piglins
+-      SlimeskullArmorModel.registerPiglinHeadModel(MaterialIds.gold, ModelLayers.PIGLIN_HEAD, new ResourceLocation("textures/entity/piglin/piglin.png"));
+-      registerPiglinHeadModel(TinkerHeadType.PIGLIN_BRUTE, MaterialIds.roseGold, new ResourceLocation("textures/entity/piglin/piglin_brute.png"));
+-      registerPiglinHeadModel(TinkerHeadType.ZOMBIFIED_PIGLIN, MaterialIds.pigIron, new ResourceLocation("textures/entity/piglin/zombified_piglin.png"));
++      SlimeskullArmorModel.registerPiglinHeadModel(MaterialIds.gold, ModelLayers.PIGLIN_HEAD, ResourceLocation.parse("textures/entity/piglin/piglin.png"));
++      registerPiglinHeadModel(TinkerHeadType.PIGLIN_BRUTE, MaterialIds.roseGold, ResourceLocation.parse("textures/entity/piglin/piglin_brute.png"));
++      registerPiglinHeadModel(TinkerHeadType.ZOMBIFIED_PIGLIN, MaterialIds.pigIron, ResourceLocation.parse("textures/entity/piglin/zombified_piglin.png"));
+       // crafted
+       SlimeskullArmorModel.registerHeadModel(MaterialIds.knightmetal, SkullModelHelper.FLUID_CANNON, TConstruct.getResource("textures/entity/skull/fluid_cannon.png"));
+     });
+--- a/src/main/java/slimeknights/tconstruct/library/modifiers/ModifierManager.java
++++ b/src/main/java/slimeknights/tconstruct/library/modifiers/ModifierManager.java
+@@ -248,7 +248,7 @@
+               if (optional) {
+                 key = key.substring(0, key.length() - 1);
+               }
+-              Enchantment enchantment = BuiltInRegistries.ENCHANTMENT.get(new ResourceLocation(key));
++              Enchantment enchantment = BuiltInRegistries.ENCHANTMENT.get(ResourceLocation.parse(key));
+               if (enchantment == null) {
+                 if (optional) {
+                   TConstruct.LOG.debug("Skipping modifier " + modifierId + " due to unknown optional enchantment " + key);
+--- a/src/main/java/slimeknights/tconstruct/library/data/AbstractModifierModelMapProvider.java
++++ b/src/main/java/slimeknights/tconstruct/library/data/AbstractModifierModelMapProvider.java
+@@ -65,7 +65,7 @@
+   /** Creates a new material for the given texture */
+   @SuppressWarnings("removal")
+   protected Material material(String texture) {
+-    return ModifierModel.blockAtlas(new ResourceLocation(modId, texture));
++    return ModifierModel.blockAtlas(ResourceLocation.fromNamespaceAndPath(modId, texture));
+   }
+ 
+   /** Creates a tool texture path from the given path */
+@@ -78,7 +78,7 @@
+   @SuppressWarnings("removal")
+   @Nullable
+   protected ResourceLocation toolPath(String path) {
+-    return new ResourceLocation(modId, "item/tool/" + path);
++    return ResourceLocation.fromNamespaceAndPath(modId, "item/tool/" + path);
+   }
+ 
+   /** Creates a tool material from the given path */
+@@ -127,7 +127,7 @@
+   /** Gets the builder for the given tool */
+   @SuppressWarnings("removal")
+   protected Builder tool(String tool) {
+-    return tool(new ResourceLocation(modId, tool));
++    return tool(ResourceLocation.fromNamespaceAndPath(modId, tool));
+   }
+ 
+   /** Adds the given model to the tool variant */
+--- a/src/main/java/slimeknights/tconstruct/library/data/AbstractStructureRepalleter.java
++++ b/src/main/java/slimeknights/tconstruct/library/data/AbstractStructureRepalleter.java
+@@ -93,7 +93,7 @@
+             template.load(BuiltInRegistries.BLOCK.asLookup(), newStructure);
+             newStructure = template.save(new CompoundTag());
+           }
+-          tasks.add(saveNBT(cache, new ResourceLocation(modId, task.location), newStructure));
++          tasks.add(saveNBT(cache, ResourceLocation.fromNamespaceAndPath(modId, task.location), newStructure));
+         }
+       }
+       catch (IOException e) {
+--- a/src/main/java/slimeknights/tconstruct/library/data/AbstractToolItemModelProvider.java
++++ b/src/main/java/slimeknights/tconstruct/library/data/AbstractToolItemModelProvider.java
+@@ -294,7 +294,7 @@
+   /** Creates a resource location under this mod */
+   @SuppressWarnings("removal")
+   protected ResourceLocation resource(String name) {
+-    return new ResourceLocation(modId, name);
++    return ResourceLocation.fromNamespaceAndPath(modId, name);
+   }
+ 
+   /** Creates a model with display from the given target */
+--- a/src/main/java/slimeknights/tconstruct/library/utils/IdParser.java
++++ b/src/main/java/slimeknights/tconstruct/library/utils/IdParser.java
+@@ -94,7 +94,7 @@
+     String string = reader.getString().substring(start, reader.getCursor());
+     String[] parts = decompose(defaultDomain, string);
+     try {
+-      return new ResourceLocation(parts[0], parts[1]);
++      return ResourceLocation.fromNamespaceAndPath(parts[0], parts[1]);
+     } catch (ResourceLocationException ex) {
+       reader.setCursor(start);
+       throw ResourceLocation.ERROR_INVALID.createWithContext(reader);
+--- a/src/main/java/slimeknights/tconstruct/library/recipe/fuel/MeltingFuelLookup.java
++++ b/src/main/java/slimeknights/tconstruct/library/recipe/fuel/MeltingFuelLookup.java
+@@ -21,7 +21,7 @@
+ public class MeltingFuelLookup {
+   /** Dummy fuel instance sine caches don't support caching null */
+   @SuppressWarnings("removal")
+-  private static final MeltingFuel EMPTY = new MeltingFuel(new ResourceLocation("missingno"), FluidIngredient.EMPTY, 0, 0, 0);
++  private static final MeltingFuel EMPTY = new MeltingFuel(ResourceLocation.parse("missingno"), FluidIngredient.EMPTY, 0, 0, 0);
+   /** Temperature for solid fuels in the heater */
+   private static MeltingFuel SOLID = EMPTY;
+   /** List of all recipes */
+--- a/src/main/java/slimeknights/tconstruct/library/recipe/material/MaterialRecipe.java
++++ b/src/main/java/slimeknights/tconstruct/library/recipe/material/MaterialRecipe.java
+@@ -31,7 +31,7 @@
+ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer>, IMaterialValue, IDisplayMaterialRecipe {
+   /** Empty material instance for the cache */
+   @SuppressWarnings("removal")
+-  public static final MaterialRecipe EMPTY = new MaterialRecipe(new ResourceLocation("missingno"), "", Ingredient.EMPTY, 0, 0, MaterialId.UNKNOWN, ItemOutput.EMPTY);
++  public static final MaterialRecipe EMPTY = new MaterialRecipe(ResourceLocation.parse("missingno"), "", Ingredient.EMPTY, 0, 0, MaterialId.UNKNOWN, ItemOutput.EMPTY);
+   public static final RecordLoadable<MaterialRecipe> LOADER = RecordLoadable.create(
+     ContextKey.ID.requiredField(),
+     LoadableRecipeSerializer.RECIPE_GROUP,
+--- a/src/main/java/slimeknights/tconstruct/library/modifiers/fluid/FluidEffect.java
++++ b/src/main/java/slimeknights/tconstruct/library/modifiers/fluid/FluidEffect.java
+@@ -146,7 +146,7 @@
+       return loaderId;
+     }
+     Mantle.logger.error("Failed to get default description for unregistered fluid effect loader {}", loader);
+-    return new ResourceLocation("missingno");
++    return ResourceLocation.parse("missingno");
+   }
+ 
+   /** Gets the string key for the given loader */
+--- a/src/main/java/slimeknights/tconstruct/library/modifiers/modules/technical/MaxArmorLevelModule.java
++++ b/src/main/java/slimeknights/tconstruct/library/modifiers/modules/technical/MaxArmorLevelModule.java
+@@ -93,7 +93,7 @@
+   @SuppressWarnings("removal")
+   static ComputableDataKey<ModifierMaxLevel> createKey(@Nullable ResourceLocation id) {
+     if (id == null) {
+-      id = new ResourceLocation("missingno");
++      id = ResourceLocation.parse("missingno");
+     }
+     return ComputableDataKey.of(id.withSuffix("_data"), ModifierMaxLevel::new);
+   }
+--- a/src/main/java/slimeknights/tconstruct/library/data/tinkering/AbstractMobEquipmentProvider.java
++++ b/src/main/java/slimeknights/tconstruct/library/data/tinkering/AbstractMobEquipmentProvider.java
+@@ -39,7 +39,7 @@
+   @Override
+   public CompletableFuture<?> run(CachedOutput cache) {
+     addEquipment();
+-    return allOf(equipment.entrySet().stream().map(entry -> saveJson(cache, new ResourceLocation(modId, entry.getKey()), entry.getValue().serialize())));
++    return allOf(equipment.entrySet().stream().map(entry -> saveJson(cache, ResourceLocation.fromNamespaceAndPath(modId, entry.getKey()), entry.getValue().serialize())));
+   }
+ 
+   /** Creates a builder for the given entity */
+--- a/src/main/java/slimeknights/tconstruct/library/data/tinkering/AbstractFluidEffectProvider.java
++++ b/src/main/java/slimeknights/tconstruct/library/data/tinkering/AbstractFluidEffectProvider.java
+@@ -88,7 +88,7 @@
+   /** Creates a new fluid builder for the given mod ID */
+   @SuppressWarnings("removal")
+   protected Builder addFluid(String name, FluidIngredient fluid) {
+-    return addFluid(new ResourceLocation(modId, name), fluid);
++    return addFluid(ResourceLocation.fromNamespaceAndPath(modId, name), fluid);
+   }
+ 
+   /** Creates a builder for a fluid stack */
+--- a/src/main/java/slimeknights/tconstruct/library/data/recipe/SmelteryRecipeBuilder.java
++++ b/src/main/java/slimeknights/tconstruct/library/data/recipe/SmelteryRecipeBuilder.java
+@@ -245,7 +245,7 @@
+   /** Adds a recipe for melting a list of items. Never optional */
+   @SuppressWarnings({"removal", "deprecation"})
+   private void minecraftArmorMelting(int cost, String prefix, String name) {
+-    Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(prefix + '_' + name));
++    Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(prefix + '_' + name));
+     if (item == Items.AIR) {
+       throw new IllegalArgumentException("Unknown item name minecraft:" + name);
+     }
+@@ -433,14 +433,14 @@
+   /** Adds a recipe for melting a tool from the given mod */
+   @SuppressWarnings("removal")
+   public SmelteryRecipeBuilder itemMelting(float scale, String domain, String path, boolean damagable) {
+-    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), new ResourceLocation(domain, path), damagable);
++    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), ResourceLocation.fromNamespaceAndPath(domain, path), damagable);
+     return this;
+   }
+ 
+   /** Adds a recipe for melting an metal item with the metal prefix in the name */
+   @SuppressWarnings("removal")
+   public SmelteryRecipeBuilder metalMelting(float scale, String domain, String path, boolean damagable) {
+-    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), new ResourceLocation(domain, name.getPath() + '_' + path), damagable);
++    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), ResourceLocation.fromNamespaceAndPath(domain, name.getPath() + '_' + path), damagable);
+     return this;
+   }
+ 
+@@ -594,7 +594,7 @@
+   @SuppressWarnings("removal")
+   public SmelteryRecipeBuilder oreberry() {
+     assert baseUnit == FluidValues.INGOT;
+-    itemMelting(1/9f, "oreberry", 1 / 3f, new ResourceLocation("oreberriesreplanted", name.getPath() + "_oreberry"), false);
++    itemMelting(1/9f, "oreberry", 1 / 3f, ResourceLocation.fromNamespaceAndPath("oreberriesreplanted", name.getPath() + "_oreberry"), false);
+     return this;
+   }
+ 
+--- a/src/main/java/slimeknights/tconstruct/library/data/recipe/CostTagAppender.java
++++ b/src/main/java/slimeknights/tconstruct/library/data/recipe/CostTagAppender.java
+@@ -36,7 +36,7 @@
+ 
+   /** Creates a builder for a molten gear */
+   public static CostTagAppender moltenToolMelting(String domain, String metal, Function<ResourceLocation,IntrinsicTagAppender<Item>> tag) {
+-    return new CostTagAppender(metal, new ResourceLocation(domain, "melting/" + metal + "/tools_costing_"), "", tag);
++    return new CostTagAppender(metal, ResourceLocation.fromNamespaceAndPath(domain, "melting/" + metal + "/tools_costing_"), "", tag);
+   }
+ 
+   /** Creates a tag for the given cost */
+@@ -77,14 +77,14 @@
+ 
+   /** Adds the passed items by ID with the metal as the prefix */
+   public CostTagAppender optionalMetal(int cost, String domain, String... suffixes) {
+-    return add(cost, true, new ResourceLocation(domain, metal), suffixes);
++    return add(cost, true, ResourceLocation.fromNamespaceAndPath(domain, metal), suffixes);
+   }
+ 
+   /** Adds the given optional tag to the builder with the given prefix using our metal */
+   public CostTagAppender metalTag(int cost, String prefix, String... names) {
+     IntrinsicTagAppender<Item> tag = tag(cost);
+     for (String name : names) {
+-      tag.addOptionalTag(new ResourceLocation(Mantle.COMMON, prefix + name + '/' + metal));
++      tag.addOptionalTag(ResourceLocation.fromNamespaceAndPath(Mantle.COMMON, prefix + name + '/' + metal));
+     }
+     return this;
+   }
+@@ -105,7 +105,7 @@
+   /** Adds common gear items from tags */
+   @Internal // we cover everything from the base game that makes sense to melt, you probably want something more specialized if you wish to do stone/wood
+   public CostTagAppender minecraft(String metal) {
+-    ResourceLocation prefix = new ResourceLocation(metal);
++    ResourceLocation prefix = ResourceLocation.parse(metal);
+     // we use costs 1 and 3 for compat with tools complement
+     // cost 2 isn't needed for any compat for vanilla, but we wish for a combined tag for non-vanilla so we do it for simplicity
+     add(1, false, prefix, "shovel");
+--- a/src/main/java/slimeknights/tconstruct/library/client/modifiers/ModifierModelManager.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/modifiers/ModifierModelManager.java
+@@ -150,7 +150,7 @@
+    */
+   @SuppressWarnings("removal")
+   private static Material getModifierTexture(ResourceLocation modifierRoot, ResourceLocation modifierId, String suffix) {
+-    return new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(modifierRoot.getNamespace(), modifierRoot.getPath() + modifierId.getNamespace() + "_" + modifierId.getPath() + suffix));
++    return new Material(InventoryMenu.BLOCK_ATLAS, ResourceLocation.fromNamespaceAndPath(modifierRoot.getNamespace(), modifierRoot.getPath() + modifierId.getNamespace() + "_" + modifierId.getPath() + suffix));
+   }
+ 
+   /**
+--- a/src/main/java/slimeknights/tconstruct/library/client/book/TinkerBook.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/book/TinkerBook.java
+@@ -184,7 +184,7 @@
+    */
+   @SuppressWarnings("removal")
+   private static void addStandardData(BookData book, ResourceLocation id, BookTransformer... extraTransformers) {
+-    book.addRepository(new FileRepository(new ResourceLocation(id.getNamespace(), "book/" + id.getPath())));
++    book.addRepository(new FileRepository(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "book/" + id.getPath())));
+     book.addTransformer(BookTransformer.indexTranformer());
+     book.addTransformer(TierRangeMaterialSectionTransformer.INSTANCE);
+ 
+--- a/src/main/java/slimeknights/tconstruct/library/client/modifiers/model/TrimModifierModel.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/modifiers/model/TrimModifierModel.java
+@@ -125,7 +125,7 @@
+     private final ResourceLocation root;
+     private final Map<String, TrimTexture> cache;
+     Armor(ArmorItem.Type type) {
+-      root = new ResourceLocation("trims/items/" + type.getName() + "_trim");
++      root = ResourceLocation.parse("trims/items/" + type.getName() + "_trim");
+       cache = new HashMap<>();
+     }
+ 
+--- a/src/main/java/slimeknights/tconstruct/library/client/modifiers/model/ModifierModelLoadable.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/modifiers/model/ModifierModelLoadable.java
+@@ -44,7 +44,7 @@
+       }
+       // primitive? load as the texture for normal
+       if (element.isJsonPrimitive()) {
+-        return new NormalModifierModel(ModifierModel.blockAtlas(new ResourceLocation(element.getAsString())), null);
++        return new NormalModifierModel(ModifierModel.blockAtlas(ResourceLocation.parse(element.getAsString())), null);
+       }
+     }
+     // if the object has no type, default to normal
+--- a/src/main/java/slimeknights/tconstruct/library/client/book/content/ContentTool.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/book/content/ContentTool.java
+@@ -131,7 +131,7 @@
+       if (this.toolName == null) {
+         this.toolName = this.parent.name;
+       }
+-      Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
++      Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.parse(this.toolName));
+       if (item instanceof IModifiableDisplay tool) {
+         this.tool = tool;
+       } else {
+--- a/src/main/java/slimeknights/tconstruct/library/client/data/material/TrimMaterialPaletteGenerator.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/data/material/TrimMaterialPaletteGenerator.java
+@@ -51,9 +51,9 @@
+       }
+       trimmedJson.add("pairs", values);
+ 
+-      NativeImage original = spriteReader.read(new ResourceLocation("trim_palette"));
++      NativeImage original = spriteReader.read(ResourceLocation.parse("trim_palette"));
+       return allOf(Stream.concat(
+-        Stream.of(saveJson(cache, new ResourceLocation("trimmed", "maps/unchecked/custom_trim_material_permutations"), trimmedJson)),
++        Stream.of(saveJson(cache, ResourceLocation.fromNamespaceAndPath("trimmed", "maps/unchecked/custom_trim_material_permutations"), trimmedJson)),
+         Arrays.stream(materials).map(
+         material -> saveImage(cache, material.withPrefix(PALETTE_TEXTURES + '/'), getTransformer(material).transformCopy(original, false)))))
+         .thenRunAsync(spriteReader::closeAll);
+--- a/src/main/java/slimeknights/tconstruct/library/client/data/material/AbstractPartSpriteProvider.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/data/material/AbstractPartSpriteProvider.java
+@@ -68,7 +68,7 @@
+   /** Adds a given sprite to the list to generate, for the local namespace */
+   @SuppressWarnings("removal")
+   protected PartSpriteInfo.Builder addTexture(String name, MaterialStatsId... requiredStats) {
+-    return addTexture(new ResourceLocation(modID, name), requiredStats);
++    return addTexture(ResourceLocation.fromNamespaceAndPath(modID, name), requiredStats);
+   }
+ 
+   /** Adds a given sprite to the list to generated, located in the tools folder */
+@@ -116,7 +116,7 @@
+   /** Create a builder for tool sprites relative to the default mod ID */
+   @SuppressWarnings("removal")
+   protected ToolSpriteBuilder buildTool(String name) {
+-    return buildTool(new ResourceLocation(modID, name));
++    return buildTool(ResourceLocation.fromNamespaceAndPath(modID, name));
+   }
+ 
+ 
+--- a/src/main/java/slimeknights/tconstruct/library/client/data/material/GeneratorPartTextureJsonGenerator.java
++++ b/src/main/java/slimeknights/tconstruct/library/client/data/material/GeneratorPartTextureJsonGenerator.java
+@@ -58,7 +58,7 @@
+     if (!overrides.overrides.isEmpty()) {
+       json.add("overrides", overrides.serialize());
+     }
+-    return saveJson(cache, new ResourceLocation(modId, "generator_part_textures"), json);
++    return saveJson(cache, ResourceLocation.fromNamespaceAndPath(modId, "generator_part_textures"), json);
+   }
+ 
+   @Override
+--- a/src/main/java/slimeknights/tconstruct/library/tools/item/armor/MultilayerArmorItem.java
++++ b/src/main/java/slimeknights/tconstruct/library/tools/item/armor/MultilayerArmorItem.java
+@@ -29,7 +29,7 @@
+ 
+   @SuppressWarnings("removal")
+   public MultilayerArmorItem(ArmorMaterial material, ArmorItem.Type slot, Properties properties, ToolDefinition toolDefinition) {
+-    this(material, slot, properties, toolDefinition, new ResourceLocation(material.getName()));
++    this(material, slot, properties, toolDefinition, ResourceLocation.parse(material.getName()));
+   }
+ 
+   public MultilayerArmorItem(ArmorMaterial material, ArmorItem.Type slot, Properties properties, ToolDefinition toolDefinition, ResourceLocation name) {
+--- a/src/main/java/slimeknights/tconstruct/shared/inventory/BlockContainerOpenedTrigger.java
++++ b/src/main/java/slimeknights/tconstruct/shared/inventory/BlockContainerOpenedTrigger.java
+@@ -32,7 +32,7 @@
+   @SuppressWarnings("removal")
+   @Override
+   protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext pDeserializationContext) {
+-    ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "type"));
++    ResourceLocation id = ResourceLocation.parse(GsonHelper.getAsString(json, "type"));
+     BlockEntityType<?> type = ForgeRegistries.BLOCK_ENTITY_TYPES.getValue(id);
+     if (type == null) {
+       throw new JsonSyntaxException("Unknown tile entity '" + id + "'");
+--- a/src/main/java/slimeknights/tconstruct/shared/client/ClientGeneratePartTexturesCommand.java
++++ b/src/main/java/slimeknights/tconstruct/shared/client/ClientGeneratePartTexturesCommand.java
+@@ -207,7 +207,7 @@
+ 
+     // each namespace loads separately
+     for (String namespace : manager.getNamespaces()) {
+-      ResourceLocation location = new ResourceLocation(namespace, GENERATOR_PART_TEXTURES);
++      ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, GENERATOR_PART_TEXTURES);
+       List<Resource> resources = manager.getResourceStack(location);
+       if (!resources.isEmpty()) {
+         // if the namespace has the file, we will start building
+--- a/src/main/java/slimeknights/tconstruct/shared/command/subcommand/GenerateMeltingRecipesCommand.java
++++ b/src/main/java/slimeknights/tconstruct/shared/command/subcommand/GenerateMeltingRecipesCommand.java
+@@ -271,7 +271,7 @@
+           builder.setDamagable(10);
+         }
+         ResourceLocation id = Loadables.ITEM.getKey(result);
+-        builder.save(consumer, new ResourceLocation("tinkers_generated", "melting/" + id.getNamespace() + '/' + id.getPath()));
++        builder.save(consumer, ResourceLocation.fromNamespaceAndPath("tinkers_generated", "melting/" + id.getNamespace() + '/' + id.getPath()));
+       }
+     }
+ 
+--- a/src/main/java/slimeknights/tconstruct/common/data/tags/BlockTagProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/tags/BlockTagProvider.java
+@@ -128,8 +128,8 @@
+     this.tag(TinkerTags.Blocks.TRANSPARENT_OVERLAY).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get(),
+                                                         TinkerSmeltery.searedSoulGlass.get(), TinkerSmeltery.searedSoulGlassPane.get(),
+                                                         TinkerSmeltery.scorchedSoulGlass.get(), TinkerSmeltery.scorchedSoulGlassPane.get());
+-    Function<String,ResourceLocation> createId = name -> new ResourceLocation("create", name);
+-    Function<String,ResourceLocation> quarkId = name -> new ResourceLocation("quark", name);
++    Function<String,ResourceLocation> createId = name -> ResourceLocation.fromNamespaceAndPath("create", name);
++    Function<String,ResourceLocation> quarkId = name -> ResourceLocation.fromNamespaceAndPath("quark", name);
+     this.tag(TinkerTags.Blocks.WORKSTATION_ROCK)
+       .addTags(TinkerTags.Blocks.STONE, TinkerTags.Blocks.BLACKSTONE, TinkerTags.Blocks.GRANITE, TinkerTags.Blocks.DIORITE, TinkerTags.Blocks.ANDESITE, TinkerTags.Blocks.DEEPSLATE, TinkerTags.Blocks.BASALT)
+       .add(Blocks.TUFF, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE)
+@@ -168,7 +168,7 @@
+     this.tag(TinkerTags.Blocks.PLATFORM_CONNECTIONS)
+       .add(Blocks.LEVER, Blocks.LADDER, Blocks.IRON_BARS, TinkerCommons.goldBars.get(), Blocks.TRIPWIRE_HOOK, Blocks.WALL_TORCH, Blocks.SOUL_WALL_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.REDSTONE_WIRE)
+       .addTags(Tags.Blocks.GLASS_PANES, BlockTags.BUTTONS, Tags.Blocks.FENCES, BlockTags.WALLS, BlockTags.WALL_SIGNS)
+-      .addOptionalTag(new ResourceLocation("architects_palette:nubs"));
++      .addOptionalTag(ResourceLocation.parse("architects_palette:nubs"));
+ 
+     // copper platforms
+     IntrinsicTagAppender<Block> copperPlatforms = this.tag(TinkerTags.Blocks.COPPER_PLATFORMS);
+@@ -183,7 +183,7 @@
+     // vanilla is not tagged, so tag it
+     this.tag(TinkerTags.Blocks.WORKBENCHES)
+         .add(Blocks.CRAFTING_TABLE, TinkerTables.craftingStation.get())
+-        .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
++        .addOptionalTag(ResourceLocation.parse("forge:workbench")); // some mods use a non-standard name here, so support it I guess
+     this.tag(TinkerTags.Blocks.TABLES)
+         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
+ 
+--- a/src/main/java/slimeknights/tconstruct/common/data/tags/EnchantmentTagProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/tags/EnchantmentTagProvider.java
+@@ -56,7 +56,7 @@
+   private void modifierTag(ModifierId modifier, String... ids) {
+     TagsProvider.TagAppender<Enchantment> appender = tag(TagKey.create(Registries.ENCHANTMENT, TConstruct.getResource("modifier_like/" + modifier.getPath())));
+     for (String id : ids) {
+-      appender.addOptional(new ResourceLocation(id));
++      appender.addOptional(ResourceLocation.parse(id));
+     }
+   }
+ 
+--- a/src/main/java/slimeknights/tconstruct/common/data/tags/EntityTypeTagProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/tags/EntityTypeTagProvider.java
+@@ -111,7 +111,7 @@
+     this.tag(TinkerTags.EntityTypes.ENDERFERENCE_ARROW_BLACKLIST).addTag(TRIDENTS);
+     // prevent dummy from healing you with necrotic
+     this.tag(NECROTIC_BLACKLIST)
+-      .addOptional(new ResourceLocation("dummmmmmy", "target_dummy"))
++      .addOptional(ResourceLocation.fromNamespaceAndPath("dummmmmmy", "target_dummy"))
+       .addOptionalTag(commonResource(NECROTIC_BLACKLIST.location().getPath()));
+ 
+     // collecting - TODO 1.21: remove legacy tags
+--- a/src/main/java/slimeknights/tconstruct/common/data/tags/DamageTypeTagProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/tags/DamageTypeTagProvider.java
+@@ -127,14 +127,14 @@
+     addOptional(MAGIC_PROTECTION, tf, "haunt", "ominous_fire", "twilight_scepter");
+     addOptional(PROJECTILE_PROTECTION, tf, "falling_ice");
+     // anything "magic" is good against lich shields, so tag our magic fluids
+-    tag(TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(tf, "breaks_lich_shields"))).add(FLUID_MAGIC.values());
++    tag(TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(tf, "breaks_lich_shields"))).add(FLUID_MAGIC.values());
+   }
+ 
+   /** Adds the given IDs from the given domain to the tag as optional entries. */
+   private void addOptional(TagKey<DamageType> tag, String domain, String... names) {
+     TagAppender<DamageType> appender = tag(tag);
+     for (String name : names) {
+-      appender.addOptional(new ResourceLocation(domain, name));
++      appender.addOptional(ResourceLocation.fromNamespaceAndPath(domain, name));
+     }
+   }
+ }
+--- a/src/main/java/slimeknights/tconstruct/common/data/tags/ItemTagProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/tags/ItemTagProvider.java
+@@ -127,7 +127,7 @@
+ @SuppressWarnings({"unchecked", "removal"})
+ public class ItemTagProvider extends ItemTagsProvider {
+   /** Twlight forest uncrafting table blacklist */
+-  private static final TagKey<Item> BANNED_UNCRAFTABLE = ItemTags.create(new ResourceLocation("twilightforest", "banned_uncraftables"));
++  private static final TagKey<Item> BANNED_UNCRAFTABLE = ItemTags.create(ResourceLocation.fromNamespaceAndPath("twilightforest", "banned_uncraftables"));
+   private final Function<ResourceLocation,IntrinsicTagAppender<Item>> MAKE_TAG = tag -> tag(ItemTags.create(tag));
+ 
+   public ItemTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
+@@ -447,13 +447,13 @@
+     this.tag(UNSWAPPABLE_TOOLS).addTag(UNSWAPPABLE);
+     this.tag(UNSWAPPABLE_PARTS).addTag(UNSWAPPABLE);
+     // headlight support
+-    this.tag(ItemTags.create(new ResourceLocation("headlight", "headlight_helmets"))).addTag(HELMETS);
++    this.tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("headlight", "headlight_helmets"))).addTag(HELMETS);
+ 
+     // general
+     this.tag(MULTIPART_TOOL).addOptionalTag(SINGLEPART_TOOL);
+     this.tag(MODIFIABLE).addTags(MULTIPART_TOOL, DURABILITY, MELEE, HARVEST, RANGED, AMMO, AOE, HELD, BONUS_SLOTS);
+     // disable parry mod on our items, we have our own modifier for that
+-    this.tag(TagKey.create(Registries.ITEM, new ResourceLocation("parry", "excluded_shields"))).addTag(HELD);
++    this.tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("parry", "excluded_shields"))).addTag(HELD);
+ 
+     // kamas are a shear type, when broken we don't pass it to loot tables
+     this.tag(Tags.Items.SHEARS).add(TinkerTools.kama.get());
+@@ -551,7 +551,7 @@
+       TinkerTables.tinkersAnvil.asItem(), TinkerTables.scorchedAnvil.asItem(), TinkerTables.modifierWorktable.asItem()
+     );
+     String tf = "twilightforest";
+-    Function<String,ResourceLocation> trophy = name -> new ResourceLocation(tf, name + "_trophy");
++    Function<String,ResourceLocation> trophy = name -> ResourceLocation.fromNamespaceAndPath(tf, name + "_trophy");
+     this.tag(TinkerTags.Items.BOSS_TROPHIES)
+       .addOptional(trophy.apply("naga"))
+       .addOptional(trophy.apply("lich"))
+@@ -563,8 +563,8 @@
+       .addOptional(trophy.apply("snow_queen"))
+       .addOptional(trophy.apply("quest_ram"));
+     this.tag(TinkerTags.Items.THROWABLE)
+-      .addOptional(new ResourceLocation(tf, "ice_bomb"));
+-    this.tag(TinkerTags.Items.KNIGHTMETAL_SHARD).addOptional(new ResourceLocation(tf, "armor_shard"));
++      .addOptional(ResourceLocation.fromNamespaceAndPath(tf, "ice_bomb"));
++    this.tag(TinkerTags.Items.KNIGHTMETAL_SHARD).addOptional(ResourceLocation.fromNamespaceAndPath(tf, "armor_shard"));
+   }
+ 
+   private void addSmeltery() {
+@@ -680,7 +680,7 @@
+ 
+     // melting tags //
+     // ores
+-    Function<String,ResourceLocation> ie = path -> new ResourceLocation("immersiveengineering", path);
++    Function<String,ResourceLocation> ie = path -> ResourceLocation.fromNamespaceAndPath("immersiveengineering", path);
+     String tf = "twilightforest";
+     moltenTools(TinkerFluids.moltenCopper).add(1, Items.BRUSH).toolTags().toolsComplement();
+     moltenTools(TinkerFluids.moltenIron).minecraft()
+@@ -689,9 +689,9 @@
+       .add(2, true, ie.apply("hammer"))
+       .crowbar().excavatorSpikeMaul();
+     moltenTools(TinkerFluids.moltenGold).minecraft("golden")
+-      .add(1, true,  new ResourceLocation("farmersdelight", "golden_knife"))
+-      .add(4, false, new ResourceLocation("golden_boots"))
+-      .add(4, true,  new ResourceLocation(tf, "gold_minotaur_axe"));
++      .add(1, true,  ResourceLocation.fromNamespaceAndPath("farmersdelight", "golden_knife"))
++      .add(4, false, ResourceLocation.parse("golden_boots"))
++      .add(4, true,  ResourceLocation.fromNamespaceAndPath(tf, "gold_minotaur_axe"));
+     moltenTools(TinkerFluids.moltenSteel).toolTags().leggingsPaxel().crowbar()
+       .toolTag(1, "shovel")
+       .add(1, true, ie.apply("shovel_steel"))
+@@ -707,8 +707,8 @@
+       .optionalMetal(7, tf, "leggings", "shield");
+     // gems
+     moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar().fdKnife()
+-      .add(4, false, new ResourceLocation("diamond_boots"))
+-      .add(4, true,  new ResourceLocation(tf, "diamond_minotaur_axe"));
++      .add(4, false, ResourceLocation.parse("diamond_boots"))
++      .add(4, true,  ResourceLocation.fromNamespaceAndPath(tf, "diamond_minotaur_axe"));
+     // mod ores
+     moltenTools(TinkerFluids.moltenTin).toolTags().toolsComplement();
+     moltenTools(TinkerFluids.moltenLead).toolTags().toolsComplement();
+--- a/src/main/java/slimeknights/tconstruct/common/data/tags/BlockEntityTypeTagProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/tags/BlockEntityTypeTagProvider.java
+@@ -28,10 +28,10 @@
+ 
+   /** Creates a RL for iron chests */
+   private static void ironchest(IntrinsicTagAppender<BlockEntityType<?>> appender, String name) {
+-    ResourceLocation chest = new ResourceLocation("ironchest", name + "_chest");
++    ResourceLocation chest = ResourceLocation.fromNamespaceAndPath("ironchest", name + "_chest");
+     appender.addOptional(chest).addOptional(chest.withPrefix("trapped_"));
+     if (!"dirt".equals(name)) {
+-      appender.addOptional(new ResourceLocation("ironshulkerbox", name + "_shulker_box"));
++      appender.addOptional(ResourceLocation.fromNamespaceAndPath("ironshulkerbox", name + "_shulker_box"));
+     }
+   }
+ 
+@@ -42,7 +42,7 @@
+       BlockEntityType.CHEST, BlockEntityType.TRAPPED_CHEST, BlockEntityType.BARREL, BlockEntityType.SHULKER_BOX,
+       BlockEntityType.DISPENSER, BlockEntityType.DROPPER, BlockEntityType.HOPPER);
+     // TODO 1.21: verify if BlockEntityType.CHISELED_BOOKSHELF has fixed the bug where setItem(ItemStack.EMPTY) doesn't work so it can be whitelisted.
+-    sideInventories.addOptional(new ResourceLocation("immersiveengineering", "woodencrate"));
++    sideInventories.addOptional(ResourceLocation.fromNamespaceAndPath("immersiveengineering", "woodencrate"));
+     ironchest(sideInventories, "iron");
+     ironchest(sideInventories, "gold");
+     ironchest(sideInventories, "diamond");
+--- a/src/main/java/slimeknights/tconstruct/common/data/loot/GlobalLootModifiersProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/loot/GlobalLootModifiersProvider.java
+@@ -53,7 +53,7 @@
+   @Override
+   protected void start() {
+     add("wither_bone", ReplaceItemLootModifier.builder(Ingredient.of(Items.BONE), ItemOutput.fromItem(TinkerMaterials.necroticBone))
+-      .addCondition(LootTableIdCondition.builder(new ResourceLocation("entities/wither_skeleton")).build())
++      .addCondition(LootTableIdCondition.builder(ResourceLocation.parse("entities/wither_skeleton")).build())
+       .addCondition(ConfigEnabledCondition.WITHER_BONE_DROP)
+       .build());
+ 
+--- a/src/main/java/slimeknights/tconstruct/common/data/loot/LootTableInjectionProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/loot/LootTableInjectionProvider.java
+@@ -179,7 +179,7 @@
+                                   .apply(ancientToolData3)
+                                  .apply(setFluid)
+                                   .build());
+-    inject("fishing_treasure", new ResourceLocation("gameplay/fishing/treasure"))
++    inject("fishing_treasure", ResourceLocation.parse("gameplay/fishing/treasure"))
+       .addToPool("main", LootItem.lootTableItem(TinkerTools.swasher.get())
+                                  .setWeight(1) // all treasure from fishing is the same weight
+                                  .apply(ancientToolData3)
+@@ -200,7 +200,7 @@
+       .setWeight(1) // TF tends to use 1 for its weight
+       .apply(ancientToolData3)
+       .build();
+-    inject("labyrinth_room", new ResourceLocation(tf, "chests/labyrinth_room"), tfLoaded)
++    inject("labyrinth_room", ResourceLocation.fromNamespaceAndPath(tf, "chests/labyrinth_room"), tfLoaded)
+       .addToPool("pool1", minotaurAxe)
+       .addToPool("pool2", minotaurAxe);
+   }
+--- a/src/main/java/slimeknights/tconstruct/common/data/advancement/AdvancementIds.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/advancement/AdvancementIds.java
+@@ -37,7 +37,7 @@
+ 
+   @SuppressWarnings("removal")
+   private static ResourceLocation id(String key) {
+-    return new ResourceLocation("minecraft", key);
++    return ResourceLocation.fromNamespaceAndPath("minecraft", key);
+   }
+ 
+   /** Creates a function ID from the given advancement */
+--- a/src/main/java/slimeknights/tconstruct/common/data/model/TinkerItemModelProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/model/TinkerItemModelProvider.java
+@@ -149,7 +149,7 @@
+   /** Generated item with a texture */
+   @SuppressWarnings("removal")
+   private ItemModelBuilder generated(ResourceLocation item, String texture) {
+-    return generated(item, new ResourceLocation(item.getNamespace(), texture));
++    return generated(item, ResourceLocation.fromNamespaceAndPath(item.getNamespace(), texture));
+   }
+ 
+   /** Generated item with a texture */
+--- a/src/main/java/slimeknights/tconstruct/common/data/model/TinkerSpriteSourceProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/model/TinkerSpriteSourceProvider.java
+@@ -43,7 +43,7 @@
+   @SuppressWarnings("removal")
+   @Override
+   protected void addSources() {
+-    ResourceLocation trimPalette = new ResourceLocation(PALETTE_FOLDER + "trim_palette");
++    ResourceLocation trimPalette = ResourceLocation.parse(PALETTE_FOLDER + "trim_palette");
+     // map of material suffix to material paeltte for trims
+     Map<String,ResourceLocation> tinkerMaterials = Arrays.stream(MaterialIds.TRIM_MATERIALS).collect(Collectors.toMap(id -> id.getNamespace() + "_" + id.getPath(), id -> id.withPrefix(PALETTE_FOLDER)));
+     Map<String,ResourceLocation> vanillaMaterials = new HashMap<>();
+@@ -80,9 +80,9 @@
+       blocks.addSource(new SingleFile(armor.getRoot(), Optional.empty()));
+     }
+     // add armor trims in our materials
+-    atlas(new ResourceLocation("armor_trims"))
++    atlas(ResourceLocation.parse("armor_trims"))
+       .addSource(new PalettedPermutations(
+-        Arrays.stream(TRIMS).flatMap(name -> Stream.of(new ResourceLocation(TRIM_FOLDER + name), new ResourceLocation(TRIM_FOLDER + name + "_leggings"))).toList(),
++        Arrays.stream(TRIMS).flatMap(name -> Stream.of(ResourceLocation.parse(TRIM_FOLDER + name), ResourceLocation.parse(TRIM_FOLDER + name + "_leggings"))).toList(),
+         trimPalette, tinkerMaterials));
+   }
+ 
+--- a/src/main/java/slimeknights/tconstruct/common/data/model/TinkerBlockStateProvider.java
++++ b/src/main/java/slimeknights/tconstruct/common/data/model/TinkerBlockStateProvider.java
+@@ -90,7 +90,7 @@
+     glassBlock(TinkerSmeltery.scorchedSoulGlass.get(), TinkerSmeltery.scorchedSoulGlassPane.get(), "foundry/soul_glass/",
+                getResource("block/foundry/soul_glass"), getResource("block/foundry/glass_top"), -1, true, translucent);
+     // obsidian pane
+-    ResourceLocation obsidian = new ResourceLocation("block/obsidian");
++    ResourceLocation obsidian = ResourceLocation.parse("block/obsidian");
+     paneBlock(TinkerCommons.obsidianPane.get(), "obsidian_pane/", obsidian, obsidian, false, -1, false, RenderType.solid());
+ 
+     // shards
+@@ -109,7 +109,7 @@
+     basicBlock(TinkerSmeltery.scorchedLamp.get(), "block/foundry/scorched/lamp", blockTexture("foundry/scorched/lamp"));
+ 
+     // heads
+-    ModelFile skull = models().getExistingFile(new ResourceLocation("block/skull"));
++    ModelFile skull = models().getExistingFile(ResourceLocation.parse("block/skull"));
+     TinkerWorld.heads.forEach(head -> simpleBlock(head, skull));
+     TinkerWorld.wallHeads.forEach(head -> simpleBlock(head, skull));
+   }
+--- a/src/main/java/slimeknights/tconstruct/smeltery/data/FluidContainerTransferProvider.java
++++ b/src/main/java/slimeknights/tconstruct/smeltery/data/FluidContainerTransferProvider.java
+@@ -49,7 +49,7 @@
+   /** Adds a recipe to empty an item, returning no container */
+   @SuppressWarnings("removal")
+   protected void addContainerlessEmpty(String name, String domain, FluidOutput fluid) {
+-    ResourceLocation id = new ResourceLocation(domain, name);
++    ResourceLocation id = ResourceLocation.fromNamespaceAndPath(domain, name);
+     addTransfer(domain + '_' + name, new EmptyFluidContainerTransfer(ItemNameIngredient.from(id), ItemOutput.EMPTY, fluid), new ItemExistsCondition(id));
+   }
+ 
+--- a/src/main/java/slimeknights/tconstruct/smeltery/data/SmelteryRecipeProvider.java
++++ b/src/main/java/slimeknights/tconstruct/smeltery/data/SmelteryRecipeProvider.java
+@@ -196,7 +196,7 @@
+                           .unlockedBy("has_item", has(TinkerSmeltery.grout)).save(c);
+     ConditionalRecipe.builder()
+                      .addCondition(new ModLoadedCondition("ceramics"))
+-                     .addRecipe(c -> fastGrout.accept(ConsumerWrapperBuilder.wrap(new ResourceLocation("ceramics", "kiln")).build(c)))
++                     .addRecipe(c -> fastGrout.accept(ConsumerWrapperBuilder.wrap(ResourceLocation.fromNamespaceAndPath("ceramics", "kiln")).build(c)))
+                      .addCondition(TrueCondition.INSTANCE)
+                      .addRecipe(fastGrout)
+                      .generateAdvancement()
+@@ -647,7 +647,7 @@
+                                 .unlockedBy("has_item", has(TinkerSmeltery.netherGrout)).save(c);
+     ConditionalRecipe.builder()
+                      .addCondition(new ModLoadedCondition("ceramics"))
+-                     .addRecipe(c -> fastGrout.accept(ConsumerWrapperBuilder.wrap(new ResourceLocation("ceramics", "kiln")).build(c)))
++                     .addRecipe(c -> fastGrout.accept(ConsumerWrapperBuilder.wrap(ResourceLocation.fromNamespaceAndPath("ceramics", "kiln")).build(c)))
+                      .addCondition(TrueCondition.INSTANCE)
+                      .addRecipe(fastGrout)
+                      .generateAdvancement()
+@@ -1759,11 +1759,11 @@
+                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM))
+                         .save(consumer, location(metalFolder + "netherite/shovel"));
+     // tools complement compat - excavators and hammers
+-    MeltingRecipeBuilder.melting(ItemNameIngredient.from(new ResourceLocation("tools_complement", "netherite_excavator")), TinkerFluids.moltenNetherite, FluidValues.INGOT)
++    MeltingRecipeBuilder.melting(ItemNameIngredient.from(ResourceLocation.fromNamespaceAndPath("tools_complement", "netherite_excavator")), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+                         .setDamagable(netheriteSizes)
+                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 11))
+                         .save(withCondition(consumer, new ItemExistsCondition("tools_complement", "netherite_excavator")), location(metalFolder + "netherite/excavator"));
+-    MeltingRecipeBuilder.melting(ItemNameIngredient.from(new ResourceLocation("tools_complement", "netherite_hammer")), TinkerFluids.moltenNetherite, FluidValues.INGOT)
++    MeltingRecipeBuilder.melting(ItemNameIngredient.from(ResourceLocation.fromNamespaceAndPath("tools_complement", "netherite_hammer")), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+                         .setDamagable(netheriteSizes)
+                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 13))
+                         .save(withCondition(consumer, new ItemExistsCondition("tools_complement", "netherite_hammer")), location(metalFolder + "netherite/hammer"));
+@@ -2348,7 +2348,7 @@
+   private void addCompatRecipes(Consumer<FinishedRecipe> consumer) {
+     String folder = "compat/";
+     // create - cast andesite alloy
+-    ItemOutput andesiteAlloy = ItemNameOutput.fromName(new ResourceLocation("create", "andesite_alloy"));
++    ItemOutput andesiteAlloy = ItemNameOutput.fromName(ResourceLocation.fromNamespaceAndPath("create", "andesite_alloy"));
+     Consumer<FinishedRecipe> createConsumer = withCondition(consumer, new ModLoadedCondition("create"));
+     ItemCastingRecipeBuilder.basinRecipe(andesiteAlloy)
+                             .setCast(Blocks.ANDESITE, true)
+@@ -2369,7 +2369,7 @@
+                             .save(withCondition(consumer, tagCondition(treatedWood), new TagFilledCondition<>(creosote)), location(folder + "treated_wood"));
+ 
+     // farmers delight - cast dough with a small discount to make numbers work out nicer
+-    ResourceLocation dough = new ResourceLocation("farmersdelight", "wheat_dough");
++    ResourceLocation dough = ResourceLocation.fromNamespaceAndPath("farmersdelight", "wheat_dough");
+     ItemCastingRecipeBuilder.tableRecipe(ItemNameOutput.fromName(dough))
+       .setCast(Items.WHEAT, true)
+       .setFluid(MantleTags.Fluids.WATER, 250)
+@@ -2389,10 +2389,10 @@
+     // ID helpers
+     String ceramics = "ceramics";
+     String ceramicsFolder = folder + ceramics + "/";
+-    Function<String,ResourceLocation> ceramicsId = name -> new ResourceLocation(ceramics, name);
+-    Function<String,Ingredient> ceramicsItem = name -> ItemNameIngredient.from(new ResourceLocation(ceramics, name));
+-    Function<String,Ingredient> ceramicsTag = name -> Ingredient.of(ItemTags.create(new ResourceLocation(ceramics, name)));
+-    Function<String,ItemOutput> ceramicsOutput = name -> ItemNameOutput.fromName(new ResourceLocation(ceramics, name));
++    Function<String,ResourceLocation> ceramicsId = name -> ResourceLocation.fromNamespaceAndPath(ceramics, name);
++    Function<String,Ingredient> ceramicsItem = name -> ItemNameIngredient.from(ResourceLocation.fromNamespaceAndPath(ceramics, name));
++    Function<String,Ingredient> ceramicsTag = name -> Ingredient.of(ItemTags.create(ResourceLocation.fromNamespaceAndPath(ceramics, name)));
++    Function<String,ItemOutput> ceramicsOutput = name -> ItemNameOutput.fromName(ResourceLocation.fromNamespaceAndPath(ceramics, name));
+     Consumer<FinishedRecipe> ceramicsConsumer = withCondition(consumer, new ModLoadedCondition(ceramics));
+ 
+     // fill clay and cracked clay buckets
+--- a/src/main/java/slimeknights/tconstruct/smeltery/block/entity/CastingBlockEntity.java
++++ b/src/main/java/slimeknights/tconstruct/smeltery/block/entity/CastingBlockEntity.java
+@@ -599,7 +599,7 @@
+     tank.readFromTag(tags.getCompound(TAG_TANK));
+     timer = tags.getInt(TAG_TIMER);
+     if (tags.contains(TAG_RECIPE, CompoundTag.TAG_STRING)) {
+-      ResourceLocation name = new ResourceLocation(tags.getString(TAG_RECIPE));
++      ResourceLocation name = ResourceLocation.parse(tags.getString(TAG_RECIPE));
+       // if we have a level, fetch the recipe
+       if (level != null) {
+         loadRecipe(level, name);
+--- a/src/main/java/slimeknights/tconstruct/world/data/MobEquipmentProvider.java
++++ b/src/main/java/slimeknights/tconstruct/world/data/MobEquipmentProvider.java
+@@ -57,7 +57,7 @@
+       .material(random, random, random);
+     // twilight forest compat
+     String tf = "twilightforest";
+-    equip(FakeRegistryEntry.entity(new ResourceLocation(tf, "minotaur")), new ModLoadedCondition(tf))
++    equip(FakeRegistryEntry.entity(ResourceLocation.fromNamespaceAndPath(tf, "minotaur")), new ModLoadedCondition(tf))
+       .slot(EquipmentSlot.MAINHAND)
+       .tool(ItemNameOutput.fromName(TinkerTools.minotaurAxe.getId()))
+       .material(random, random, random);
+--- a/src/main/java/slimeknights/tconstruct/world/client/SlimeArmorLayer.java
++++ b/src/main/java/slimeknights/tconstruct/world/client/SlimeArmorLayer.java
+@@ -140,7 +140,7 @@
+     path = ForgeHooksClient.getArmorTexture(entity, stack, path, EquipmentSlot.HEAD, type);
+     ResourceLocation location = HumanoidArmorLayer.ARMOR_LOCATION_CACHE.get(path);
+     if (location == null) {
+-      location = new ResourceLocation(path);
++      location = ResourceLocation.parse(path);
+       HumanoidArmorLayer.ARMOR_LOCATION_CACHE.put(path, location);
+     }
+ 
+--- a/src/main/java/slimeknights/tconstruct/tables/data/TableRecipeProvider.java
++++ b/src/main/java/slimeknights/tconstruct/tables/data/TableRecipeProvider.java
+@@ -385,7 +385,7 @@
+ 
+     // twilight forest
+     String tfId = "twilightforest";
+-    Function<String,ResourceLocation> tf = name -> new ResourceLocation(tfId, name);
++    Function<String,ResourceLocation> tf = name -> ResourceLocation.fromNamespaceAndPath(tfId, name);
+     Consumer<FinishedRecipe> tfConsumer = withCondition(consumer, new ModLoadedCondition(tfId));
+     // naga scale armor
+     ResourceLocation nagaScale = tf.apply("naga_scale");
+--- a/src/main/java/slimeknights/tconstruct/tables/client/inventory/CraftingStationScreen.java
++++ b/src/main/java/slimeknights/tconstruct/tables/client/inventory/CraftingStationScreen.java
+@@ -9,7 +9,7 @@
+ 
+ public class CraftingStationScreen extends BaseTabbedScreen<CraftingStationBlockEntity,CraftingStationContainerMenu> {
+   @SuppressWarnings("removal")
+-  private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/crafting_table.png");
++  private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = ResourceLocation.parse("textures/gui/container/crafting_table.png");
+ 
+   public CraftingStationScreen(CraftingStationContainerMenu container, Inventory playerInventory, Component title) {
+     super(container, playerInventory, title);
+--- a/src/main/java/slimeknights/tconstruct/tools/data/FluidEffectProvider.java
++++ b/src/main/java/slimeknights/tconstruct/tools/data/FluidEffectProvider.java
+@@ -297,21 +297,21 @@
+       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.CONFUSION, 5 * 20, 1).buildEntity(TimeAction.ADD));
+     {
+       String ie = "immersiveengineering";
+-      MobEffect flammable = FakeRegistryEntry.effect(new ResourceLocation(ie, "flammable"));
++      MobEffect flammable = FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "flammable"));
+       compatFluid(ie, "creosote",  50)
+         .addEffect(FluidMobEffect.builder().effect(flammable, 8 * 20, 1), TimeAction.ADD)
+         .addEntityEffect(new FireFluidEffect(TimeAction.ADD, 8));
+       compatFluid(ie, "biodiesel", 50)
+         .addEffect(FluidMobEffect.builder().effect(flammable, 8 * 20, 2), TimeAction.ADD)
+         .addEntityEffect(new FireFluidEffect(TimeAction.ADD, 8));
+-      FluidMobEffect conductive = new FluidMobEffect(FakeRegistryEntry.effect(new ResourceLocation(ie, "conductive")), 8 * 20, 2);
++      FluidMobEffect conductive = new FluidMobEffect(FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "conductive")), 8 * 20, 2);
+       compatFluid(ie, "redstone_acid",  50)
+         .addEntityEffect(new MobEffectFluidEffect(conductive, TimeAction.ADD))
+         .addBlockEffect(new MobEffectCloudFluidEffect(conductive))
+         .addBlockEffect(FluidEffect.WEATHER);
+-      compatFluid(ie, "phenolic_resin", 50).addEffect(FluidMobEffect.builder().effect(FakeRegistryEntry.effect(new ResourceLocation(ie, "sticky")), 8 * 20, 2), TimeAction.ADD);
+-      Block concreteSprayed = FakeRegistryEntry.block(new ResourceLocation(ie, "concrete_sprayed"));
+-      AreaMobEffectFluidEffect concreteFeet = new AreaMobEffectFluidEffect(new FluidMobEffect(FakeRegistryEntry.effect(new ResourceLocation(ie, "concrete_feet")), MobEffectInstance.INFINITE_DURATION, 1), TimeAction.SET, GroupCost.MAX);
++      compatFluid(ie, "phenolic_resin", 50).addEffect(FluidMobEffect.builder().effect(FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "sticky")), 8 * 20, 2), TimeAction.ADD);
++      Block concreteSprayed = FakeRegistryEntry.block(ResourceLocation.fromNamespaceAndPath(ie, "concrete_sprayed"));
++      AreaMobEffectFluidEffect concreteFeet = new AreaMobEffectFluidEffect(new FluidMobEffect(FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "concrete_feet")), MobEffectInstance.INFINITE_DURATION, 1), TimeAction.SET, GroupCost.MAX);
+       compatFluid(ie, "concrete", 100)
+         .addEntityEffect(new BlockAtEntityPredicate(BlockPredicate.CAN_BE_REPLACED, 0), new SetBlockFluidEffect(concreteSprayed))
+         .offsetBlockEffect(BlockPredicate.CAN_BE_REPLACED, new SetBlockFluidEffect(concreteSprayed))
+@@ -336,7 +336,7 @@
+       return new TagPredicate(compound);
+     };
+     String create = "create";
+-    addFluid("potion_create", FluidNameIngredient.of(new ResourceLocation(create, "potion"), FluidValues.SIP))
++    addFluid("potion_create", FluidNameIngredient.of(ResourceLocation.fromNamespaceAndPath(create, "potion"), FluidValues.SIP))
+       .hidden() // we have the regular potion type showing, the create one in addition is a bit confusing
+       .addCondition(new ModLoadedCondition(create))
+       .addEntityEffect(new PotionFluidEffect(0.25f, createBottle.apply("REGULAR")))
+--- a/src/main/java/slimeknights/tconstruct/tools/data/ModifierRecipeProvider.java
++++ b/src/main/java/slimeknights/tconstruct/tools/data/ModifierRecipeProvider.java
+@@ -1852,7 +1852,7 @@
+ 
+     // compatability
+     String theOneProbe = "theoneprobe";
+-    ResourceLocation probe = new ResourceLocation(theOneProbe, "probe");
++    ResourceLocation probe = ResourceLocation.fromNamespaceAndPath(theOneProbe, "probe");
+     Consumer<FinishedRecipe> topConsumer = withCondition(consumer, modLoaded(theOneProbe));
+     ModifierRecipeBuilder.modifier(ModifierIds.theOneProbe)
+                          .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.HELD))
+--- a/src/main/java/slimeknights/tconstruct/tools/data/sprite/TinkerMaterialSpriteProvider.java
++++ b/src/main/java/slimeknights/tconstruct/tools/data/sprite/TinkerMaterialSpriteProvider.java
+@@ -95,9 +95,9 @@
+     buildMaterial(MaterialIds.ice)
+       .shieldCore().arrowHead()
+       .transformer(GreyToSpriteTransformer.builderFromBlack()
+-        .addTexture(63, new ResourceLocation("block/blue_ice"))
+-        .addTexture(102, new ResourceLocation("block/packed_ice"))
+-        .addTexture(140, new ResourceLocation("block/ice"))
++        .addTexture(63, ResourceLocation.parse("block/blue_ice"))
++        .addTexture(102, ResourceLocation.parse("block/packed_ice"))
++        .addTexture(140, ResourceLocation.parse("block/ice"))
+         .build());
+     buildMaterial(MaterialIds.cactus)
+       .ranged().arrowShaft().shieldCore().statType(WOOD)
+@@ -408,7 +408,7 @@
+     for (DyeColor color : DyeColor.values()) {
+       String name = color.getName();
+       MaterialSpriteInfoBuilder builder = buildMaterial(MaterialVariantId.create(MaterialIds.wool, name));
+-      builder.fallbacks("wool").arrowHead().cuirass().transformer(transformerFromSprite(new ResourceLocation("block/" + name + "_wool"), 0, 0));
++      builder.fallbacks("wool").arrowHead().cuirass().transformer(transformerFromSprite(ResourceLocation.parse("block/" + name + "_wool"), 0, 0));
+       if (color == DyeColor.WHITE) {
+         builder.fletching();
+       } else {
+--- a/src/test/java/slimeknights/tconstruct/test/TestHelper.java
++++ b/src/test/java/slimeknights/tconstruct/test/TestHelper.java
+@@ -27,7 +27,7 @@
+   /** Creates a resource location under {@link #MOD_ID} */
+   @SuppressWarnings("removal")
+   public static ResourceLocation id(String name) {
+-    return new ResourceLocation(MOD_ID, name);
++    return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+   }
+ 
+   /** Helper to fetch traits from the trait hook */
+--- a/src/test/java/slimeknights/tconstruct/library/tools/layout/StationSlotLayoutLoaderTest.java
++++ b/src/test/java/slimeknights/tconstruct/library/tools/layout/StationSlotLayoutLoaderTest.java
+@@ -31,7 +31,7 @@
+   @BeforeAll
+   static void setup() {
+     try {
+-      CraftingHelper.register(new ResourceLocation("minecraft", "item"), VanillaIngredientSerializer.INSTANCE);
++      CraftingHelper.register(ResourceLocation.fromNamespaceAndPath("minecraft", "item"), VanillaIngredientSerializer.INSTANCE);
+     } catch (Exception e) {
+       // just need to ensure its registered
+     }

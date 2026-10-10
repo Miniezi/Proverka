@@ -1,0 +1,25 @@
+{
+  "target": "Minecraft 1.21.1 NeoForge",
+  "status": "Partial source migration; no working port",
+  "inputs": {
+    "TinkersConstruct-1.20.1.zip": "9e678106a1fb4323433c3f1d1dd8738c5a62c0f7da685ac5ab6d6852d16dd2c3",
+    "Mantle-1.20.zip": "a4aa6183c9523d6836d5cdeae452cd2c1d19c8dbc4b2a5dbd0aed2aa9cbe1b2b"
+  },
+  "java_files": {
+    "Mantle-1.20": 594,
+    "TinkersConstruct-1.20.1": 1988
+  },
+  "mantle_121": {
+    "repository": "SlimeKnights/Mantle",
+    "branch": "1.21",
+    "commit": "999fdfc4e3c7df88f595f31e4c52171c2e8896b8"
+  },
+  "mantle_target": {
+    "minecraft": "1.21.1",
+    "neoforge": "21.1.238",
+    "java": 21
+  },
+  "build_attempt": "Gradle 9.2.1 starts with Java 21; environment truststore configured; dependency resolution in progress",
+  "next": "Obtain working Gradle/Java21 build environment; compile upstream Mantle before adapting TConstruct",
+  "resource_location_calls_migrated": 116
+}

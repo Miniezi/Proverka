@@ -1,0 +1,26 @@
+{
+  "forge_imports": {
+    "occurrences": 1466,
+    "files": 569
+  },
+  "direct_item_tag_field": {
+    "occurrences": 6,
+    "files": 1
+  },
+  "legacy_nbt_calls_review": {
+    "occurrences": 175,
+    "files": 76
+  },
+  "legacy_network": {
+    "occurrences": 0,
+    "files": 0
+  },
+  "legacy_capabilities": {
+    "occurrences": 248,
+    "files": 54
+  },
+  "resource_locations": {
+    "occurrences": 113,
+    "files": 51
+  }
+}
