@@ -1,0 +1,32 @@
+name: Tinkers port - Mantle baseline
+on:
+  push:
+    branches: [tinkers-1.21.1-port]
+    paths: ['.github/workflows/tinkers-port-mantle.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mantle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: SlimeKnights/Mantle
+          ref: 999fdfc4e3c7df88f595f31e4c52171c2e8896b8
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Compile official Mantle baseline
+        run: bash gradlew build --no-daemon --console=plain
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mantle-baseline-results
+          path: |
+            build/libs/*.jar
+            build/reports/
+          if-no-files-found: warn
