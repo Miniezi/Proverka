@@ -18,5 +18,7 @@ with (P/'server-smoke.log').open('w') as log:
  if p.poll() is None:
   try:p.wait(timeout=35)
   except subprocess.TimeoutExpired:p.kill();p.wait()
+valid='QUARANTINE_DATA_VALIDATION_OK origins=7 powers=22' in (P/'server-smoke.log').read_text()
+print('DATA_VALID',valid)
 print('SERVER_READY',ready,'EXIT',p.returncode)
-sys.exit(0 if ready and p.returncode==0 else 1)
+sys.exit(0 if ready and valid and p.returncode==0 else 1)

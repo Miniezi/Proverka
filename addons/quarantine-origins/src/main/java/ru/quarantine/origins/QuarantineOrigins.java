@@ -20,6 +20,22 @@ public final class QuarantineOrigins {
     public QuarantineOrigins() {
         NeoForge.EVENT_BUS.addListener(this::onTick);
         NeoForge.EVENT_BUS.addListener(this::onTarget);
+        NeoForge.EVENT_BUS.addListener(this::validateData);
+    }
+    private void validateData(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
+        if (!Boolean.getBoolean("quarantine.validate")) return;
+        int powers=0;
+        for (String name:new String[]{"survivor","infected","cryogenic","engineer","gunner","scavenger","medic"}) {
+            var origin=com.cyberday1.neoorigins.data.OriginDataManager.INSTANCE.getOrigin(ResourceLocation.parse("quarantine:"+name));
+            if (origin==null) throw new IllegalStateException("Missing Quarantine class: "+name);
+            for (var power:origin.powers()) {
+                if (!com.cyberday1.neoorigins.data.PowerDataManager.INSTANCE.hasPower(power))
+                    throw new IllegalStateException("Missing Quarantine power: "+power);
+                powers++;
+            }
+        }
+        if (powers!=22) throw new IllegalStateException("Wrong Quarantine power count: "+powers);
+        System.out.println("QUARANTINE_DATA_VALIDATION_OK origins=7 powers=22");
     }
     public static boolean isInfected(Player player) {
         return player.getData(OriginAttachments.originData()).getOrigins().containsValue(INFECTED);
