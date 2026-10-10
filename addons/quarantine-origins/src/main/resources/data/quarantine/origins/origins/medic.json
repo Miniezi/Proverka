@@ -1,0 +1,18 @@
+{
+  "name": {
+    "text": "Полевой биолог"
+  },
+  "description": {
+    "text": "+25% получаемого лечения, +1 сердце и иммунитет к обычному яду. Не защищает от заражения Spore и не лечит союзников автоматически. -15% базового урона ближнего боя и -10% урона снарядов."
+  },
+  "icon": "minecraft:golden_apple",
+  "impact": "medium",
+  "order": 7,
+  "powers": [
+    "quarantine:medic_heal",
+    "quarantine:medic_health",
+    "quarantine:medic_poison",
+    "quarantine:medic_melee",
+    "quarantine:medic_projectile"
+  ]
+}

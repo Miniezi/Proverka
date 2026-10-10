@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Монтажная хватка"
+  },
+  "description": {
+    "text": "+0.75 блока взаимодействия с блоками."
+  },
+  "attribute": "minecraft:player.block_interaction_range",
+  "amount": 0.75,
+  "operation": "add_value"
+}

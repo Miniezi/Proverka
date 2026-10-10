@@ -1,0 +1,17 @@
+{
+  "name": {
+    "text": "Ходок руин"
+  },
+  "description": {
+    "text": "Для вылазок в данжи: +10% скорости, +2 блока безопасного падения, +1 удачи. -2 сердца. Удача влияет только на таблицы добычи, которые её учитывают; она не гарантирует редкие камни Apotheosis."
+  },
+  "icon": "minecraft:compass",
+  "impact": "medium",
+  "order": 6,
+  "powers": [
+    "quarantine:scavenger_speed",
+    "quarantine:scavenger_fall",
+    "quarantine:scavenger_luck",
+    "quarantine:scavenger_health"
+  ]
+}

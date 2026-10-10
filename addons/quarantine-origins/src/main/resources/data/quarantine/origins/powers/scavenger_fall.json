@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Опыт высотных вылазок"
+  },
+  "description": {
+    "text": "+2 блока безопасного падения."
+  },
+  "attribute": "minecraft:generic.safe_fall_distance",
+  "amount": 2,
+  "operation": "add_value"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:modify_damage",
+  "name": {
+    "text": "Термошок"
+  },
+  "description": {
+    "text": "На 35% больше урона огня."
+  },
+  "direction": "in",
+  "multiplier": 1.35,
+  "damage_type": "fire"
+}

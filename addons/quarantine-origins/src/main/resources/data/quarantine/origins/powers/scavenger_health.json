@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Хрупкость"
+  },
+  "description": {
+    "text": "-4 здоровья."
+  },
+  "attribute": "minecraft:generic.max_health",
+  "amount": -4,
+  "operation": "add_value"
+}

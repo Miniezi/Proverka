@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Бег между укрытиями"
+  },
+  "description": {
+    "text": "+10% скорости."
+  },
+  "attribute": "minecraft:generic.movement_speed",
+  "amount": 0.1,
+  "operation": "add_multiplied_base"
+}

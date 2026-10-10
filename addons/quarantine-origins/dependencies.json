@@ -1,0 +1,18 @@
+{
+  "spore.jar": {
+    "url": "https://cdn.modrinth.com/data/X661i40C/versions/DwE3w8IX/spore_1.21.1_2.2.0j_neo.jar",
+    "sha512": "e9830e70d02aeea60eaf0a0484ca153bb8e5d82665142a9b2bf7130850f083dad6e5f30f10a78e3191819ff093108c07664afaf6625a5e1d3f514c9f67fdd15b"
+  },
+  "placebo.jar": {
+    "url": "https://cdn.modrinth.com/data/tCkE8p2N/versions/h326cnw1/Placebo-1.21.1-9.9.3.jar",
+    "sha512": "bf6f770eef68c699e0f9c88be26ddc65015d067d9c99079a5312766906c6310e8cb4027007ff70b9da3bdc33aaafabf58a989b840ddd54a44f14cfd6cd572337"
+  },
+  "attributes.jar": {
+    "url": "https://cdn.modrinth.com/data/DGaH8Rh0/versions/64fZbLnj/ApothicAttributes-1.21.1-2.11.0.jar",
+    "sha512": "568580e68016161151fc0254fb0da949b42cf285fa2bf7c3aec1cd320405c430483e9eb990aaddef537bfac4aa4beb21db82fbff9249131e05b15063b6839611"
+  },
+  "neoorigins.jar": {
+    "url": "https://cdn.modrinth.com/data/RUtQ9kfe/versions/cA9nVTuh/neoorigins-2.2.29%2B1.21.1.jar",
+    "sha512": "0c9ee9c66e36c48ff2e8404c261dc246a37088d1939fdb2b6d3b47acc14b2b88e1c7385fce207bf39147c911993c5b2ad1c8f785ea832a6fc839da681057bd29"
+  }
+}

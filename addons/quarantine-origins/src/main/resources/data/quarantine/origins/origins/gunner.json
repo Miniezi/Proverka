@@ -1,0 +1,16 @@
+{
+  "name": {
+    "text": "Стрелок периметра"
+  },
+  "description": {
+    "text": "+12% урона снарядов, включая пули TaCZ. Цена специализации: -1 сердце и -15% базового урона ближнего боя. Бонус не меняет отдачу, магазин или перезарядку."
+  },
+  "icon": "minecraft:crossbow",
+  "impact": "medium",
+  "order": 5,
+  "powers": [
+    "quarantine:gunner_damage",
+    "quarantine:gunner_health",
+    "quarantine:gunner_melee"
+  ]
+}

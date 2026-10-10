@@ -1,0 +1,36 @@
+name: Quarantine Origins build
+on:
+  push:
+    branches: [quarantine-origins]
+    paths: ['addons/quarantine-origins/**', '.github/workflows/quarantine-origins.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: addons/quarantine-origins
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.2.1'
+      - run: python download_deps.py
+      - run: gradle build --no-daemon --console=plain 2>&1 | tee build.log
+      - run: python smoke_server.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quarantine-origins-results
+          path: |
+            addons/quarantine-origins/build/libs/*.jar
+            addons/quarantine-origins/build.log
+            addons/quarantine-origins/server-smoke.log
+            addons/quarantine-origins/run/logs/latest.log

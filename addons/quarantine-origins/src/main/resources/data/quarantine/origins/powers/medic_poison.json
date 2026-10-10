@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:effect_immunity",
+  "name": {
+    "text": "Антитоксины"
+  },
+  "description": {
+    "text": "Иммунитет только к обычному яду."
+  },
+  "effects": [
+    "minecraft:poison"
+  ]
+}

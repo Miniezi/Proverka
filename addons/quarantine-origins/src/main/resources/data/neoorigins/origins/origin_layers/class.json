@@ -1,0 +1,19 @@
+{
+  "replace": true,
+  "name": {
+    "text": "Карантин: классы"
+  },
+  "order": 1,
+  "origins": [
+    "quarantine:survivor",
+    "quarantine:infected",
+    "quarantine:cryogenic",
+    "quarantine:engineer",
+    "quarantine:gunner",
+    "quarantine:scavenger",
+    "quarantine:medic"
+  ],
+  "enabled": true,
+  "hidden": false,
+  "allow_random": false
+}

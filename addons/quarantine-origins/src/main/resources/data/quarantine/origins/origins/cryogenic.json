@@ -1,0 +1,17 @@
+{
+  "name": {
+    "text": "Криостазник"
+  },
+  "description": {
+    "text": "Адаптирован к криогенной обработке: иммунитет к обморожению Spore, вдвое меньше урона замерзания. Хрупкие ткани: -1 сердце и +35% урона огня."
+  },
+  "icon": "minecraft:blue_ice",
+  "impact": "medium",
+  "order": 3,
+  "powers": [
+    "quarantine:cryo_immunity",
+    "quarantine:cryo_freeze",
+    "quarantine:cryo_fire",
+    "quarantine:cryo_health"
+  ]
+}

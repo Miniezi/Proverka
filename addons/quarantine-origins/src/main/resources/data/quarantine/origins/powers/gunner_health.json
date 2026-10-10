@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Лёгкое снаряжение"
+  },
+  "description": {
+    "text": "-2 здоровья."
+  },
+  "attribute": "minecraft:generic.max_health",
+  "amount": -2,
+  "operation": "add_value"
+}

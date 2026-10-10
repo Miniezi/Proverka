@@ -1,0 +1,17 @@
+{
+  "name": {
+    "text": "Монтажник убежища"
+  },
+  "description": {
+    "text": "Обслуживает Mekanism и Immersive Engineering: +0.75 блока взаимодействия, +15% скорости добычи и +1 твёрдости брони. -15% базового урона ближнего боя. Машины сами по себе быстрее не работают."
+  },
+  "icon": "minecraft:repeater",
+  "impact": "medium",
+  "order": 4,
+  "powers": [
+    "quarantine:engineer_reach",
+    "quarantine:engineer_mining",
+    "quarantine:engineer_toughness",
+    "quarantine:engineer_melee"
+  ]
+}

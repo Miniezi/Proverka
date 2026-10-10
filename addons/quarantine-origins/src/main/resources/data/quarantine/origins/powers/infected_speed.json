@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Тяжёлая биомасса"
+  },
+  "description": {
+    "text": "-10% скорости передвижения."
+  },
+  "attribute": "minecraft:generic.movement_speed",
+  "amount": -0.1,
+  "operation": "add_multiplied_base"
+}

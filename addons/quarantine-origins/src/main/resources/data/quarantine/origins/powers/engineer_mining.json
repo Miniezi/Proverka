@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Быстрый демонтаж"
+  },
+  "description": {
+    "text": "+15% скорости добычи."
+  },
+  "attribute": "apothic_attributes:mining_speed",
+  "amount": 0.15,
+  "operation": "add_multiplied_base"
+}

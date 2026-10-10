@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:modify_damage",
+  "name": {
+    "text": "Криоадаптация"
+  },
+  "description": {
+    "text": "Вдвое меньше урона замерзания."
+  },
+  "direction": "in",
+  "multiplier": 0.5,
+  "damage_type": "freeze"
+}

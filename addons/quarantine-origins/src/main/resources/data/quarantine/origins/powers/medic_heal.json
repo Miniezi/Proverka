@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Усвоение препаратов"
+  },
+  "description": {
+    "text": "+25% получаемого лечения."
+  },
+  "attribute": "apothic_attributes:healing_received",
+  "amount": 0.25,
+  "operation": "add_multiplied_base"
+}

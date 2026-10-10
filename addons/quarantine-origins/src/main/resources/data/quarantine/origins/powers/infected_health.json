@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Разросшийся мицелий"
+  },
+  "description": {
+    "text": "+8 здоровья (4 сердца)."
+  },
+  "attribute": "minecraft:generic.max_health",
+  "amount": 8,
+  "operation": "add_value"
+}

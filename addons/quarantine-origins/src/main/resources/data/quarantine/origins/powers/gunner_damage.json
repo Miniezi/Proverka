@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Пристрелянное оружие"
+  },
+  "description": {
+    "text": "+12% урона снарядов."
+  },
+  "attribute": "apothic_attributes:projectile_damage",
+  "amount": 0.12,
+  "operation": "add_multiplied_base"
+}

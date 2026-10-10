@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Поиск припасов"
+  },
+  "description": {
+    "text": "+1 удачи."
+  },
+  "attribute": "minecraft:generic.luck",
+  "amount": 1,
+  "operation": "add_value"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:attribute_modifier",
+  "name": {
+    "text": "Ограниченная огневая подготовка"
+  },
+  "description": {
+    "text": "-10% урона снарядов."
+  },
+  "attribute": "apothic_attributes:projectile_damage",
+  "amount": -0.1,
+  "operation": "add_multiplied_base"
+}

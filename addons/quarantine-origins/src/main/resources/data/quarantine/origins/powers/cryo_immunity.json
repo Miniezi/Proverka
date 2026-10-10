@@ -1,0 +1,12 @@
+{
+  "type": "neoorigins:effect_immunity",
+  "name": {
+    "text": "Холодная кровь"
+  },
+  "description": {
+    "text": "Обморожение Spore не применяется."
+  },
+  "effects": [
+    "spore:frostbite"
+  ]
+}
