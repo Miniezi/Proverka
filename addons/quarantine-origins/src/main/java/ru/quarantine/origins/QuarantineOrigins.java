@@ -36,6 +36,7 @@ public final class QuarantineOrigins {
         }
         if (powers!=22) throw new IllegalStateException("Wrong Quarantine power count: "+powers);
         System.out.println("QUARANTINE_DATA_VALIDATION_OK origins=7 powers=22");
+        event.getServer().halt(false);
     }
     public static boolean isInfected(Player player) {
         return player.getData(OriginAttachments.originData()).getOrigins().containsValue(INFECTED);

@@ -14,7 +14,9 @@ with (P/'server-smoke.log').open('w') as log:
    continue
   log.write(line);log.flush()
   if 'Done (' in line and not ready:
-   ready=True;p.stdin.write('stop\n');p.stdin.flush()
+   ready=True
+   try:p.stdin.write('stop\n');p.stdin.flush()
+   except BrokenPipeError:pass
  if p.poll() is None:
   try:p.wait(timeout=35)
   except subprocess.TimeoutExpired:p.kill();p.wait()

@@ -8,5 +8,5 @@
   },
   "direction": "in",
   "multiplier": 1.35,
-  "damage_type": "fire"
+  "damage_type": "#minecraft:is_fire"
 }

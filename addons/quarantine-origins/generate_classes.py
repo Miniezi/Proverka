@@ -19,7 +19,7 @@ origin('infected','Носитель мицелия','Симбиоз I посто
 origin('cryogenic','Криостазник','Адаптирован к криогенной обработке: иммунитет к обморожению Spore, вдвое меньше урона замерзания. Хрупкие ткани: -1 сердце и +35% урона огня.','minecraft:blue_ice',[
  power('cryo_immunity','Холодная кровь','Обморожение Spore не применяется.','effect_immunity',effects=['spore:frostbite']),
  dmg('cryo_freeze','Криоадаптация','Вдвое меньше урона замерзания.',.5,'freeze'),
- dmg('cryo_fire','Термошок','На 35% больше урона огня.',1.35,'fire'),
+ dmg('cryo_fire','Термошок','На 35% больше урона огня.',1.35,'#minecraft:is_fire'),
  attr('cryo_health','Цена криостаза','-2 здоровья.','minecraft:generic.max_health',-2)])
 origin('engineer','Монтажник убежища','Обслуживает Mekanism и Immersive Engineering: +0.75 блока взаимодействия, +15% скорости добычи и +1 твёрдости брони. -15% базового урона ближнего боя. Машины сами по себе быстрее не работают.','minecraft:repeater',[
  attr('engineer_reach','Монтажная хватка','+0.75 блока взаимодействия с блоками.','minecraft:player.block_interaction_range',.75),
