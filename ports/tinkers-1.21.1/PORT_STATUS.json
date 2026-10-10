@@ -19,7 +19,10 @@
     "neoforge": "21.1.238",
     "java": 21
   },
-  "build_attempt": "Gradle 9.2.1 starts with Java 21; environment truststore configured; dependency resolution in progress",
+  "build_attempt": "Gradle dependency resolution succeeded. Local createMinecraftArtifacts failed in NeoFormEngine: ProcessHandle.current().info().command() is empty in this environment.",
   "next": "Obtain working Gradle/Java21 build environment; compile upstream Mantle before adapting TConstruct",
-  "resource_location_calls_migrated": 116
+  "resource_location_calls_migrated": 116,
+  "ci_run": "https://github.com/Miniezi/Proverka/actions/runs/38038491370",
+  "ci_scope": "Official pinned Mantle baseline only; not TConstruct",
+  "patch_validation": "git apply --check and apply succeed against uploaded original; all 1988 Java files match working tree"
 }
