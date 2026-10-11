@@ -6,21 +6,27 @@ def migrate(root):
  replacements={
   'net.neoforged.neoforge.common.crafting.conditions.':'net.neoforged.neoforge.common.conditions.',
   'ToolActions':'ItemAbilities','ToolAction':'ItemAbility',
-  'ForgeFlowingFluid':'BaseFlowingFluid','ForgeBiomeModifiers':'NeoForgeBiomeModifiers',
+  'ForgeFlowingFluid':'BaseFlowingFluid','ForgeBiomeModifiers':'BiomeModifiers',
   'ForgeMod':'NeoForgeMod',
   'mezz.jei.api.forge.':'mezz.jei.api.neoforge.',
   'slimeknights.mantle.registration.deferred.SynchronizedDeferredRegister':'net.neoforged.neoforge.registries.DeferredRegister',
   'SynchronizedDeferredRegister':'DeferredRegister',
   'net.neoforged.neoforge.registries.RegistryObject':'net.neoforged.neoforge.registries.DeferredHolder',
-  'net.minecraft.advancements.FrameType':'net.minecraft.advancements.AdvancementType',
-  'FrameType':'AdvancementType',
  }
  vanilla={'BLOCKS':'BLOCK','ITEMS':'ITEM','ENTITY_TYPES':'ENTITY_TYPE','FLUIDS':'FLUID','POTIONS':'POTION','FEATURES':'FEATURE','SOUND_EVENTS':'SOUND_EVENT','PARTICLE_TYPES':'PARTICLE_TYPE','RECIPE_SERIALIZERS':'RECIPE_SERIALIZER','BLOCK_ENTITY_TYPES':'BLOCK_ENTITY_TYPE','MOB_EFFECTS':'MOB_EFFECT'}
  counts={};changed=[]
  for f in (root/'src/main/java').rglob('*.java'):
   before=f.read_text();s=before
   for old,new in replacements.items():
-   counts[old]=counts.get(old,0)+s.count(old);s=s.replace(old,new)
+   pattern = re.escape(old) if '.' in old else r'\b' + re.escape(old) + r'\b'
+   s,n = re.subn(pattern, lambda _: new, s)
+   counts[old]=counts.get(old,0)+n
+  if 'import net.minecraft.advancements.FrameType;' in s:
+   s=re.sub(r'\bFrameType\b', 'AdvancementType', s)
+  if 'import slimeknights.mantle.data.loadable.common.IngredientLoadable;' in s:
+   s=s.replace('IngredientLoadable.DISALLOW_EMPTY', 'slimeknights.mantle.data.loadable.Loadables.ITEM_INGREDIENT_NONEMPTY')
+   s=s.replace('IngredientLoadable.ALLOW_EMPTY', 'slimeknights.mantle.data.loadable.Loadables.ITEM_INGREDIENT')
+   s=s.replace('import slimeknights.mantle.data.loadable.common.IngredientLoadable;\n', '')
   s=re.sub(r'\bRegistryObject\s*<','DeferredHolder<?, ',s)
   s=s.replace('import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;\n','')
   s=s.replace('FMLJavaModLoadingContext.get().getModEventBus()','slimeknights.tconstruct.TConstruct.getModEventBus()')

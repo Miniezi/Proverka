@@ -45,4 +45,9 @@ for override in (P/'overrides').rglob('*'):
  if override.is_file():
   target=source/override.relative_to(P/'overrides');target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(override,target)
 (ROOT/'migration-stats.json').write_text(json.dumps({'upstream':SHA,'resource_location_calls':116,'replacements':counts,'java_files':len(list(source.rglob('*.java')))},indent=2))
+# Fail preparation if a rename accidentally changes a project-owned public type.
+for java in (source/'src/main/java').rglob('*.java'):
+ for name in re.findall(r'^public\s+(?:(?:abstract|final|sealed)\s+)*(?:class|interface|enum|record)\s+(\w+)', java.read_text(), re.M):
+  if name != java.stem:
+   raise RuntimeError(f"Public type {name} no longer matches {java}")
 print(source)
