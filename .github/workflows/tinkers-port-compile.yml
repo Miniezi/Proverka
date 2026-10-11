@@ -1,0 +1,49 @@
+name: Tinkers port - compile migration
+on:
+  push:
+    branches: [tinkers-1.21.1-port]
+    paths: ['ports/tinkers-1.21.1/**', '.github/workflows/tinkers-port-compile.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: SlimeKnights/Mantle
+          ref: 999fdfc4e3c7df88f595f31e4c52171c2e8896b8
+          path: ports/mantle-build
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.2.1'
+          cache-read-only: false
+      - name: Build pinned Mantle
+        run: bash gradlew jar --no-daemon --console=plain
+        working-directory: ports/mantle-build
+      - name: Prepare TConstruct migration
+        run: python prepare_tconstruct.py
+        working-directory: ports/tinkers-1.21.1
+      - name: Compile complete TConstruct source set
+        shell: bash
+        run: |
+          set -o pipefail
+          gradle compileJava --no-daemon --console=plain 2>&1 | tee ../../tconstruct-compile.log
+        working-directory: ports/tinkers-1.21.1/work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tconstruct-migration-diagnostics
+          path: |
+            ports/tinkers-1.21.1/tconstruct-compile.log
+            ports/tinkers-1.21.1/work/migration-stats.json
+            ports/mantle-build/build/libs/*.jar
+          if-no-files-found: warn
