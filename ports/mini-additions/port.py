@@ -7,6 +7,7 @@ PIN=json.loads((P/'upstream.json').read_text())
 archive=P/'upstream.jar'
 if not archive.exists():urllib.request.urlretrieve(PIN['url'],archive)
 assert hashlib.sha512(archive.read_bytes()).hexdigest()==PIN['hashes']['sha512']
+alternative_tags={}
 OUT=P/'generated';shutil.rmtree(OUT,ignore_errors=True);OUT.mkdir()
 renames={'advancements':'advancement','recipes':'recipe','loot_tables':'loot_table','functions':'function','structures':'structure','items':'item','blocks':'block','entity_types':'entity_type','fluids':'fluid','game_events':'game_event'}
 def attr(s):
@@ -91,13 +92,19 @@ def jsonfix(d):
  if str(d.get('type','')).startswith(('minecraft:crafting_', 'minecraft:smelting', 'minecraft:blasting', 'minecraft:campfire_cooking', 'minecraft:smoking', 'create:', 'farmersdelight:')):
   for key in ['processingTime','heatRequirement','transitionalItem']:
    if key in d:d[{'processingTime':'processing_time','heatRequirement':'heat_requirement','transitionalItem':'transitional_item'}[key]]=d.pop(key)
-  for key in ['result','results','transitional_item']:
+  for key in ['result','results','transitional_item','container']:
    if key not in d:continue
    if isinstance(d[key],str):d[key]={'id':d[key]}
    for v in d[key] if isinstance(d[key],list) else [d[key]]:
     if isinstance(v,dict):
      if 'item' in v and isinstance(v['item'],str):v['id']=v.pop('item')
      if 'fluid' in v:v['id']=v.pop('fluid')
+  if 'ingredients' in d:
+   for i,ingredient in enumerate(d['ingredients']):
+    if isinstance(ingredient,list):
+     ident='alternatives/'+hashlib.sha256(json.dumps(ingredient,sort_keys=True).encode()).hexdigest()[:16]
+     alternative_tags[ident]=[v['item'] if 'item' in v else '#'+v['tag'] for v in ingredient]
+     d['ingredients'][i]={'tag':'sporeminiadditions:'+ident}
   if str(d.get('type','')).startswith('create:'):
    for v in d.get('ingredients',[]):
     if isinstance(v,dict) and 'fluid' in v:v['type']='neoforge:single';v.pop('nbt',None)
@@ -166,6 +173,13 @@ with zipfile.ZipFile(archive) as z:
   path.write_bytes(raw)
 for tag,value in [('maid','touhou_little_maid:maid'),('wither_storm','witherstormmod:wither_storm')]:
  path=OUT/'data/sporeminiadditions/tags/entity_type'/f'{tag}.json';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps({'values':[{'id':value,'required':False}]}))
+for ident,values in alternative_tags.items():
+ path=OUT/'data/sporeminiadditions/tags/item'/f'{ident}.json';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps({'values':[{'id':v,'required':False} for v in values]}))
+expected=[]
+for path in OUT.glob('data/*/recipe/**/*.json'):
+ namespace=path.relative_to(OUT).parts[1];name=path.relative_to(OUT/'data'/namespace/'recipe').with_suffix('').as_posix()
+ expected.append((namespace if namespace in ['create','farmersdelight'] else 'spore')+'|'+namespace+':'+name)
+check=P/'harness/src/main/resources/expected-recipes.txt';check.parent.mkdir(parents=True,exist_ok=True);check.write_text('\n'.join(sorted(expected)))
 # Preserve structure DataVersion=3465: Minecraft's official data fixer migrates embedded entities and inventory.
 (OUT/'pack.mcmeta').write_text(json.dumps({'pack':{'pack_format':48,'description':'MINI additions 1.4.0 — unofficial NeoForge 1.21.1 port; original by Minigato668'}}))
 (OUT/'META-INF').mkdir()

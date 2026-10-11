@@ -14,6 +14,17 @@ public class Validate {
    if(server.getRecipeManager().byKey(ResourceLocation.parse("inqui:"+recipe)).isEmpty())throw new IllegalStateException("Missing recipe "+recipe);
   for(String name:new String[]{"root","c_ice_sword","c_ice_bow","c_mimicry1","c_m_chest","a_1","a_2","a_3","a_4"})
    if(server.getAdvancements().get(ResourceLocation.parse("inqui:"+name))==null)throw new IllegalStateException("Missing advancement "+name);
+  try(var reader=new java.io.BufferedReader(new java.io.InputStreamReader(getClass().getResourceAsStream("/expected-recipes.txt"),java.nio.charset.StandardCharsets.UTF_8))) {
+   int checked=0;
+   for(String line:reader.lines().toList()){
+    String[] pair=line.split("\\|",2);
+    if(net.neoforged.fml.ModList.get().isLoaded(pair[0])){
+     if(server.getRecipeManager().byKey(ResourceLocation.parse(pair[1])).isEmpty())throw new IllegalStateException("Port recipe not loaded: "+pair[1]);
+     checked++;
+    }
+   }
+   System.out.println("MINI_RECIPES_OK count="+checked);
+  }catch(java.io.IOException ex){throw new RuntimeException(ex);}
   var template=server.getStructureManager().get(ResourceLocation.parse("inqui:ff_1")).orElseThrow();
   var saved=template.save(new net.minecraft.nbt.CompoundTag());
   var entityTag=saved.getList("entities",10).getCompound(0).getCompound("nbt");
