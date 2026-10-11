@@ -1,0 +1,16 @@
+plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.141' }
+java.toolchain.languageVersion=JavaLanguageVersion.of(21)
+neoForge {
+ version='21.1.238'
+ runs { server { server(); programArgument '--nogui'; gameDirectory=file('run') } }
+ mods { tconstruct { sourceSet sourceSets.main } }
+}
+// Explicit test fixture: this does NOT replace the full-source compile job.
+sourceSets.main.java {
+ srcDir '../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/java'
+ include 'ru/tconstructport/DisplaySmoke.java'
+ include 'slimeknights/tconstruct/library/TinkerItemDisplays.java'
+}
+tasks.named('processResources') {
+ from('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/META-INF/enumextensions.json') { into 'META-INF' }
+}

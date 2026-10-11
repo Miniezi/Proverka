@@ -1,0 +1,8 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="tconstruct"
+version="0.0.0-test-fixture"
+displayName="TConstruct display migration TEST FIXTURE - not the mod"
+enumExtensions="META-INF/enumextensions.json"
