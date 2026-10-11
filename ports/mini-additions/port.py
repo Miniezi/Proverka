@@ -1,5 +1,5 @@
 """Reproducible MIT data port of Minigato668's MINI additions 1.4.0."""
-import json,re,zipfile,hashlib,urllib.request,shutil,sys
+import json,re,zipfile,hashlib,urllib.request,shutil,sys,io,gzip,uuid
 from pathlib import Path
 import nbtlib as n
 P=Path(__file__).resolve().parent
@@ -11,12 +11,13 @@ OUT=P/'generated';shutil.rmtree(OUT,ignore_errors=True);OUT.mkdir()
 renames={'advancements':'advancement','recipes':'recipe','loot_tables':'loot_table','functions':'function','structures':'structure','items':'item','blocks':'block','entity_types':'entity_type','fluids':'fluid','game_events':'game_event'}
 def attr(s):
  s=str(s)
- return {'forge:step_height_addition':'minecraft:generic.step_height','forge:swim_speed':'neoforge:swim_speed'}.get(s,s if ':' in s else 'minecraft:'+s)
+ return {'forge:step_height_addition':'minecraft:generic.step_height','forge:swim_speed':'neoforge:swim_speed','forge:entity_gravity':'minecraft:generic.gravity'}.get(s,s if ':' in s else 'minecraft:'+s)
 def components(t,item='minecraft:item_frame'):
  t=n.Compound(t);c=n.Compound()
  d=t.pop('display',{})
  if 'Name' in d:c['minecraft:custom_name']=d['Name']
  if 'Lore' in d:c['minecraft:lore']=d['Lore']
+ if 'color' in d:c['minecraft:dyed_color']=n.Compound({'rgb':n.Int(d['color'])})
  for old,new in [('Enchantments','enchantments'),('StoredEnchantments','stored_enchantments')]:
   if old in t:c['minecraft:'+new]=n.Compound({'levels':n.Compound({str(e['id']):n.Int(e['lvl']) for e in t.pop(old)})})
  if 'AttributeModifiers' in t:
@@ -87,7 +88,7 @@ def jsonfix(d):
   return d.replace('forge:tools/knives','c:tools/knife').replace('forge:shears','c:tools/shear').replace('forge:dough','c:doughs').replace('farmersdelight:tool_action','farmersdelight:item_ability')
  if not isinstance(d,dict):return d
  d={k:jsonfix(v) for k,v in d.items()}
- if str(d.get('type','')).startswith(('minecraft:crafting_', 'minecraft:smelting', 'minecraft:blasting', 'create:', 'farmersdelight:')):
+ if str(d.get('type','')).startswith(('minecraft:crafting_', 'minecraft:smelting', 'minecraft:blasting', 'minecraft:campfire_cooking', 'minecraft:smoking', 'create:', 'farmersdelight:')):
   for key in ['processingTime','heatRequirement','transitionalItem']:
    if key in d:d[{'processingTime':'processing_time','heatRequirement':'heat_requirement','transitionalItem':'transitional_item'}[key]]=d.pop(key)
   for key in ['result','results','transitional_item']:
@@ -118,20 +119,53 @@ with zipfile.ZipFile(archive) as z:
   if name.startswith('data/'):
    if len(parts)>2:parts[2]=renames.get(parts[2],parts[2])
    if len(parts)>3 and parts[2]=='tags':parts[3]=renames.get(parts[3],parts[3])
+  parts=[part.lower() for part in parts]
   path=OUT.joinpath(*parts);path.parent.mkdir(parents=True,exist_ok=True);raw=z.read(name)
   if name.endswith('.mcfunction'):
    raw=('\n'.join(command(l) for l in raw.decode().splitlines())+'\n').encode()
-   if parts[-1]=='wsp.mcfunction':raw=b'# Wither Storm integration requires its 1.21.1 port; core does not depend on it.\n'
+   if parts[-1]=='wsp.mcfunction':raw=('$witherstormmod ultimateTarget set $(storm) @e[type=spore:proto,limit=1,sort=nearest]\nexecute as @e[type=#sporeminiadditions:wither_storm] at @s run effect give @e[distance=..10] minecraft:wither 30 4 true\n$execute as @e[type=#sporeminiadditions:wither_storm] at @s run effect give @e[distance=..50] $(effect) infinite 0 true\n').encode()
+   if parts[-1]=='proto_count3.mcfunction':raw=raw.replace(b'execute as @e[type=spore:proto] run function inqui:wsp',b'execute if entity @e[type=#sporeminiadditions:wither_storm] as @e[type=spore:proto] run function inqui:wsp {storm:"@w",effect:"witherstormmod:wither_sickness"}')
+   raw=raw.replace(b'type=touhou_little_maid:maid',b'type=#sporeminiadditions:maid')
   elif name.endswith('.json'):
    d=jsonfix(json.loads(raw))
    if parts[2]=='advancement' and 'display' in d:
     ic=d['display']['icon']
     if 'item' in ic:ic['id']=ic.pop('item')
+   if parts[2]=='tags':
+    d['values']=[{'id':v,'required':False} if isinstance(v,str) and v.lstrip('#').split(':')[0] not in ['minecraft','spore','inqui','sporeminiadditions'] else v for v in d.get('values',[])]
    # Missing optional mods must not invalidate base recipes/loot tables.
    if parts[1] in ['create','farmersdelight','incendium','witherstormmod'] and parts[2] in ['recipe','loot_table','loot_modifiers']:
     d['neoforge:conditions']=[{'type':'neoforge:mod_loaded','modid':parts[1]}]
    raw=(json.dumps(d,ensure_ascii=False,indent=2)+'\n').encode()
+  if name.endswith('.nbt') and '/inqui/' in name:
+   structure=n.File.parse(io.BytesIO(gzip.decompress(raw)))
+   changed=False
+   for entry in structure.get('entities',[]):
+    e=entry['nbt']
+    # Vanilla DFU has no schema for modded entity IDs. Migrate these explicitly.
+    if not str(e.get('id','')).startswith('spore:'):continue
+    changed=True;entity(e)
+    if 'ActiveEffects' in e:
+     effects=[]
+     for old in e.pop('ActiveEffects'):
+      assert 'forge:id' in old, 'Unresolved numeric effect ID'
+      new=n.Compound({'id':old['forge:id']})
+      for before,after in [('Amplifier','amplifier'),('Duration','duration'),('Ambient','ambient'),('ShowParticles','show_particles'),('ShowIcon','show_icon')]:
+       if before in old:new[after]=old[before]
+      effects.append(new)
+     e['active_effects']=n.List[n.Compound](effects)
+    if 'Attributes' in e:e['Attributes']=n.List[n.Compound]([a for a in e['Attributes'] if not (str(a.get('Name'))=='forge:step_height_addition' and float(a.get('Base',0))==0 and not a.get('Modifiers'))])
+    for attribute in e.get('Attributes',[]):
+     attribute['Name']=n.String(attr(attribute['Name']))
+     for modifier in attribute.get('Modifiers',[]):
+      old=n.Compound(modifier);modifier.clear()
+      modifier['id']=n.String('sporeminiadditions:legacy_'+uuid.UUID(bytes=b''.join((int(v)&0xffffffff).to_bytes(4,'big') for v in old['UUID'])).hex)
+      modifier['amount']=old['Amount'];modifier['operation']=n.String(['add_value','add_multiplied_base','add_multiplied_total'][int(old['Operation'])])
+   if changed:
+    stream=io.BytesIO();structure.write(stream);raw=gzip.compress(stream.getvalue(),mtime=0)
   path.write_bytes(raw)
+for tag,value in [('maid','touhou_little_maid:maid'),('wither_storm','witherstormmod:wither_storm')]:
+ path=OUT/'data/sporeminiadditions/tags/entity_type'/f'{tag}.json';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps({'values':[{'id':value,'required':False}]}))
 # Preserve structure DataVersion=3465: Minecraft's official data fixer migrates embedded entities and inventory.
 (OUT/'pack.mcmeta').write_text(json.dumps({'pack':{'pack_format':48,'description':'MINI additions 1.4.0 — unofficial NeoForge 1.21.1 port; original by Minigato668'}}))
 (OUT/'META-INF').mkdir()

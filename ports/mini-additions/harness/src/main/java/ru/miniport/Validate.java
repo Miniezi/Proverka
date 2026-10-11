@@ -14,6 +14,13 @@ public class Validate {
    if(server.getRecipeManager().byKey(ResourceLocation.parse("inqui:"+recipe)).isEmpty())throw new IllegalStateException("Missing recipe "+recipe);
   for(String name:new String[]{"root","c_ice_sword","c_ice_bow","c_mimicry1","c_m_chest","a_1","a_2","a_3","a_4"})
    if(server.getAdvancements().get(ResourceLocation.parse("inqui:"+name))==null)throw new IllegalStateException("Missing advancement "+name);
+  var template=server.getStructureManager().get(ResourceLocation.parse("inqui:ff_1")).orElseThrow();
+  var saved=template.save(new net.minecraft.nbt.CompoundTag());
+  var entityTag=saved.getList("entities",10).getCompound(0).getCompound("nbt");
+  var entity=net.minecraft.world.entity.EntityType.loadEntityRecursive(entityTag,server.overworld(),e->e);
+  if(!(entity instanceof net.minecraft.world.entity.LivingEntity living) || !living.hasEffect(net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE))
+   throw new IllegalStateException("Structure guardian lost permanent resistance during migration");
+  System.out.println("MINI_STRUCTURE_ENTITY_OK "+entity.getType());
   System.out.println("MINI_PORT_VALIDATION_OK functions="+functions);
   server.halt(false);
  }

@@ -1,6 +1,6 @@
 from pathlib import Path
 import subprocess,time,threading,queue,sys
-P=Path(__file__).resolve().parent;(P/'run').mkdir(exist_ok=True);(P/'run/eula.txt').write_text('eula=true\n');(P/'run/server.properties').write_text('online-mode=false\nlevel-type=minecraft:flat\nview-distance=2\nsimulation-distance=2\n')
+P=Path(__file__).resolve().parent;(P/'run').mkdir(exist_ok=True);(P/'run/eula.txt').write_text('eula=true\n');(P/'run/server.properties').write_text('online-mode=false\nlevel-type=minecraft:flat\nview-distance=2\nsimulation-distance=2\ngenerator-settings={"layers":[{"block":"minecraft:bedrock","height":1},{"block":"minecraft:dirt","height":2},{"block":"minecraft:grass_block","height":1}],"biome":"minecraft:plains"}\n')
 p=subprocess.Popen(['gradle','runServer','--no-daemon','--console=plain'],cwd=P,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)
 q=queue.Queue()
 def read():
