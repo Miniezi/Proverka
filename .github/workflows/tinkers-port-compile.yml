@@ -32,6 +32,9 @@ jobs:
       - name: Prepare TConstruct migration
         run: python prepare_tconstruct.py
         working-directory: ports/tinkers-1.21.1
+      - name: Download pinned compile-only compatibility APIs
+        run: python download_compat.py
+        working-directory: ports/tinkers-1.21.1
       - name: Compile complete TConstruct source set
         shell: bash
         run: |
@@ -44,6 +47,6 @@ jobs:
           name: tconstruct-migration-diagnostics
           path: |
             ports/tinkers-1.21.1/tconstruct-compile.log
-            ports/tinkers-1.21.1/work/migration-stats.json
+            ports/tinkers-1.21.1/work/*migration-stats.json
             ports/mantle-build/build/libs/*.jar
           if-no-files-found: warn

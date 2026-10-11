@@ -1,0 +1,27 @@
+{
+  "immersiveengineering": {
+    "url": "https://cdn.modrinth.com/data/tIm2nV03/versions/uNRARSH2/ImmersiveEngineering-1.21.1-12.4.2-194.jar",
+    "sha512": "862523e84747a8b7eaa65f9b3c337fa832ef9efd0545c27f68e350e01f482c7a1242d0e4bdc2caff3d7eb033508b43a353fcd7150c9b544d0c05765ca2a551b3",
+    "version": "12.4.2-194"
+  },
+  "balm": {
+    "url": "https://cdn.modrinth.com/data/MBAkmtvl/versions/CquiaiDj/balm-neoforge-1.21.1-21.0.66.jar",
+    "sha512": "0262d51c0e931d10c3dccefb3b5426a1622edecab243d4b15dce07a23309641370184776739765067d292d808242d088c6fbf249762689824eff9ba42c2d1e63",
+    "version": "21.0.66+neoforge-1.21.1"
+  },
+  "crafting-tweaks": {
+    "url": "https://cdn.modrinth.com/data/DMu0oBKf/versions/IhkQpEve/craftingtweaks-neoforge-1.21.1-21.1.11.jar",
+    "sha512": "e1869211c2e037bdaadbe9b9f592d4ccfb7ab94d7ba6803629d6525945edc05db973db6bd7568f2af4550ae4616ae6cbb832e1684412ba439d37f523b564d9a7",
+    "version": "21.1.11+neoforge-1.21.1"
+  },
+  "mmmmmmmmmmmm": {
+    "url": "https://cdn.modrinth.com/data/Adega8YN/versions/DldwQTMc/dummmmmmy-1.21-2.1.2-neoforge.jar",
+    "sha512": "822fb8cfb22fb64893f3ac9000e6c68f49ffdc2816161bca7b06db6b51d0e6839f2a20ce36cb36518519ec01a04f4f852fe8c253da3020836f99f8bf4fa55609",
+    "version": "1.21-2.1.2"
+  },
+  "jsonthings": {
+    "url": "https://www.dogforce-games.com/maven/dev/gigaherz/jsonthings/JsonThings-1.21.1/0.13.7/JsonThings-1.21.1-0.13.7.jar",
+    "sha512": "a697f3216587d39e0796909360e68848c47ea0dc97ae43d9411be9901e6635544d7fe65ed57c65b3518a55ec00fbe29fa8aed19bbb37f911ded97ca0a78d7ecd",
+    "version": "0.13.7"
+  }
+}
