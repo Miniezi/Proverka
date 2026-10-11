@@ -1,0 +1,7 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="mini_port_validation"
+version="1.0"
+displayName="MINI port validation (CI only)"
