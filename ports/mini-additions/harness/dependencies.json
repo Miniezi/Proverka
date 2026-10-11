@@ -2,5 +2,9 @@
   "spore.jar": {
     "url": "https://cdn.modrinth.com/data/X661i40C/versions/DwE3w8IX/spore_1.21.1_2.2.0j_neo.jar",
     "sha512": "e9830e70d02aeea60eaf0a0484ca153bb8e5d82665142a9b2bf7130850f083dad6e5f30f10a78e3191819ff093108c07664afaf6625a5e1d3f514c9f67fdd15b"
+  },
+  "farmersdelight.jar": {
+    "url": "https://cdn.modrinth.com/data/R2OftAxM/versions/XTVZDOol/FarmersDelight-1.21.1-1.3.4.jar",
+    "sha512": "1f6f8796469f747cff36f477b4f589a3d69613882399f9ee7f86db36c7bca9aa4828731f43db15dc6c7f5a4c1bbe3d4092a232e8cef010b09cec0581848fda90"
   }
 }

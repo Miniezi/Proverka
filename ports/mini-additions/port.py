@@ -83,8 +83,26 @@ def command(line):
 
 def jsonfix(d):
  if isinstance(d,list):return [jsonfix(x) for x in d]
+ if isinstance(d,str):
+  return d.replace('forge:tools/knives','c:tools/knife').replace('forge:shears','c:tools/shear').replace('forge:dough','c:doughs').replace('farmersdelight:tool_action','farmersdelight:item_ability')
  if not isinstance(d,dict):return d
  d={k:jsonfix(v) for k,v in d.items()}
+ if str(d.get('type','')).startswith(('minecraft:crafting_', 'minecraft:smelting', 'minecraft:blasting', 'create:', 'farmersdelight:')):
+  for key in ['processingTime','heatRequirement','transitionalItem']:
+   if key in d:d[{'processingTime':'processing_time','heatRequirement':'heat_requirement','transitionalItem':'transitional_item'}[key]]=d.pop(key)
+  for key in ['result','results','transitional_item']:
+   if key not in d:continue
+   if isinstance(d[key],str):d[key]={'id':d[key]}
+   for v in d[key] if isinstance(d[key],list) else [d[key]]:
+    if isinstance(v,dict):
+     if 'item' in v and isinstance(v['item'],str):v['id']=v.pop('item')
+     if 'fluid' in v:v['id']=v.pop('fluid')
+  if str(d.get('type','')).startswith('create:'):
+   for v in d.get('ingredients',[]):
+    if isinstance(v,dict) and 'fluid' in v:v['type']='neoforge:single';v.pop('nbt',None)
+  if d.get('type')=='farmersdelight:cutting':
+   d['result']=[{'item':{k:v for k,v in item.items() if k!='chance'},**({'chance':item['chance']} if 'chance' in item else {})} for item in d['result']]
+   if isinstance(d.get('sound'),str):d['sound']={'sound_id':d['sound']}
  if d.get('function')=='minecraft:set_nbt':
   c=components(n.parse_nbt(d.pop('tag')));d['function']='minecraft:set_components';d['components']=json.loads(json.dumps(c.unpack(),default=int))
  if d.get('condition')=='minecraft:entity_properties':
@@ -109,12 +127,6 @@ with zipfile.ZipFile(archive) as z:
    if parts[2]=='advancement' and 'display' in d:
     ic=d['display']['icon']
     if 'item' in ic:ic['id']=ic.pop('item')
-   if parts[2]=='recipe':
-    for key in ['result','results']:
-     if key not in d:continue
-     if isinstance(d[key],str):d[key]={'id':d[key]}
-     for v in d[key] if isinstance(d[key],list) else [d[key]]:
-      if isinstance(v,dict) and 'item' in v:v['id']=v.pop('item')
    # Missing optional mods must not invalidate base recipes/loot tables.
    if parts[1] in ['create','farmersdelight','incendium','witherstormmod'] and parts[2] in ['recipe','loot_table','loot_modifiers']:
     d['neoforge:conditions']=[{'type':'neoforge:mod_loaded','modid':parts[1]}]

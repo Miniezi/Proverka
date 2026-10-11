@@ -28,11 +28,17 @@ jobs:
         working-directory: ports/mini-additions/harness
       - run: python smoke_server.py
         working-directory: ports/mini-additions/harness
+      - run: |
+          mv server-smoke.log server-smoke-base.log
+          python smoke_server.py
+        env:
+          MINI_COMPAT: 'true'
+        working-directory: ports/mini-additions/harness
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: mini-additions-1.21.1-results
           path: |
             ports/mini-additions/dist/*.jar
-            ports/mini-additions/harness/server-smoke.log
+            ports/mini-additions/harness/server-smoke*.log
             ports/mini-additions/harness/run/logs/latest.log

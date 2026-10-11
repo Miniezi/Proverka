@@ -2,3 +2,5 @@ plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.141' }
 java.toolchain.languageVersion=JavaLanguageVersion.of(21)
 neoForge { version='21.1.256'; runs { server { server(); programArgument '--nogui'; gameDirectory=file('run') } }; mods { mini_port_validation { sourceSet sourceSets.main } } }
 dependencies { runtimeOnly files('libs/spore.jar','../dist/spore_mini_additions-1.4.0-port.1-neoforge-1.21.1.jar') }
+
+if (System.getenv('MINI_COMPAT')=='true') { dependencies { runtimeOnly files('libs/farmersdelight.jar') } }

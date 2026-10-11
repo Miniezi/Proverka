@@ -8,7 +8,7 @@ public class Validate {
  public Validate(){NeoForge.EVENT_BUS.addListener(this::validate);}
  private void validate(ServerStartedEvent event){
   var server=event.getServer();
-  long functions=server.getFunctions().getFunctionNames().stream().filter(id->id.getNamespace().equals("inqui")).count();
+  long functions=java.util.stream.StreamSupport.stream(server.getFunctions().getFunctionNames().spliterator(),false).filter(id->id.getNamespace().equals("inqui")).count();
   if(functions!=69)throw new IllegalStateException("Expected 69 functions, loaded "+functions);
   for(String recipe:new String[]{"ice_sword","ice_bow","mimicry1","mimicry2","mimicry3","ice_nuke","nuke","m_chest","m_feet","m_helmet","m_leegs","cleaner"})
    if(server.getRecipeManager().byKey(ResourceLocation.parse("inqui:"+recipe)).isEmpty())throw new IllegalStateException("Missing recipe "+recipe);
