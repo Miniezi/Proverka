@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.TinkerItemDisplays;
 /** Tests migrated enum declarations and cast holder semantics. Never distribute this fixture as TConstruct. */
 @Mod("tconstruct")
 public final class DisplaySmoke {
-  public DisplaySmoke() { NeoForge.EVENT_BUS.addListener(this::validate); }
+  public DisplaySmoke(net.neoforged.bus.api.IEventBus bus) { PotionSmoke.init(bus); NeoForge.EVENT_BUS.addListener(this::validate); }
   private void validate(ServerStartedEvent event) {
     ItemDisplayContext[] contexts={TinkerItemDisplays.MELTER,TinkerItemDisplays.TABLE,TinkerItemDisplays.CASTING_TABLE,TinkerItemDisplays.CASTING_BASIN,TinkerItemDisplays.FLUID_CANNON,TinkerItemDisplays.THROWN};
     String[] names={"melter","table","casting_table","casting_basin","fluid_cannon","thrown"};
@@ -38,6 +38,7 @@ public final class DisplaySmoke {
     }
     System.out.println("TCONSTRUCT_CAST_MIGRATION_OK constructors=2 variants=3 tags=2");
     System.out.println("TCONSTRUCT_DISPLAY_MIGRATION_OK contexts=6 unique_ids=6 fallbacks=6");
+    PotionSmoke.validate(event);
     event.getServer().halt(false);
   }
 }
