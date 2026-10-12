@@ -4,6 +4,16 @@ import re,json
 
 def migrate(root):
  replacements={
+  'slimeknights.mantle.item.AbstractBookItem':'slimeknights.mantle.item.book.AbstractBookItem',
+  'slimeknights.mantle.data.loadable.common.RegistryLoadable':'slimeknights.mantle.data.loadable.registry.RegistryLoadable',
+  'slimeknights.mantle.loot.AbstractLootTableInjectionProvider':'slimeknights.mantle.loot.injection.AbstractLootTableInjectionProvider',
+  'slimeknights.mantle.loot.AddEntryLootModifier':'slimeknights.mantle.loot.modifier.AddEntryLootModifier',
+  'slimeknights.mantle.loot.LootTableInjection':'slimeknights.mantle.loot.injection.LootTableInjection',
+  'slimeknights.mantle.loot.ReplaceItemLootModifier':'slimeknights.mantle.loot.modifier.ReplaceItemLootModifier',
+  'slimeknights.mantle.loot.condition.ContainsItemModifierLootCondition':'slimeknights.mantle.loot.modifier.condition.ContainsItemModifierLootCondition',
+  'slimeknights.mantle.recipe.ingredient.FluidContainerIngredient':'slimeknights.mantle.recipe.ingredient.item.FluidContainerIngredient',
+  'slimeknights.mantle.recipe.ingredient.PotionDisplayIngredient':'slimeknights.mantle.recipe.ingredient.item.PotionDisplayIngredient',
+
   'ForgeHooksClient':'ClientHooks', 'ForgeHooks':'CommonHooks', 'ForgeEventFactory':'EventHooks',
   'slimeknights.mantle.item.TooltipItem':'slimeknights.mantle.item.tooltip.TooltipItem',
   'slimeknights.mantle.item.BlockTooltipItem':'slimeknights.mantle.item.tooltip.BlockTooltipItem',
