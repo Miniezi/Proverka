@@ -38,6 +38,8 @@ from migrate_attributes import migrate as migrate_attributes
 migrate_attributes(source)
 from migrate_holder_types import migrate as migrate_holder_types
 api_stats["holder_types"] = migrate_holder_types(source)
+from migrate_recipe_inputs import migrate as migrate_recipe_inputs
+api_stats["recipe_input_files"] = migrate_recipe_inputs(source)
 (ROOT/'api-migration-stats.json').write_text(json.dumps(api_stats,indent=2))
 shutil.copyfile(P/'tconstruct.build.gradle',source/'build.gradle')
 (source/'settings.gradle').write_text("pluginManagement { repositories { gradlePluginPortal(); maven { url='https://maven.neoforged.net/releases' } } }\nrootProject.name='TConstructNeoForgePort'\n")

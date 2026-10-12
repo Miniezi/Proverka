@@ -40,6 +40,7 @@ public final class DisplaySmoke {
     System.out.println("TCONSTRUCT_DISPLAY_MIGRATION_OK contexts=6 unique_ids=6 fallbacks=6");
     PotionSmoke.validate(event);
     EffectSmoke.validate(event);
+    RecipeInputSmoke.validate();
     event.getServer().halt(false);
   }
 }
