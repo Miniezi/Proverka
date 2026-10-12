@@ -7,15 +7,19 @@ def migrate(root):
   s=f.read_text();before=s
   if f.name == 'TinkerItemModelProvider.java':
    s=s.replace('cast.getId()', 'cast.id()')
+  if f.name == 'BlockDeferredRegisterExtension.java':
+   s=s.replace('DeferredHolder<?, Item> shard', 'DeferredHolder<Item, Item> shard')
   if 'import slimeknights.mantle.registration.object.ItemObject;' not in s:
+   if s!=before:f.write_text(s);count+=1
    continue
   if f.name in ('CastItemObject.java','GeodeItemObject.java'):
    s=s.replace('extends ItemObject<Item>', 'extends ItemObject<Item, Item>')
    s=s.replace('ItemObject<? extends Item> gold', 'net.neoforged.neoforge.registries.DeferredItem<? extends Item> gold')
+   s=s.replace('getHolder(BuiltInRegistries.', 'slimeknights.mantle.util.RegistryHelper.getHolder(BuiltInRegistries.')
    s=s.replace('super(gold);', 'super(gold.getKey(), gold);')
-   s=s.replace('super(BuiltInRegistries.ITEM, gold);', 'super(getHolder(BuiltInRegistries.ITEM, gold));')
-   s=s.replace('= getHolder(BuiltInRegistries.ITEM, sand);', '= getHolder(BuiltInRegistries.ITEM, sand)::value;')
-   s=s.replace('= getHolder(BuiltInRegistries.ITEM, redSand);', '= getHolder(BuiltInRegistries.ITEM, redSand)::value;')
+   s=s.replace('super(BuiltInRegistries.ITEM, gold);', 'super(slimeknights.mantle.util.RegistryHelper.getHolder(BuiltInRegistries.ITEM, gold));')
+   s=s.replace('= slimeknights.mantle.util.RegistryHelper.getHolder(BuiltInRegistries.ITEM, sand);', '= slimeknights.mantle.util.RegistryHelper.getHolder(BuiltInRegistries.ITEM, sand)::value;')
+   s=s.replace('= slimeknights.mantle.util.RegistryHelper.getHolder(BuiltInRegistries.ITEM, redSand);', '= slimeknights.mantle.util.RegistryHelper.getHolder(BuiltInRegistries.ITEM, redSand)::value;')
    s=s.replace('DeferredHolder<?, ? extends Item> shard', 'DeferredHolder<Item, ? extends Item> shard')
    s=s.replace('super(shard);', 'super(shard.getKey(), shard);')
   else:
