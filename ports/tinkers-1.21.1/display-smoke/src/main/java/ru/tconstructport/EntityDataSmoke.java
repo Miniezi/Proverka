@@ -17,6 +17,8 @@ final class EntityDataSmoke {
     var second=EntityType.PIG.create(level);
     if(first==null || second==null) fail("entity construction");
     if(first.hasData(TinkerDataCapability.CAPABILITY)) fail("attachment was not lazy");
+    var nonliving=EntityType.ITEM.create(level);
+    if(nonliving==null || TinkerDataCapability.findData(nonliving).isPresent() || nonliving.hasData(TinkerDataCapability.CAPABILITY)) fail("nonliving entity received modifier data");
     var data=TinkerDataCapability.getData(first);
     if(!first.hasData(TinkerDataCapability.CAPABILITY) || TinkerDataCapability.findData(first).orElseThrow()!=data) fail("unstable attachment");
     var id=ResourceLocation.fromNamespaceAndPath("tconstruct","fixture_data");

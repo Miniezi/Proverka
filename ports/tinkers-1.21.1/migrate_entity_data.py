@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -36,7 +37,7 @@ public class TinkerDataCapability {
   public static void register(IEventBus bus) { ATTACHMENTS.register(bus); }
 
   public static Holder getData(LivingEntity entity) { return entity.getData(CAPABILITY); }
-  public static Optional<Holder> findData(LivingEntity entity) { return Optional.of(getData(entity)); }
+  public static Optional<Holder> findData(Entity entity) { return entity instanceof LivingEntity living ? Optional.of(getData(living)) : Optional.empty(); }
 
 '''
  f.write_text(header+body)
