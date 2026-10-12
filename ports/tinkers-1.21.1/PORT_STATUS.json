@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "b80a28c91e82a4bcc2773361ffd67a9ae0d56045",
-  "validation_run": 38188103118,
+  "validated_commit": "701f4f32b33385217ee018661780e91708b984f2",
+  "validation_run": 38188464891,
   "full_compile": "failed",
-  "compiler_diagnostics": 8987,
+  "compiler_diagnostics": 8906,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -14,7 +14,9 @@
     "potion_effect_definitions": 5,
     "potion_bottle_types": 3,
     "brewing_rebuilds": 2,
-    "brewing_conversions": 30
+    "brewing_conversions": 30,
+    "effect_attribute_operations": 2,
+    "effect_removal_and_reapplication": "passed"
   },
   "remaining": [
     "item data components",
@@ -22,9 +24,9 @@
     "capabilities and attachments",
     "network payloads",
     "GUI APIs",
-    "effect attribute APIs",
     "dynamic enchantment registries",
-    "access transformers"
+    "access transformers",
+    "remaining tool attribute APIs"
   ],
   "note": "Fixture tests validate selected migrated production classes, not the complete mod or client."
 }
