@@ -13,6 +13,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/EffectSmoke.java'
  include 'ru/tconstructport/RecipeInputSmoke.java'
  include 'ru/tconstructport/CraftingSmoke.java'
+ include 'ru/tconstructport/EntityDataSmoke.java'
+ include 'slimeknights/tconstruct/library/tools/capability/TinkerDataCapability.java'
  include 'slimeknights/tconstruct/tables/block/entity/inventory/CraftingContainerWrapper.java'
  include 'slimeknights/tconstruct/library/recipe/input/*.java'
  include 'slimeknights/tconstruct/library/recipe/SingleItemContainer.java'
