@@ -68,7 +68,7 @@ public class TinkerDataCapability {
  s=s.replace('import net.minecraft.core.Direction;', 'import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;')
  start=s.index('  /** Capability ID */');end=s.index('  /** Registers this capability */',start)
  s=s[:start]+"""  private static final TinkerDataCapability.TinkerDataKey<PlayerLastEquipment> LAST_EQUIPMENT =
-    new TinkerDataCapability.TinkerDataKey<>(TConstruct.getResource("equipment_watcher"));
+    TinkerDataCapability.TinkerDataKey.of(TConstruct.getResource("equipment_watcher"));
 
 """+s[end:]
  s=''.join(line for line in s.splitlines(True) if 'RegisterCapabilitiesEvent.class' not in line and 'addGenericListener(Entity.class' not in line)
