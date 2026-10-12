@@ -72,4 +72,23 @@ public final class TinkerNetwork extends TinkerPacketSender {
 ''')
  # Remove earlier standalone registration, now owned by TinkerNetwork.
  f=java/'slimeknights/tconstruct/tools/TinkerModifiers.java';s=f.read_text();s=''.join(l for l in s.splitlines(True) if 'addListener(slimeknights.tconstruct.common.network.SyncPersistentDataPacket::register)' not in l);f.write_text(s)
- return {'packets':len(registrations)+3,'migrated_now':len(registrations)}
+ spawn_count=0
+ for f in java.rglob('*.java'):
+  s=f.read_text();before=s
+  if 'IEntityAdditionalSpawnData' in s:
+   s=s.replace('IEntityAdditionalSpawnData','IEntityWithComplexSpawn')
+   s=re.sub(r'\bFriendlyByteBuf\b','RegistryFriendlyByteBuf',s)
+   s=re.sub(r'(\w+)\.readItem\(\)',r'net.minecraft.world.item.ItemStack.OPTIONAL_STREAM_CODEC.decode(\1)',s)
+   s=re.sub(r'(\w+)\.writeItem\(([^;]+)\);',r'net.minecraft.world.item.ItemStack.OPTIONAL_STREAM_CODEC.encode(\1, \2);',s)
+   spawn_count+=1
+  if 'NetworkHooks' in s:
+   s=re.sub(r'  @Override\s+public Packet<ClientGamePacketListener> getAddEntityPacket\(\) \{\s+return NetworkHooks.getEntitySpawningPacket\(this\);\s+\}', '', s)
+   s=re.sub(r'NetworkHooks.openScreen\((\w+), ',r'\1.openMenu(',s)
+   s=s.replace('import net.neoforged.neoforge.network.NetworkHooks;\n','')
+  if f.name=='ToolInventoryCapability.java':
+   s=s.replace('buf.writeItem(stack);','net.minecraft.world.item.ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, stack);')
+  if f.name=='ToolContainerMenu.java':
+   s=re.sub(r'\bFriendlyByteBuf\b','RegistryFriendlyByteBuf',s)
+   s=s.replace('buffer.readItem()', 'ItemStack.OPTIONAL_STREAM_CODEC.decode(buffer)')
+  if s!=before:f.write_text(s)
+ return {'packets':len(registrations)+3,'migrated_now':len(registrations),'complex_spawn_entities':spawn_count}

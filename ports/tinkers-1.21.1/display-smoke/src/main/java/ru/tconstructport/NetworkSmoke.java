@@ -46,6 +46,16 @@ final class NetworkSmoke {
         if(buf.isReadable() || !FluidStack.matches(input,received[0]) || !decoded.pos().equals(packet.pos())) throw new IllegalStateException("fluid payload roundtrip");
       } finally {buf.release();}
     }
+    var serializer=new slimeknights.tconstruct.tools.network.FluidDataSerializer();
+    var original=new FluidStack(Fluids.LAVA,125);
+    var copied=serializer.copy(original);
+    copied.setAmount(500);
+    if(original.getAmount()!=125) throw new IllegalStateException("entity fluid copy aliases original");
+    var entityBuffer=new RegistryFriendlyByteBuf(Unpooled.buffer(),level.registryAccess());
+    try {
+      serializer.codec().encode(entityBuffer,original);
+      if(!FluidStack.matches(original,serializer.codec().decode(entityBuffer)) || entityBuffer.isReadable()) throw new IllegalStateException("entity fluid codec");
+    } finally {entityBuffer.release();}
     System.out.println("TCONSTRUCT_NETWORK_CORE_OK item_components=1 empty_items=1 fluid=1 empty_fluid=1");
   }
 }
