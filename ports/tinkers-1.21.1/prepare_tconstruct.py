@@ -30,6 +30,8 @@ for f in source.rglob('*.java'):
  s=re.sub(r'(?<![\w.])Mod\.EventBusSubscriber', 'net.neoforged.fml.common.EventBusSubscriber', s)
  if s!=before:f.write_text(s)
 api_stats=migrate(source)
+from migrate_registration import migrate as migrate_registration
+api_stats["registration_files"] = migrate_registration(source)
 (ROOT/'api-migration-stats.json').write_text(json.dumps(api_stats,indent=2))
 shutil.copyfile(P/'tconstruct.build.gradle',source/'build.gradle')
 (source/'settings.gradle').write_text("pluginManagement { repositories { gradlePluginPortal(); maven { url='https://maven.neoforged.net/releases' } } }\nrootProject.name='TConstructNeoForgePort'\n")
