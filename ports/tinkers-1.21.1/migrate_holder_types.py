@@ -34,7 +34,17 @@ for effect in ('TinkerEffect','BleedingEffect','MagneticEffect','RepulsiveEffect
 def migrate(root):
  changed=0;unknown=set()
  for f in (root/'src/main/java').rglob('*.java'):
-  s=f.read_text();edits=[]
+  s=f.read_text();before=s;edits=[]
+  if f.name=='ToolDefinition.java':
+   s=s.replace('public static ToolDefinition create(DeferredHolder<?, ? extends ItemLike> item)', 'public static <R extends ItemLike, T extends R> ToolDefinition create(DeferredHolder<R, T> item)')
+  if f.name=='ModifierLootModifier.java':
+   s=s.replace('import com.mojang.serialization.Codec;', 'import com.mojang.serialization.MapCodec;')
+   s=s.replace('Codec<', 'MapCodec<').replace('RecordCodecBuilder.create(', 'RecordCodecBuilder.mapCodec(')
+  if f.name=='TinkerModule.java':
+   s=s.replace('DeferredRegister<Codec<? extends IGlobalLootModifier>>', 'DeferredRegister<com.mojang.serialization.MapCodec<? extends IGlobalLootModifier>>')
+   s=s.replace('DeferredRegister<LootItemFunctionType>', 'DeferredRegister<LootItemFunctionType<?>>')
+  if f.name=='TinkerModifiers.java':
+   s=s.replace('DeferredHolder<?, Codec<ModifierLootModifier>>', 'DeferredHolder<com.mojang.serialization.MapCodec<? extends net.neoforged.neoforge.common.loot.IGlobalLootModifier>, com.mojang.serialization.MapCodec<ModifierLootModifier>>')
   for m in re.finditer(r'\bDeferredHolder<\?,\s*',s):
    start=m.end();end=start;depth=0
    while end<len(s):
@@ -49,5 +59,6 @@ def migrate(root):
    if base:edits.append((m.start(),start,'DeferredHolder<'+base+', '))
    else:unknown.add(value)
   for start,end,new in reversed(edits):s=s[:start]+new+s[end:]
-  if edits:f.write_text(s);changed+=len(edits)
+  if s!=before:f.write_text(s)
+  changed+=len(edits)
  return {'converted':changed,'unresolved':sorted(unknown)}
