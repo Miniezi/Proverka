@@ -11,6 +11,8 @@ def migrate(root):
  end=sync.index('  /** sync caps when the player respawns/returns from the end */',start)
  sync=sync[:start]+sync[end:]
  sync=sync.replace('player.getCapability(CAPABILITY)', 'findData(player)')
+ sync=sync.replace('TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player)', 'net.neoforged.neoforge.network.PacketDistributor.sendToPlayer((net.minecraft.server.level.ServerPlayer) player, new SyncPersistentDataPacket(data.getCopy()))')
+ sync=sync.replace('    findData(player).ifPresent', '    if (!(player instanceof net.minecraft.server.level.ServerPlayer)) return;\n    findData(player).ifPresent')
  s="""package slimeknights.tconstruct.library.tools.capability;
 
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +25,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.SyncPersistentDataPacket;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import java.util.Optional;
 
@@ -58,7 +59,9 @@ public final class PersistentDataCapability {
   s=f.read_text();before=s
   s=re.sub(r'([\w]+(?:\.[\w]+|\(\))*)\.getCapability\(PersistentDataCapability\.CAPABILITY\)',r'PersistentDataCapability.findData(\1)',s)
   s=re.sub(r'(PersistentDataCapability\.findData\([^;]*?\))\.resolve\(\)',r'\1',s)
+  if f.name=='TinkerNetwork.java':
+   s=''.join(line for line in s.splitlines(True) if 'instance.registerPacket(SyncPersistentDataPacket.class' not in line)
   if f.name=='TinkerModifiers.java':
-   s=s.replace('  public TinkerModifiers() {','  public TinkerModifiers() {\n    slimeknights.tconstruct.library.tools.capability.PersistentDataAttachment.register(slimeknights.tconstruct.TConstruct.getModEventBus());')
+   s=s.replace('  public TinkerModifiers() {','  public TinkerModifiers() {\n    slimeknights.tconstruct.library.tools.capability.PersistentDataAttachment.register(slimeknights.tconstruct.TConstruct.getModEventBus());\n    slimeknights.tconstruct.TConstruct.getModEventBus().addListener(slimeknights.tconstruct.common.network.SyncPersistentDataPacket::register);')
   if s!=before:f.write_text(s);count+=1
  return count

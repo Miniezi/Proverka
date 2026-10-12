@@ -14,6 +14,7 @@ sourceSets.main.java {
  include 'ru/tconstructport/RecipeInputSmoke.java'
  include 'ru/tconstructport/CraftingSmoke.java'
  include 'ru/tconstructport/EntityDataSmoke.java'
+ include 'slimeknights/tconstruct/common/network/SyncPersistentDataPacket.java'
  include 'slimeknights/tconstruct/library/tools/capability/TinkerDataCapability.java'
  include 'slimeknights/tconstruct/library/tools/capability/PersistentDataAttachment.java'
  include 'slimeknights/tconstruct/tables/block/entity/inventory/CraftingContainerWrapper.java'
