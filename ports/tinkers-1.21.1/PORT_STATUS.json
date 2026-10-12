@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "701f4f32b33385217ee018661780e91708b984f2",
-  "validation_run": 38188464891,
+  "validated_commit": "b9e52825a570ea976c23b9536062d78e6d09ec47",
+  "validation_run": 38232584690,
   "full_compile": "failed",
-  "compiler_diagnostics": 8906,
+  "compiler_diagnostics": 8616,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -16,11 +16,12 @@
     "brewing_rebuilds": 2,
     "brewing_conversions": 30,
     "effect_attribute_operations": 2,
-    "effect_removal_and_reapplication": "passed"
+    "effect_removal_and_reapplication": "passed",
+    "recipe_input_views": "single item, casting, two-slot molding, fluid-only; live stack identity and empty inputs passed"
   },
   "remaining": [
     "item data components",
-    "recipe codecs and inputs",
+    "recipe codecs, crafting inputs and recipe lookup results",
     "capabilities and attachments",
     "network payloads",
     "GUI APIs",
