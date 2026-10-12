@@ -46,6 +46,8 @@ from migrate_ticks import migrate as migrate_ticks
 migrate_ticks(source)
 from migrate_entity_data import migrate as migrate_entity_data
 api_stats["entity_data_files"] = migrate_entity_data(source)
+from migrate_persistent_data import migrate as migrate_persistent_data
+api_stats["persistent_data_files"] = migrate_persistent_data(source)
 (ROOT/'api-migration-stats.json').write_text(json.dumps(api_stats,indent=2))
 shutil.copyfile(P/'tconstruct.build.gradle',source/'build.gradle')
 (source/'settings.gradle').write_text("pluginManagement { repositories { gradlePluginPortal(); maven { url='https://maven.neoforged.net/releases' } } }\nrootProject.name='TConstructNeoForgePort'\n")

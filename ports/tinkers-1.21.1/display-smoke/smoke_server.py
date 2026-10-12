@@ -21,7 +21,7 @@ with (P/'server-smoke.log').open('w') as log:
   try:p.wait(timeout=35)
   except subprocess.TimeoutExpired:p.kill();p.wait()
 contents=(P/'server-smoke.log').read_text()
-valid=all(marker in contents for marker in ['TCONSTRUCT_DISPLAY_MIGRATION_OK contexts=6 unique_ids=6 fallbacks=6', 'TCONSTRUCT_CAST_MIGRATION_OK constructors=2 variants=3 tags=2', 'TCONSTRUCT_POTION_MIGRATION_OK effects=5 containers=3 rebuilds=2 mixes=30', 'TCONSTRUCT_EFFECT_MIGRATION_OK operations=2 removal=2 no_duplicate_modifiers=1', 'TCONSTRUCT_RECIPE_INPUT_OK single=1 casting=1 molding_slots=2 fluid=1 live_views=1', 'TCONSTRUCT_CRAFTING_OK shifted_shape=1 remainder_offset=1 smelting=1 no_mutation=1', 'TCONSTRUCT_ENTITY_DATA_OK lazy=1 isolated=1 transient=1 computed=1 stable_identity=1'])
+valid=all(marker in contents for marker in ['TCONSTRUCT_PERSISTENT_DATA_OK save_load=1 death_copy=1 return_copy=1 deep_copy=1 empty_omitted=1', 'TCONSTRUCT_DISPLAY_MIGRATION_OK contexts=6 unique_ids=6 fallbacks=6', 'TCONSTRUCT_CAST_MIGRATION_OK constructors=2 variants=3 tags=2', 'TCONSTRUCT_POTION_MIGRATION_OK effects=5 containers=3 rebuilds=2 mixes=30', 'TCONSTRUCT_EFFECT_MIGRATION_OK operations=2 removal=2 no_duplicate_modifiers=1', 'TCONSTRUCT_RECIPE_INPUT_OK single=1 casting=1 molding_slots=2 fluid=1 live_views=1', 'TCONSTRUCT_CRAFTING_OK shifted_shape=1 remainder_offset=1 smelting=1 no_mutation=1', 'TCONSTRUCT_ENTITY_DATA_OK lazy=1 isolated=1 transient=1 computed=1 stable_identity=1'])
 print('DATA_VALID',valid)
 print('SERVER_READY',ready,'EXIT',p.returncode)
 sys.exit(0 if ready and valid and p.returncode==0 else 1)

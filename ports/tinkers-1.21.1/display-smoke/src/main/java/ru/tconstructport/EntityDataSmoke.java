@@ -1,6 +1,7 @@
 package ru.tconstructport;
 
 import net.minecraft.nbt.CompoundTag;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataAttachment;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -10,7 +11,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 
 final class EntityDataSmoke {
-  static void init(IEventBus bus) { TinkerDataCapability.register(bus); }
+  static void init(IEventBus bus) { TinkerDataCapability.register(bus); PersistentDataAttachment.register(bus); }
   static void validate(ServerStartedEvent event) {
     var level=event.getServer().overworld();
     var first=EntityType.PIG.create(level);
@@ -42,6 +43,34 @@ final class EntityDataSmoke {
     if(restored.hasData(TinkerDataCapability.CAPABILITY)) fail("transient attachment restored from save");
     if(TinkerDataCapability.getData(restored).contains(key)) fail("transient data was serialized");
     if(TinkerDataCapability.getData(first)!=data || data.get(key,0f)!=7f) fail("saving changed live attachment");
+    var persistentType=PersistentDataAttachment.TYPE;
+    if(first.hasData(persistentType)) fail("persistent data was not lazy");
+    var persistent=first.getData(persistentType);
+    var nested=new CompoundTag();
+    nested.putInt("value",42);
+    persistent.put("tconstruct:test",nested);
+    var persistentSave=first.saveWithoutId(new CompoundTag());
+    var reloaded=EntityType.PIG.create(level);
+    if(reloaded==null) fail("persistent reload construction");
+    reloaded.load(persistentSave);
+    if(reloaded.getData(persistentType).getCompound("tconstruct:test").getInt("value")!=42) fail("persistent save/load");
+    reloaded.getData(persistentType).getCompound("tconstruct:test").putInt("value",99);
+    if(nested.getInt("value")!=42) fail("reload shared live nested NBT");
+    for(boolean death : new boolean[]{true,false}) {
+      var clone=EntityType.PIG.create(level);
+      if(clone==null) fail("clone construction");
+      clone.copyAttachmentsFrom(first,death);
+      if(clone.getData(persistentType).getCompound("tconstruct:test").getInt("value")!=42) fail("clone lost persistent data");
+      clone.getData(persistentType).getCompound("tconstruct:test").putInt("value",7);
+      if(nested.getInt("value")!=42 || clone.hasData(TinkerDataCapability.CAPABILITY)) fail("clone alias or transient copy");
+    }
+    var empty=EntityType.PIG.create(level);
+    var emptyReload=EntityType.PIG.create(level);
+    if(empty==null || emptyReload==null) fail("empty construction");
+    empty.getData(persistentType);
+    emptyReload.load(empty.saveWithoutId(new CompoundTag()));
+    if(emptyReload.hasData(persistentType)) fail("empty data unnecessarily serialized");
+    System.out.println("TCONSTRUCT_PERSISTENT_DATA_OK save_load=1 death_copy=1 return_copy=1 deep_copy=1 empty_omitted=1");
     System.out.println("TCONSTRUCT_ENTITY_DATA_OK lazy=1 isolated=1 transient=1 computed=1 stable_identity=1");
   }
   private static void fail(String reason) { throw new IllegalStateException(reason); }
