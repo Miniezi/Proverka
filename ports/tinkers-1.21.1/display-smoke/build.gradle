@@ -10,6 +10,8 @@ sourceSets.main.java {
  srcDir '../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/java'
  include 'ru/tconstructport/DisplaySmoke.java'
  include 'ru/tconstructport/PotionSmoke.java'
+ include 'ru/tconstructport/EffectSmoke.java'
+ include 'slimeknights/tconstruct/common/TinkerEffect.java'
  include 'slimeknights/tconstruct/common/registration/TinkerBrewing.java'
  include 'slimeknights/tconstruct/common/registration/PotionDeferredRegister.java'
  include 'slimeknights/tconstruct/library/TinkerItemDisplays.java'

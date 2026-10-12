@@ -21,7 +21,7 @@ with (P/'server-smoke.log').open('w') as log:
   try:p.wait(timeout=35)
   except subprocess.TimeoutExpired:p.kill();p.wait()
 contents=(P/'server-smoke.log').read_text()
-valid=all(marker in contents for marker in ['TCONSTRUCT_DISPLAY_MIGRATION_OK contexts=6 unique_ids=6 fallbacks=6', 'TCONSTRUCT_CAST_MIGRATION_OK constructors=2 variants=3 tags=2', 'TCONSTRUCT_POTION_MIGRATION_OK effects=5 containers=3 rebuilds=2 mixes=30'])
+valid=all(marker in contents for marker in ['TCONSTRUCT_DISPLAY_MIGRATION_OK contexts=6 unique_ids=6 fallbacks=6', 'TCONSTRUCT_CAST_MIGRATION_OK constructors=2 variants=3 tags=2', 'TCONSTRUCT_POTION_MIGRATION_OK effects=5 containers=3 rebuilds=2 mixes=30', 'TCONSTRUCT_EFFECT_MIGRATION_OK operations=2 removal=2 no_duplicate_modifiers=1'])
 print('DATA_VALID',valid)
 print('SERVER_READY',ready,'EXIT',p.returncode)
 sys.exit(0 if ready and valid and p.returncode==0 else 1)
