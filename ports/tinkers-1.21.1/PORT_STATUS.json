@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "d5e9acf3487023b407d0e7136d4490c60f8e67c0",
-  "validation_run": 38282086572,
+  "validated_commit": "50b558473c75d17bd340bcc1c32b881e0a25212d",
+  "validation_run": 38290786334,
   "full_compile": "failed",
-  "compiler_diagnostics": 8331,
+  "compiler_diagnostics": 8306,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -20,7 +20,8 @@
     "recipe_input_views": "single item, casting, two-slot molding, fluid-only; live stack identity and empty inputs passed",
     "crafting": "shifted recipes, original-slot remainders, smelting and no input mutation passed",
     "entity_modifier_data": "lazy attachment, entity isolation, transient save/load, computed keys and stable identity passed",
-    "nonliving_modifier_data": "lookup is empty and does not create attachment"
+    "nonliving_modifier_data": "lookup is empty and does not create attachment",
+    "persistent_modifier_storage": "actual attachment save/load, death and nondeath copying, nested NBT isolation, empty-data omission passed"
   },
   "remaining": [
     "item data components",
@@ -33,5 +34,6 @@
     "remaining tool attribute APIs"
   ],
   "note": "Fixture tests validate selected migrated production classes, not the complete mod or client.",
-  "equipment_watcher": "Migrated client cache to transient attachment; client gameplay not validated. Remaining full-compile diagnostics include cascading Lombok failures."
+  "equipment_watcher": "Migrated client cache to transient attachment; client gameplay not validated. Remaining full-compile diagnostics include cascading Lombok failures.",
+  "persistent_data_limitations": "Storage tested in isolation; full packet synchronization and old Forge world migration are not validated."
 }
