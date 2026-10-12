@@ -56,6 +56,15 @@ final class NetworkSmoke {
       serializer.codec().encode(entityBuffer,original);
       if(!FluidStack.matches(original,serializer.codec().decode(entityBuffer)) || entityBuffer.isReadable()) throw new IllegalStateException("entity fluid codec");
     } finally {entityBuffer.release();}
+    var recipeHolder=level.getRecipeManager().getRecipes().iterator().next();
+    if(!slimeknights.tconstruct.common.network.RecipeNetworkLookup.findId(level.getRecipeManager(),recipeHolder.value()).orElseThrow().equals(recipeHolder.id())) throw new IllegalStateException("recipe ID lookup");
+    var enchantment=level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).iterator().next();
+    var registryBuffer=new RegistryFriendlyByteBuf(Unpooled.buffer(),level.registryAccess());
+    try {
+      var codec=slimeknights.tconstruct.common.network.TinkerPacketCodecs.ENCHANTMENT;
+      codec.encode(registryBuffer,enchantment);
+      if(codec.decode(registryBuffer)!=enchantment || registryBuffer.isReadable()) throw new IllegalStateException("dynamic enchantment wire ID");
+    } finally {registryBuffer.release();}
     System.out.println("TCONSTRUCT_NETWORK_CORE_OK item_components=1 empty_items=1 fluid=1 empty_fluid=1");
   }
 }

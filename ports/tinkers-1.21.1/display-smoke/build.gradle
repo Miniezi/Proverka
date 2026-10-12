@@ -16,6 +16,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/EntityDataSmoke.java'
  include 'ru/tconstructport/WorldPacketSmoke.java'
  include 'ru/tconstructport/NetworkSmoke.java'
+ include 'slimeknights/tconstruct/common/network/RecipeNetworkLookup.java'
+ include 'slimeknights/tconstruct/common/network/TinkerPacketCodecs.java'
  include 'slimeknights/tconstruct/tools/network/FluidDataSerializer.java'
  include 'slimeknights/tconstruct/common/network/TinkerPacket.java'
  include 'slimeknights/tconstruct/common/network/TinkerBlockEntityPacket.java'
