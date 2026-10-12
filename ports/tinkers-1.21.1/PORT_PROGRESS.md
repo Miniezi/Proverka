@@ -31,3 +31,9 @@ Eight isolated server check groups pass. New tests cover save/load, death and no
 Validated commit 17ff1e2512d9ddb757bb55db1860f62eb92f887a in run 38300853009. SyncPersistentDataPacket uses CustomPacketPayload, a bounded FriendlyByteBuf NBT codec, clientbound registration and the receiving player from IPayloadContext. The sender uses PacketDistributor and rejects client-side invocation. Legacy channel registration for this packet is removed. Snapshots defensively copy NBT and replace the attachment contents in place, including clearing stale keys on empty updates.
 
 Nine isolated server check groups pass. New checks cover registration, codec roundtrip, source/target isolation, replacement, empty clearing and stable attachment identity. The packet, persistent capability wrapper and attachment have no diagnostics in the full compile; the entire project still fails with 8,298 diagnostics. No connected-client synchronization test has run; no playable JAR.
+
+## World payloads (2026-10-12 UTC)
+
+Validated source commit 1534141f05140b2127dc4314371495fb5f6a4388, run 38314682405. EntityMovementChangePacket and UpdateNeighborsPacket now use clientbound NeoForge payload registration and codecs. Receiving-world lookup replaces direct Minecraft singleton access; the erroneous server-sender gate on movement handling is removed. ExchangingModifier sends through PacketDistributor with a ServerPlayer guard. Legacy registrations for these packets are removed.
+
+Ten isolated check groups pass. Added tests cover both codec roundtrips, actual velocity/rotation application, absent entities and defensive copying of mutable block positions. Both packet classes have no full-compile diagnostics; the whole source set still fails with 8,283 diagnostics. Neighbor-shape effects and connected-client behavior remain untested. No playable JAR.

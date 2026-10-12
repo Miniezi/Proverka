@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "17ff1e2512d9ddb757bb55db1860f62eb92f887a",
-  "validation_run": 38300853009,
+  "validated_commit": "1534141f05140b2127dc4314371495fb5f6a4388",
+  "validation_run": 38314682405,
   "full_compile": "failed",
-  "compiler_diagnostics": 8298,
+  "compiler_diagnostics": 8283,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -22,7 +22,8 @@
     "entity_modifier_data": "lazy attachment, entity isolation, transient save/load, computed keys and stable identity passed",
     "nonliving_modifier_data": "lookup is empty and does not create attachment",
     "persistent_modifier_storage": "actual attachment save/load, death and nondeath copying, nested NBT isolation, empty-data omission passed",
-    "persistent_data_payload": "registration, codec roundtrip, snapshot isolation, replacement, empty clearing, attachment identity passed"
+    "persistent_data_payload": "registration, codec roundtrip, snapshot isolation, replacement, empty clearing, attachment identity passed",
+    "world_payloads": "two codecs, entity velocity and rotation application, missing entity handling, immutable block position passed"
   },
   "remaining": [
     "item data components",
@@ -36,5 +37,6 @@
   ],
   "note": "Fixture tests validate selected migrated production classes, not the complete mod or client.",
   "equipment_watcher": "Migrated client cache to transient attachment; client gameplay not validated. Remaining full-compile diagnostics include cascading Lombok failures.",
-  "persistent_data_limitations": "Payload and storage pass isolated checks; no connected-client end-to-end test or old Forge world migration. Other network packets remain unported."
+  "persistent_data_limitations": "Payload and storage pass isolated checks; no connected-client end-to-end test or old Forge world migration. Other network packets remain unported.",
+  "world_payload_limitations": "No connected-client test or neighbor-shape behavior test. Full mod remains uncompiled."
 }
