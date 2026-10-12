@@ -4,6 +4,8 @@ import re,json
 
 def migrate(root):
  replacements={
+  'slimeknights.mantle.item.TooltipItem':'slimeknights.mantle.item.tooltip.TooltipItem',
+  'slimeknights.mantle.item.BlockTooltipItem':'slimeknights.mantle.item.tooltip.BlockTooltipItem',
   'net.neoforged.neoforge.common.crafting.conditions.':'net.neoforged.neoforge.common.conditions.',
   'ToolActions':'ItemAbilities','ToolAction':'ItemAbility',
   'ForgeFlowingFluid':'BaseFlowingFluid','ForgeBiomeModifiers':'BiomeModifiers',

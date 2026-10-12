@@ -1,4 +1,4 @@
-plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.141' }
+plugins { id 'java-library'; id 'io.freefair.lombok' version '8.6'; id 'net.neoforged.moddev' version '2.0.141' }
 java.toolchain.languageVersion=JavaLanguageVersion.of(21)
 neoForge {
  version='21.1.238'
@@ -10,7 +10,10 @@ sourceSets.main.java {
  srcDir '../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/java'
  include 'ru/tconstructport/DisplaySmoke.java'
  include 'slimeknights/tconstruct/library/TinkerItemDisplays.java'
+ include 'slimeknights/tconstruct/common/registration/CastItemObject.java'
 }
 tasks.named('processResources') {
  from('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/META-INF/enumextensions.json') { into 'META-INF' }
 }
+
+dependencies { implementation fileTree(dir: "../../mantle-build/build/libs", include: ["Mantle-*.jar"], exclude: ["*-sources.jar", "*-javadoc.jar"]) }

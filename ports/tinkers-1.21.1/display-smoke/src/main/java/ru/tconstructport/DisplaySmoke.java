@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import slimeknights.tconstruct.library.TinkerItemDisplays;
 
-/** Tests the migrated enum declarations only. Never distribute this fixture as TConstruct. */
+/** Tests migrated enum declarations and cast holder semantics. Never distribute this fixture as TConstruct. */
 @Mod("tconstruct")
 public final class DisplaySmoke {
   public DisplaySmoke() { NeoForge.EVENT_BUS.addListener(this::validate); }
@@ -21,6 +21,22 @@ public final class DisplaySmoke {
       var fallback=(i==2 || i==4 || i==5)?ItemDisplayContext.FIXED:null;
       if(context.fallback()!=fallback) throw new IllegalStateException("Wrong fallback: "+names[i]);
     }
+    var name=net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("tconstruct", "fixture");
+    var gold=net.minecraft.world.item.Items.GOLD_INGOT;
+    var sand=net.minecraft.world.item.Items.SAND;
+    var redSand=net.minecraft.world.item.Items.RED_SAND;
+    var direct=new slimeknights.tconstruct.common.registration.CastItemObject(name, gold, sand, redSand);
+    var holder=net.neoforged.neoforge.registries.DeferredItem.<net.minecraft.world.item.Item>createItem(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(gold));
+    var deferred=new slimeknights.tconstruct.common.registration.CastItemObject(name, holder, () -> sand, () -> redSand);
+    for(var cast:java.util.List.of(direct, deferred)) {
+      if(cast.get()!=gold || cast.asItem()!=gold || cast.getSand()!=sand || cast.getRedSand()!=redSand
+        || !cast.values().equals(java.util.List.of(gold,sand,redSand))
+        || !cast.id().equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(gold))
+        || !cast.getSingleUseTag().location().equals(name.withPrefix("casts/single_use/"))
+        || !cast.getMultiUseTag().location().equals(name.withPrefix("casts/multi_use/")))
+        throw new IllegalStateException("Cast holder migration changed variant identity or tags");
+    }
+    System.out.println("TCONSTRUCT_CAST_MIGRATION_OK constructors=2 variants=3 tags=2");
     System.out.println("TCONSTRUCT_DISPLAY_MIGRATION_OK contexts=6 unique_ids=6 fallbacks=6");
     event.getServer().halt(false);
   }

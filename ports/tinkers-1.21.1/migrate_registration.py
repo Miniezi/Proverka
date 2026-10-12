@@ -5,6 +5,8 @@ def migrate(root):
  count=0
  for f in (root/'src/main/java').rglob('*.java'):
   s=f.read_text();before=s
+  if f.name == 'TinkerItemModelProvider.java':
+   s=s.replace('cast.getId()', 'cast.id()')
   if 'import slimeknights.mantle.registration.object.ItemObject;' not in s:
    continue
   if f.name in ('CastItemObject.java','GeodeItemObject.java'):
