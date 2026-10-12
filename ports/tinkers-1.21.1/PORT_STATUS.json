@@ -1,29 +1,30 @@
 {
-  "target": "Minecraft 1.21.1 NeoForge",
-  "status": "Partial source migration; no working port",
-  "inputs": {
-    "TinkersConstruct-1.20.1.zip": "9e678106a1fb4323433c3f1d1dd8738c5a62c0f7da685ac5ab6d6852d16dd2c3",
-    "Mantle-1.20.zip": "a4aa6183c9523d6836d5cdeae452cd2c1d19c8dbc4b2a5dbd0aed2aa9cbe1b2b"
+  "minecraft": "1.21.1",
+  "loader": "NeoForge 21.1.238",
+  "state": "unfinished_source_port",
+  "playable_jar": false,
+  "validated_commit": "b80a28c91e82a4bcc2773361ffd67a9ae0d56045",
+  "validation_run": 38188103118,
+  "full_compile": "failed",
+  "compiler_diagnostics": 8987,
+  "diagnostics_are_not_completion_percentage": true,
+  "isolated_server_checks": {
+    "display_contexts": 6,
+    "cast_constructors": 2,
+    "potion_effect_definitions": 5,
+    "potion_bottle_types": 3,
+    "brewing_rebuilds": 2,
+    "brewing_conversions": 30
   },
-  "java_files": {
-    "Mantle-1.20": 594,
-    "TinkersConstruct-1.20.1": 1988
-  },
-  "mantle_121": {
-    "repository": "SlimeKnights/Mantle",
-    "branch": "1.21",
-    "commit": "999fdfc4e3c7df88f595f31e4c52171c2e8896b8"
-  },
-  "mantle_target": {
-    "minecraft": "1.21.1",
-    "neoforge": "21.1.238",
-    "java": 21
-  },
-  "build_attempt": "Gradle dependency resolution succeeded. Local createMinecraftArtifacts failed in NeoFormEngine: ProcessHandle.current().info().command() is empty in this environment.",
-  "next": "Port TConstruct build to NeoForge using compiled Mantle baseline; migrate APIs and compile",
-  "resource_location_calls_migrated": 116,
-  "ci_run": "https://github.com/Miniezi/Proverka/actions/runs/38038491370",
-  "ci_scope": "Official pinned Mantle baseline only; not TConstruct",
-  "patch_validation": "git apply --check and apply succeed against uploaded original; all 1988 Java files match working tree",
-  "mantle_ci_result": "success"
+  "remaining": [
+    "item data components",
+    "recipe codecs and inputs",
+    "capabilities and attachments",
+    "network payloads",
+    "GUI APIs",
+    "effect attribute APIs",
+    "dynamic enchantment registries",
+    "access transformers"
+  ],
+  "note": "Fixture tests validate selected migrated production classes, not the complete mod or client."
 }
