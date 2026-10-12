@@ -41,6 +41,7 @@ public final class DisplaySmoke {
     PotionSmoke.validate(event);
     EffectSmoke.validate(event);
     RecipeInputSmoke.validate();
+    CraftingSmoke.validate(event);
     event.getServer().halt(false);
   }
 }

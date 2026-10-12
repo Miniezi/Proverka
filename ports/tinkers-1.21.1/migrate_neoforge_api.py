@@ -4,6 +4,7 @@ import re,json
 
 def migrate(root):
  replacements={
+  'ForgeHooksClient':'ClientHooks', 'ForgeHooks':'CommonHooks', 'ForgeEventFactory':'EventHooks',
   'slimeknights.mantle.item.TooltipItem':'slimeknights.mantle.item.tooltip.TooltipItem',
   'slimeknights.mantle.item.BlockTooltipItem':'slimeknights.mantle.item.tooltip.BlockTooltipItem',
   'net.neoforged.neoforge.common.crafting.conditions.':'net.neoforged.neoforge.common.conditions.',

@@ -12,6 +12,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/PotionSmoke.java'
  include 'ru/tconstructport/EffectSmoke.java'
  include 'ru/tconstructport/RecipeInputSmoke.java'
+ include 'ru/tconstructport/CraftingSmoke.java'
+ include 'slimeknights/tconstruct/tables/block/entity/inventory/CraftingContainerWrapper.java'
  include 'slimeknights/tconstruct/library/recipe/input/*.java'
  include 'slimeknights/tconstruct/library/recipe/SingleItemContainer.java'
  include 'slimeknights/tconstruct/library/recipe/casting/ICastingContainer.java'
