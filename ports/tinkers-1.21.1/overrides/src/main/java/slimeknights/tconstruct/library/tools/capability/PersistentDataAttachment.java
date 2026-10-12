@@ -15,7 +15,7 @@ public final class PersistentDataAttachment {
   private PersistentDataAttachment() {}
   private static final DeferredRegister<AttachmentType<?>> TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, "tconstruct");
   public static final DeferredHolder<AttachmentType<?>, AttachmentType<CompoundTag>> TYPE = TYPES.register("persistent_data", () ->
-    AttachmentType.builder(CompoundTag::new).serialize(new IAttachmentSerializer<CompoundTag, CompoundTag>() {
+    AttachmentType.builder(() -> new CompoundTag()).serialize(new IAttachmentSerializer<CompoundTag, CompoundTag>() {
       @Override
       public CompoundTag read(IAttachmentHolder holder, CompoundTag tag, HolderLookup.Provider registries) {
         return tag.copy();
