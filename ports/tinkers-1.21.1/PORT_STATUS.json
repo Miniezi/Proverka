@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "b84a5e77d23a010dabf124d2d3f3c74e7ca74ef6",
-  "validation_run": 38319071524,
+  "validated_commit": "7d61975a2829fd6841ffd92606eac7a4d0f3304f",
+  "validation_run": 38408564316,
   "full_compile": "failed",
-  "compiler_diagnostics": 7966,
+  "compiler_diagnostics": 7649,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -24,7 +24,9 @@
     "persistent_modifier_storage": "actual attachment save/load, death and nondeath copying, nested NBT isolation, empty-data omission passed",
     "persistent_data_payload": "registration, codec roundtrip, snapshot isolation, replacement, empty clearing, attachment identity passed",
     "world_payloads": "two codecs, entity velocity and rotation application, missing entity handling, immutable block position passed",
-    "network_core": "item components, empty items, fluids, empty fluids, entity-fluid codec/copy, recipe-ID lookup and dynamic enchantment codec passed"
+    "network_core": "item components, empty items, fluids, empty fluids, entity-fluid codec/copy, recipe-ID lookup and dynamic enchantment codec passed",
+    "typed_ids_and_loadables": "resource ID validation/equality/hashing/wire, built-in aliases, nested JSON, merged fields/lists and merged-list wire passed",
+    "quantity_ingredients": "item count/type/empty sentinel/display isolation; legacy flat/nested JSON; fluid alternatives with distinct quantities; source/flowing tags; legacy names; empty fluids and registry-buffer roundtrips passed"
   },
   "remaining": [
     "item data components",
@@ -38,7 +40,7 @@
   ],
   "note": "Fixture tests validate selected migrated production classes, not the complete mod or client.",
   "equipment_watcher": "Migrated client cache to transient attachment; client gameplay not validated. Remaining full-compile diagnostics include cascading Lombok failures.",
-  "persistent_data_limitations": "Payload and storage pass isolated checks; no connected-client end-to-end test or old Forge world migration. Other network packets remain unported.",
+  "persistent_data_limitations": "Payload and storage pass isolated checks; no connected-client end-to-end test or old Forge world migration. Remaining gameplay dependencies prevent full network integration tests.",
   "world_payload_limitations": "No connected-client test or neighbor-shape behavior test. Full mod remains uncompiled.",
   "network_migration": {
     "registered_play_payloads": 30,
@@ -47,5 +49,18 @@
     "transport": "NeoForge PacketDistributor; typed payload routing; one registration owner",
     "additional": "menu opening, fluid entity serializer, material/datapack sync, registry enchantment codec and recipe-ID lookup",
     "status": "API migration checked; full mod and connected client remain blocked"
+  },
+  "typed_id_migration": {
+    "subclasses": 5,
+    "legacy_registry_aliases": 11,
+    "access_transformer": "Only ResourceLocation final flag and constructor access; original SRG list is not applied",
+    "limitations": "Only built-in alias targets tested. No full old-world import test."
+  },
+  "ingredient_migration": {
+    "consumer_files": 50,
+    "fluid_object_factories": 84,
+    "implementation": "Relocated MIT-licensed Mantle 1.20 sized-item and quantity-fluid implementations, updated to Mantle 1.21 loadables and registry buffers",
+    "preserved": "amount_needed JSON, empty sentinels, per-fluid alternative quantities and common tags",
+    "limitations": "Full recipe codecs/datagen/custom item ingredients remain unported. Full compile includes cascading Lombok diagnostics; isolated production classes compile and pass runtime checks."
   }
 }

@@ -47,3 +47,21 @@ Moved four complex-spawn entities to IEntityWithComplexSpawn, removed obsolete s
 The isolated server fixture passes all eleven marker groups, including new item/fluid, entity-fluid, recipe-ID and enchantment wire tests. Static checks found all 30 unique packet IDs and no remaining legacy NetworkHooks, NetworkWrapper, NetworkDirection, IThreadsafePacket, additional-spawn interface or PacketTarget references.
 
 Full-source diagnostics decreased from 8,283 to 7,966. Remaining packet diagnostics refer to missing Lombok-generated constructors/getters in dependent uncompiled classes (tool menus, material stats, modifiers), rather than legacy network transport calls. This is not proof that all packet handlers work in-game. Full client/server connection, menu, projectile spawn and complete gameplay tests remain blocked by the unfinished full port. No playable JAR.
+
+
+## Typed identifiers, registry aliases and contextual loadables (2026-10-13)
+
+Validated source 9ff0e872df765873d8e1148813995306e399b229, Actions run 38371440369. Five typed resource-ID subclasses now use vanilla validation through a narrow NeoForge access transformer. The old SRG transformer list is retained only as reference. Eleven legacy registry aliases use ModifyRegistriesEvent without eagerly resolving deferred objects.
+
+Migrated custom loadables, record fields and serialization callers to registry-aware buffers, contextual encode/serializeInto APIs, current stat registry encoding and dynamic enchantment descriptions. Twelve isolated server check groups pass, including ID equality/hash-map lookup, invalid ID rejection, built-in aliases, nested JSON, merged fields/lists and wire roundtrips. Full-source diagnostics decreased from 7,966 to 7,856. Custom alias targets, connected clients, old-world imports and the complete mod are not validated; no playable JAR.
+
+
+## Quantity-aware recipe ingredients (2026-10-13)
+
+Validated source 7d61975a2829fd6841ffd92606eac7a4d0f3304f, Actions run 38408564316, diagnostic artifact 11820411311. Migrated 50 consumer files and 84 Mantle fluid-object factory calls. TConstruct now owns the adapted MIT-licensed quantity-aware ingredient implementations; the original license and source revision are preserved in each source file. These are actual recipe implementations, not compile stubs.
+
+Preserved the existing amount_needed item JSON format, empty sentinels, alternative fluids with different required quantities, common-tag equivalence and recipe display stacks. JSON item serialization now requires an explicit registry lookup context. Network serialization uses RegistryFriendlyByteBuf and current Mantle loadables. No old Mantle SizedIngredient/FluidIngredient imports remain in generated production sources.
+
+Thirteen isolated server check groups pass. Ingredient checks cover item type/count rejection, exact thresholds, empty inputs, display-stack isolation, legacy flat/nested JSON, invalid zero JSON quantity, fluid alternatives, source/flowing water tags, legacy fluid names and sequential wire roundtrips. Full-source diagnostics decreased from 7,856 to 7,649; these counts include annotation-processing cascades and do not measure completion. New ingredient classes compile and execute in the fixture; their remaining full-source diagnostics concern Lombok-generated constructors/accessors amid the unresolved full project. No playable JAR.
+
+Next major work: item components and ToolStack, modern recipe serializers/datagen/custom ingredients, remaining capability APIs and GUI/client migration. Full-mod and connected-client gameplay have not been tested.
