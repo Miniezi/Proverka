@@ -47,6 +47,22 @@ final class TypedIdSmoke {
     var fresh=new slimeknights.tconstruct.library.json.NoFieldRecordLoadable<Object>(Object::new);
     var emptyJson=new com.google.gson.JsonObject();
     if(fresh.deserialize(emptyJson)==fresh.deserialize(emptyJson) || !fresh.serialize(new Object()).getAsJsonObject().isEmpty()) fail("fresh loader identity");
+    var field=gson.<Value>requiredField("payload",java.util.function.Function.identity());
+    var merged=new slimeknights.tconstruct.library.json.field.MergingField<Value,Value>(field,"nested",slimeknights.tconstruct.library.json.field.MergingField.MissingMode.CREATE);
+    var mergedJson=new com.google.gson.JsonObject();
+    merged.serializeInto(value,mergedJson,TypedMap.EMPTY);
+    if(!merged.get(mergedJson,TypedMap.EMPTY).equals(value)) fail("merged field JSON");
+    var listField=new slimeknights.tconstruct.library.json.field.MergingListField<Value,java.util.List<Value>>(field,"entries",java.util.function.Function.identity());
+    var values=java.util.List.of(value,new Value(7,"second"));
+    var listJson=new com.google.gson.JsonObject();
+    var array=new com.google.gson.JsonArray();array.add(new com.google.gson.JsonObject());array.add(new com.google.gson.JsonObject());listJson.add("entries",array);
+    listField.serializeInto(values,listJson,TypedMap.EMPTY);
+    if(!listField.get(listJson,TypedMap.EMPTY).equals(values)) fail("merged list JSON");
+    var fieldWire=new RegistryFriendlyByteBuf(Unpooled.buffer(),event.getServer().registryAccess());
+    try {
+      listField.encode(fieldWire,values,TypedMap.EMPTY);
+      if(!listField.decode(fieldWire,TypedMap.EMPTY).equals(values) || fieldWire.isReadable()) fail("merged list wire");
+    } finally {fieldWire.release();}
     System.out.println("TCONSTRUCT_TYPED_IDS_OK equality=1 hashing=1 validation=1 parsing=1 wire=1");
   }
   private static void fail(String reason) {throw new IllegalStateException(reason);}

@@ -21,6 +21,8 @@ sourceSets.main.java {
  include 'slimeknights/tconstruct/library/utils/GsonLoadable.java'
  include 'slimeknights/tconstruct/library/json/NoFieldRecordLoadable.java'
  include 'slimeknights/tconstruct/library/json/field/OptionallyNestedLoadable.java'
+ include 'slimeknights/tconstruct/library/json/field/MergingField.java'
+ include 'slimeknights/tconstruct/library/json/field/MergingListField.java'
  include 'slimeknights/tconstruct/common/registration/TinkerRegistryAliases.java'
  include 'slimeknights/tconstruct/library/utils/ResourceId.java'
  include 'slimeknights/tconstruct/library/utils/IdParser.java'
