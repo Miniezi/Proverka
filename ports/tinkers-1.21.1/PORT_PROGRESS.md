@@ -65,3 +65,14 @@ Preserved the existing amount_needed item JSON format, empty sentinels, alternat
 Thirteen isolated server check groups pass. Ingredient checks cover item type/count rejection, exact thresholds, empty inputs, display-stack isolation, legacy flat/nested JSON, invalid zero JSON quantity, fluid alternatives, source/flowing water tags, legacy fluid names and sequential wire roundtrips. Full-source diagnostics decreased from 7,856 to 7,649; these counts include annotation-processing cascades and do not measure completion. New ingredient classes compile and execute in the fixture; their remaining full-source diagnostics concern Lombok-generated constructors/accessors amid the unresolved full project. No playable JAR.
 
 Next major work: item components and ToolStack, modern recipe serializers/datagen/custom ingredients, remaining capability APIs and GUI/client migration. Full-mod and connected-client gameplay have not been tested.
+
+
+## Material crafting serializers and bundled recipe data (2026-10-13)
+
+Migrated ShapedMaterialsRecipe, ShapelessMaterialsRecipe and the deprecated ShapedMaterialRecipe to 1.21 MapCodec/StreamCodec serializers and ID-less vanilla recipe constructors. Recipe IDs belong to RecipeHolder. Preserved groups, categories, notifications, extra material order and shapeless part-count validation. Existing datagen helper constants remain available while the wider RecipeOutput port is pending.
+
+Added the production MaterialRecipePattern codec: native pattern validation and shared key ingredient instances preserve repeated-part identity across JSON and registry-aware network roundtrips. Invalid symbols and malformed patterns return codec errors instead of escaping as exceptions. Custom component ingredients retain their component predicates.
+
+Updated all 11 bundled material-crafting recipes: singular recipe resource directory, modern result id, and two legacy custom display names migrated to minecraft:custom_name. Other resource families and custom ingredient registration remain unported.
+
+Validated source d8a094d89432fcbad3b18b0c45ff623a4e5fc280, Actions run 38413159293, artifact 11821154884. All 14 isolated check groups pass. Full-source diagnostics decreased from 7,649 to 7,599; this is not a completion percentage. The isolated fixture validates the production pattern codec, vanilla shaped matching, custom component ingredients and migrated result-name format; it does not execute the three material-aware recipes with ToolStack or all bundled mod items. Full-source compilation is still blocked by legacy custom ingredients, annotation-processing cascades and other unported subsystems. No playable JAR.

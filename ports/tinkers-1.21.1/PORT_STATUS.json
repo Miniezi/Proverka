@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "7d61975a2829fd6841ffd92606eac7a4d0f3304f",
-  "validation_run": 38408564316,
+  "validated_commit": "d8a094d89432fcbad3b18b0c45ff623a4e5fc280",
+  "validation_run": 38413159293,
   "full_compile": "failed",
-  "compiler_diagnostics": 7649,
+  "compiler_diagnostics": 7599,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -26,11 +26,12 @@
     "world_payloads": "two codecs, entity velocity and rotation application, missing entity handling, immutable block position passed",
     "network_core": "item components, empty items, fluids, empty fluids, entity-fluid codec/copy, recipe-ID lookup and dynamic enchantment codec passed",
     "typed_ids_and_loadables": "resource ID validation/equality/hashing/wire, built-in aliases, nested JSON, merged fields/lists and merged-list wire passed",
-    "quantity_ingredients": "item count/type/empty sentinel/display isolation; legacy flat/nested JSON; fluid alternatives with distinct quantities; source/flowing tags; legacy names; empty fluids and registry-buffer roundtrips passed"
+    "quantity_ingredients": "item count/type/empty sentinel/display isolation; legacy flat/nested JSON; fluid alternatives with distinct quantities; source/flowing tags; legacy names; empty fluids and registry-buffer roundtrips passed",
+    "material_recipe_patterns": "shared ingredient identity, repeated part order, trimmed vanilla shape matching, JSON and network roundtrips, malformed-pattern rejection, custom component ingredient predicates and migrated result custom name passed"
   },
   "remaining": [
     "item data components",
-    "recipe codecs, crafting inputs and recipe lookup results",
+    "remaining recipe codecs, RecipeOutput datagen and custom ingredient registration",
     "capabilities and attachments",
     "full network integration and dependent gameplay classes",
     "GUI APIs",
@@ -62,5 +63,13 @@
     "implementation": "Relocated MIT-licensed Mantle 1.20 sized-item and quantity-fluid implementations, updated to Mantle 1.21 loadables and registry buffers",
     "preserved": "amount_needed JSON, empty sentinels, per-fluid alternative quantities and common tags",
     "limitations": "Full recipe codecs/datagen/custom item ingredients remain unported. Full compile includes cascading Lombok diagnostics; isolated production classes compile and pass runtime checks."
+  },
+  "material_recipe_migration": {
+    "serializers": 3,
+    "bundled_recipe_resources": 11,
+    "custom_names_to_components": 2,
+    "validation_artifact": 11821154884,
+    "status": "Codec API migration checked in full-source diagnostics; production pattern codec tested on dedicated server",
+    "limitations": "Full material recipes, ToolStack output assembly, custom material ingredients, full data pack reload and recipe synchronization with a connected client remain blocked or untested."
   }
 }
