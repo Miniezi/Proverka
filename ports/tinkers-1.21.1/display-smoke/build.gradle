@@ -19,6 +19,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/NetworkSmoke.java'
  include 'ru/tconstructport/TypedIdSmoke.java'
  include 'ru/tconstructport/IngredientSmoke.java'
+ include 'ru/tconstructport/MaterialPatternSmoke.java'
+ include 'slimeknights/tconstruct/library/recipe/material/MaterialRecipePattern.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/SizedIngredient.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/FluidIngredient.java'
  include 'slimeknights/tconstruct/library/utils/GsonLoadable.java'
