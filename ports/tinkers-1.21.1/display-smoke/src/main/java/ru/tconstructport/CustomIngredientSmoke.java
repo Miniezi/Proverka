@@ -1,0 +1,63 @@
+package ru.tconstructport;
+
+import com.google.gson.JsonParser;
+import com.mojang.serialization.JsonOps;
+import io.netty.buffer.Unpooled;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.RegisterEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
+import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueRange;
+
+final class CustomIngredientSmoke {
+  static void init(IEventBus bus) { bus.addListener(CustomIngredientSmoke::register); }
+  private static void register(RegisterEvent event) {
+    event.register(NeoForgeRegistries.Keys.INGREDIENT_TYPES, helper -> helper.register(NoContainerIngredient.ID,NoContainerIngredient.TYPE));
+  }
+  static void validate(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
+    var ops = event.getServer().registryAccess().createSerializationContext(JsonOps.INSTANCE);
+    var ingredient = NoContainerIngredient.of(Items.STICK,Items.MILK_BUCKET);
+    if (!ingredient.test(new ItemStack(Items.STICK)) || ingredient.test(new ItemStack(Items.MILK_BUCKET)) || ingredient.isSimple()) fail("craft remainder predicate");
+    if (!(ingredient.getCustomIngredient() instanceof NoContainerIngredient)) fail("native wrapper");
+    var json = Ingredient.CODEC.encodeStart(ops,ingredient).getOrThrow();
+    var restored = Ingredient.CODEC.parse(ops,json).getOrThrow();
+    if (!restored.test(new ItemStack(Items.STICK)) || restored.test(new ItemStack(Items.MILK_BUCKET))) fail("registered codec");
+    var legacy = Ingredient.CODEC.parse(ops,JsonParser.parseString("{\"type\":\"tconstruct:no_container\",\"item\":\"minecraft:stick\"}")).getOrThrow();
+    if (!legacy.test(new ItemStack(Items.STICK))) fail("legacy inline ingredient");
+    var bad = Ingredient.CODEC.parse(ops,JsonParser.parseString("{\"type\":\"tconstruct:no_container\"}"));
+    if (bad.isSuccess()) fail("missing nested ingredient");
+    var named = new ItemStack(Items.STICK);
+    named.set(DataComponents.CUSTOM_NAME,Component.literal("material test"));
+    var component = net.neoforged.neoforge.common.crafting.DataComponentIngredient.of(false,DataComponents.CUSTOM_NAME,Component.literal("material test"),Items.STICK);
+    var nested = NoContainerIngredient.of(component);
+    var buf = new RegistryFriendlyByteBuf(Unpooled.buffer(),event.getServer().registryAccess());
+    try {
+      Ingredient.CONTENTS_STREAM_CODEC.encode(buf,ingredient);
+      Ingredient.CONTENTS_STREAM_CODEC.encode(buf,nested);
+      var decoded = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+      var componentCopy = Ingredient.CONTENTS_STREAM_CODEC.decode(buf);
+      if (!decoded.test(new ItemStack(Items.STICK)) || decoded.test(new ItemStack(Items.MILK_BUCKET))
+          || !componentCopy.test(named) || componentCopy.test(new ItemStack(Items.STICK)) || buf.isReadable()) fail("custom ingredient wire");
+    } finally {buf.release();}
+    var exact = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("2")).getOrThrow();
+    var range = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("{\"min\":1,\"max\":3}")).getOrThrow();
+    var unbounded = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("{} ")).getOrThrow();
+    if (!exact.test(2) || exact.test(1) || !range.test(1) || !range.test(3) || range.test(4)
+        || !unbounded.test(1000) || unbounded.test(Float.POSITIVE_INFINITY) || unbounded.test(Float.NaN)) fail("quantity bounds");
+    for (String invalid : new String[]{"-1","{\"min\":3,\"max\":1}","{\"min\":-1}"}) {
+      if (MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString(invalid)).isSuccess()) fail("invalid quantity range");
+    }
+    for (var value : java.util.List.of(exact,range,unbounded)) {
+      var encoded = MaterialValueRange.CODEC.encodeStart(JsonOps.INSTANCE,value).getOrThrow();
+      if (!MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,encoded).getOrThrow().equals(value)) fail("quantity codec roundtrip");
+    }
+    System.out.println("TCONSTRUCT_CUSTOM_INGREDIENTS_OK registration=1 containers=1 nested_components=1 json=1 wire=1 ranges=1");
+  }
+  private static void fail(String message) { throw new IllegalStateException(message); }
+}
