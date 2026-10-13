@@ -46,6 +46,13 @@ final class MaterialPatternSmoke {
       if (!restored.parts().get(0).test(named) || restored.parts().get(0).test(new ItemStack(Items.IRON_INGOT))
           || restored.parts().get(0)!=restored.parts().get(2)) fail("custom component ingredient");
     } finally {componentBuf.release();}
+    var legacyName = new com.google.gson.JsonObject();
+    legacyName.addProperty("id","minecraft:iron_sword");
+    var components = new com.google.gson.JsonObject();
+    components.addProperty("minecraft:custom_name","{\"translate\":\"block.tconstruct.tool_forge\"}");
+    legacyName.add("components",components);
+    var namedResult = ItemStack.STRICT_CODEC.parse(ops,legacyName).getOrThrow();
+    if (!namedResult.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)) fail("migrated recipe result name");
     for (String invalid : new String[]{definition.replace("ABA","C"),definition.replace(" A "," A"),definition.replace(" A "," C ")}) {
       if (MaterialRecipePattern.CODEC.codec().parse(ops,JsonParser.parseString(invalid)).isSuccess()) fail("invalid pattern accepted");
     }

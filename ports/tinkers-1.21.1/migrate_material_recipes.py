@@ -1,5 +1,6 @@
 """Use 1.21 map/stream codecs for the three material-aware crafting recipes."""
 from pathlib import Path
+import json
 
 def migrate(root):
     folder = root/'src/main/java/slimeknights/tconstruct/library/recipe/material'
@@ -30,6 +31,7 @@ import slimeknights.mantle.data.loadable.StreamableCodec;''')
 '''+source[end:]
             serializer='''  public static class Serializer implements RecipeSerializer<ShapedMaterialsRecipe> {
     static final Loadable<List<MaterialVariantId>> EXTRA_MATERIALS = MaterialVariantId.LOADABLE.list(0);
+    static final LoadableField<List<MaterialVariantId>,ShapedMaterialsRecipe> MATERIAL_FIELD = EXTRA_MATERIALS.defaultField("extra_materials", List.of(), recipe -> recipe.extraMaterials);
     static final Codec<List<MaterialVariantId>> EXTRA_CODEC = new LoadableCodec<>(EXTRA_MATERIALS);
     static final StreamCodec<RegistryFriendlyByteBuf,List<MaterialVariantId>> EXTRA_STREAM = new StreamableCodec<>(EXTRA_MATERIALS);
     private static final MapCodec<ShapedMaterialsRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -87,6 +89,8 @@ import slimeknights.mantle.data.loadable.StreamableCodec;''')
 '''+source[end:]
             source=source.replace('getId());','getGroup());')
             serializer='''  public static class Serializer implements RecipeSerializer<ShapedMaterialRecipe> {
+    static final Loadable<List<MaterialVariantId>> EXTRA_MATERIALS = ShapedMaterialsRecipe.Serializer.EXTRA_MATERIALS;
+    static final LoadableField<List<MaterialVariantId>,ShapedMaterialRecipe> MATERIAL_FIELD = EXTRA_MATERIALS.defaultField("extra_materials", List.of(), recipe -> recipe.extraMaterials);
     private record RecipeData(ShapedRecipe recipe, List<MaterialVariantId> extra) {}
     private static final MapCodec<ShapedMaterialRecipe> CODEC = RecordCodecBuilder.<RecipeData>mapCodec(instance -> instance.group(
       RecipeSerializer.SHAPED_RECIPE.codec().forGetter(RecipeData::recipe),
@@ -106,4 +110,27 @@ import slimeknights.mantle.data.loadable.StreamableCodec;''')
 }'''
         source=source[:source.index('  public static class Serializer')]+serializer+'\n'
         path.write_text(source)
-    return 3
+    migrated_resources = 0
+    recipe_types = {'tconstruct:crafting_shaped_material', 'tconstruct:crafting_shaped_materials', 'tconstruct:crafting_shapeless_materials'}
+    for resources in (root/'src/main/resources', root/'src/generated/resources'):
+        for path in list((resources/'data').glob('*/recipes/**/*.json')):
+            data = json.loads(path.read_text())
+            if data.get('type') not in recipe_types:
+                continue
+            result = data['result']
+            if 'item' in result:
+                result['id'] = result.pop('item')
+            if 'nbt' in result:
+                nbt = result.pop('nbt')
+                if not isinstance(nbt, dict) or set(nbt) != {'display'} or set(nbt['display']) != {'Name'}:
+                    raise ValueError(f'Unsupported legacy recipe result NBT: {path}')
+                result.setdefault('components', {})['minecraft:custom_name'] = nbt['display']['Name']
+            relative = path.relative_to(resources/'data')
+            target = resources/'data'/relative.parts[0]/'recipe'/Path(*relative.parts[2:])
+            if target.exists():
+                raise ValueError(f'Recipe migration target already exists: {target}')
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(data, indent=2)+'\n')
+            path.unlink()
+            migrated_resources += 1
+    return {'serializers': 3, 'recipe_resources': migrated_resources}
