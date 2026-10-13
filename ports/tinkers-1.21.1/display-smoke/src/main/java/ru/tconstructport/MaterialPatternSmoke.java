@@ -31,6 +31,21 @@ final class MaterialPatternSmoke {
       var serialized = MaterialRecipePattern.CODEC.codec().encodeStart(ops,copy).getOrThrow();
       check(MaterialRecipePattern.CODEC.codec().parse(ops,serialized).getOrThrow());
     } finally {buf.release();}
+    // Verify custom ingredient components survive JSON and registry-aware wire encoding.
+    var componentJson = JsonParser.parseString(definition).getAsJsonObject();
+    var named = new ItemStack(Items.IRON_INGOT);
+    named.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME,net.minecraft.network.chat.Component.literal("tempered"));
+    var custom = net.neoforged.neoforge.common.crafting.DataComponentIngredient.of(false,
+      net.minecraft.core.component.DataComponents.CUSTOM_NAME,net.minecraft.network.chat.Component.literal("tempered"),Items.IRON_INGOT);
+    componentJson.getAsJsonObject("key").add("A",net.minecraft.world.item.crafting.Ingredient.CODEC.encodeStart(ops,custom).getOrThrow());
+    var componentLayout = MaterialRecipePattern.CODEC.codec().parse(ops,componentJson).getOrThrow();
+    var componentBuf = new RegistryFriendlyByteBuf(Unpooled.buffer(),event.getServer().registryAccess());
+    try {
+      MaterialRecipePattern.STREAM_CODEC.encode(componentBuf,componentLayout);
+      var restored = MaterialRecipePattern.STREAM_CODEC.decode(componentBuf);
+      if (!restored.parts().get(0).test(named) || restored.parts().get(0).test(new ItemStack(Items.IRON_INGOT))
+          || restored.parts().get(0)!=restored.parts().get(2)) fail("custom component ingredient");
+    } finally {componentBuf.release();}
     for (String invalid : new String[]{definition.replace("ABA","C"),definition.replace(" A "," A"),definition.replace(" A "," C ")}) {
       if (MaterialRecipePattern.CODEC.codec().parse(ops,JsonParser.parseString(invalid)).isSuccess()) fail("invalid pattern accepted");
     }

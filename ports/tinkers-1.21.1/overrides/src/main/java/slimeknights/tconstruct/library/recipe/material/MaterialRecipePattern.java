@@ -24,7 +24,7 @@ public final class MaterialRecipePattern {
   public static final MapCodec<MaterialRecipePattern> CODEC = Definition.CODEC.flatXmap(definition -> {
     try {
       return DataResult.success(new MaterialRecipePattern(definition));
-    } catch (IllegalArgumentException exception) {
+    } catch (IllegalArgumentException | IllegalStateException exception) {
       return DataResult.error(exception::getMessage);
     }
   }, value -> DataResult.success(value.definition));
