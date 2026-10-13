@@ -12,7 +12,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 public final class NestedIngredientCodec {
   private NestedIngredientCodec() {}
   private static final MapCodec<Ingredient> INLINE = Codec.mapEither(
-    BuiltInRegistries.ITEM.byNameCodec().fieldOf("item"), TagKey.codec(Registries.ITEM).fieldOf("tag")
+    BuiltInRegistries.ITEM.byNameCodec().validate(item -> item == net.minecraft.world.item.Items.AIR
+      ? com.mojang.serialization.DataResult.error(() -> "Ingredient item cannot be air")
+      : com.mojang.serialization.DataResult.success(item)).fieldOf("item"), TagKey.codec(Registries.ITEM).fieldOf("tag")
   ).xmap(value -> value.map(Ingredient::of, Ingredient::of), value -> {
     throw new UnsupportedOperationException("Nested ingredients are encoded with match");
   });

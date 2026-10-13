@@ -36,6 +36,9 @@ final class CustomIngredientSmoke {
     if (!legacy.test(new ItemStack(Items.STICK))) fail("legacy inline ingredient");
     var bad = Ingredient.CODEC.parse(ops,JsonParser.parseString("{\"type\":\"tconstruct:no_container\"}"));
     if (bad.isSuccess()) fail("missing nested ingredient");
+    if (Ingredient.CODEC.parse(ops,JsonParser.parseString("{\"type\":\"tconstruct:no_container\",\"item\":\"minecraft:air\"}")).isSuccess()) fail("air ingredient accepted");
+    var tagged = Ingredient.CODEC.parse(ops,JsonParser.parseString("{\"type\":\"tconstruct:no_container\",\"tag\":\"minecraft:planks\"}")).getOrThrow();
+    if (!tagged.test(new ItemStack(Items.OAK_PLANKS)) || tagged.test(new ItemStack(Items.STICK))) fail("legacy inline tag");
     var named = new ItemStack(Items.STICK);
     named.set(DataComponents.CUSTOM_NAME,Component.literal("material test"));
     var component = net.neoforged.neoforge.common.crafting.DataComponentIngredient.of(false,DataComponents.CUSTOM_NAME,Component.literal("material test"),Items.STICK);
@@ -67,9 +70,15 @@ final class CustomIngredientSmoke {
     for (String invalid : new String[]{"-1","{\"min\":3,\"max\":1}","{\"min\":-1}"}) {
       if (MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString(invalid)).isSuccess()) fail("invalid quantity range");
     }
-    for (var value : java.util.List.of(exact,range,unbounded)) {
+    var rangeCodec = net.minecraft.network.codec.ByteBufCodecs.fromCodec(MaterialValueRange.CODEC);
+    for (var value : java.util.List.of(exact,range,unbounded,new MaterialValueRange(1f/9f,1f/9f))) {
       var encoded = MaterialValueRange.CODEC.encodeStart(JsonOps.INSTANCE,value).getOrThrow();
       if (!MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,encoded).getOrThrow().equals(value)) fail("quantity codec roundtrip");
+      var bytes = Unpooled.buffer();
+      try {
+        rangeCodec.encode(bytes,value);
+        if (!rangeCodec.decode(bytes).equals(value) || bytes.isReadable()) fail("quantity wire roundtrip");
+      } finally {bytes.release();}
     }
     System.out.println("TCONSTRUCT_CUSTOM_INGREDIENTS_OK registration=1 containers=1 nested_components=1 json=1 wire=1 ranges=1");
   }
