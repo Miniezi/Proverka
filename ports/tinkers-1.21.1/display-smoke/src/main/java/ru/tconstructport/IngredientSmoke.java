@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.recipe.ingredient.FluidIngredient;
 
 final class IngredientSmoke {
   static void validate(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
+    var context = slimeknights.mantle.data.loadable.field.ContextKey.registryContext(event.getServer().registryAccess());
     var items = SizedIngredient.fromItems(3, Items.IRON_INGOT, Items.GOLD_INGOT);
     if (items.test(new ItemStack(Items.IRON_INGOT,2)) || !items.test(new ItemStack(Items.GOLD_INGOT,3))
         || items.test(new ItemStack(Items.DIAMOND,64))) fail("item quantity/type");
@@ -22,14 +23,14 @@ final class IngredientSmoke {
     var displayed = items.getMatchingStacks();
     if (displayed.size()!=2 || displayed.stream().anyMatch(s -> s.getCount()!=3)
         || items.getIngredient().getItems()[0].getCount()!=1) fail("display quantity mutates source");
-    var json = SizedIngredient.LOADABLE.serialize(items);
-    var restored = SizedIngredient.LOADABLE.convert(json,"ingredient");
+    var json = SizedIngredient.LOADABLE.serialize(items,context);
+    var restored = SizedIngredient.LOADABLE.convert(json,"ingredient",context);
     if (restored.getAmountNeeded()!=3 || !restored.test(new ItemStack(Items.GOLD_INGOT,3))) fail("item JSON");
-    var legacy = SizedIngredient.LOADABLE.convert(JsonParser.parseString("{\"item\":\"minecraft:iron_ingot\",\"amount_needed\":4}"),"ingredient");
+    var legacy = SizedIngredient.LOADABLE.convert(JsonParser.parseString("{\"item\":\"minecraft:iron_ingot\",\"amount_needed\":4}"),"ingredient",context);
     if (legacy.getAmountNeeded()!=4 || !legacy.test(new ItemStack(Items.IRON_INGOT,4))) fail("flat legacy JSON");
-    var nested = SizedIngredient.LOADABLE.convert(JsonParser.parseString("{\"ingredient\":{\"item\":\"minecraft:iron_ingot\"},\"amount_needed\":2}"),"ingredient");
+    var nested = SizedIngredient.LOADABLE.convert(JsonParser.parseString("{\"ingredient\":{\"item\":\"minecraft:iron_ingot\"},\"amount_needed\":2}"),"ingredient",context);
     if (nested.getAmountNeeded()!=2) fail("nested legacy JSON");
-    try { SizedIngredient.LOADABLE.convert(JsonParser.parseString("{\"item\":\"minecraft:iron_ingot\",\"amount_needed\":0}"),"ingredient"); fail("zero JSON amount"); }
+    try { SizedIngredient.LOADABLE.convert(JsonParser.parseString("{\"item\":\"minecraft:iron_ingot\",\"amount_needed\":0}"),"ingredient",context); fail("zero JSON amount"); }
     catch (com.google.gson.JsonSyntaxException expected) {}
 
     var fluids = FluidIngredient.of(FluidIngredient.of(Fluids.WATER,250),FluidIngredient.of(Fluids.LAVA,750));

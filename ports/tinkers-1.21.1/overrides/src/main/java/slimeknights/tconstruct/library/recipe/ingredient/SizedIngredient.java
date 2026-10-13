@@ -156,9 +156,9 @@ public class SizedIngredient implements Predicate<ItemStack> {
 
   /** @deprecated use {@link #LOADABLE} with {@link slimeknights.mantle.data.loadable.Loadable#serialize(Object)} or {@link RecordLoadable#serialize(Object, JsonObject)} */
   @Deprecated(forRemoval = true)
-  public JsonObject serialize() {
+  public JsonObject serialize(slimeknights.mantle.util.typed.TypedMap context) {
     JsonObject json = new JsonObject();
-    LOADABLE.serializeInto(this, json);
+    LOADABLE.serializeInto(this, json, context);
     return json;
   }
 
@@ -170,8 +170,8 @@ public class SizedIngredient implements Predicate<ItemStack> {
 
   /** @deprecated use {@link #LOADABLE} with {@link RecordLoadable#deserialize(JsonObject)} */
   @Deprecated(forRemoval = true)
-  public static SizedIngredient deserialize(JsonObject json) {
-    return LOADABLE.deserialize(json);
+  public static SizedIngredient deserialize(JsonObject json, slimeknights.mantle.util.typed.TypedMap context) {
+    return LOADABLE.deserialize(json, context);
   }
 }
 
