@@ -14,11 +14,15 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueRange;
+import slimeknights.tconstruct.library.recipe.ingredient.BlockTagIngredient;
 
 final class CustomIngredientSmoke {
   static void init(IEventBus bus) { bus.addListener(CustomIngredientSmoke::register); }
   private static void register(RegisterEvent event) {
-    event.register(NeoForgeRegistries.Keys.INGREDIENT_TYPES, helper -> helper.register(NoContainerIngredient.ID,NoContainerIngredient.TYPE));
+    event.register(NeoForgeRegistries.Keys.INGREDIENT_TYPES, helper -> {
+      helper.register(NoContainerIngredient.ID,NoContainerIngredient.TYPE);
+      helper.register(BlockTagIngredient.ID,BlockTagIngredient.TYPE);
+    });
   }
   static void validate(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
     var ops = event.getServer().registryAccess().createSerializationContext(JsonOps.INSTANCE);
@@ -45,6 +49,16 @@ final class CustomIngredientSmoke {
       if (!decoded.test(new ItemStack(Items.STICK)) || decoded.test(new ItemStack(Items.MILK_BUCKET))
           || !componentCopy.test(named) || componentCopy.test(new ItemStack(Items.STICK)) || buf.isReadable()) fail("custom ingredient wire");
     } finally {buf.release();}
+    var blocks = new BlockTagIngredient(net.minecraft.tags.BlockTags.DIRT).toVanilla();
+    if (!blocks.test(new ItemStack(Items.DIRT)) || blocks.test(new ItemStack(Items.DIAMOND)) || blocks.test(ItemStack.EMPTY)) fail("block tag matching");
+    var blockJson = Ingredient.CODEC.encodeStart(ops,blocks).getOrThrow();
+    if (!Ingredient.CODEC.parse(ops,blockJson).getOrThrow().test(new ItemStack(Items.DIRT))) fail("block tag JSON");
+    var blockBuf = new RegistryFriendlyByteBuf(Unpooled.buffer(),event.getServer().registryAccess());
+    try {
+      Ingredient.CONTENTS_STREAM_CODEC.encode(blockBuf,blocks);
+      if (!Ingredient.CONTENTS_STREAM_CODEC.decode(blockBuf).test(new ItemStack(Items.DIRT)) || blockBuf.isReadable()) fail("block tag wire");
+    } finally {blockBuf.release();}
+    if (new BlockTagIngredient(net.minecraft.tags.BlockTags.FIRE).getItems().findAny().isPresent()) fail("air item forms");
     var exact = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("2")).getOrThrow();
     var range = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("{\"min\":1,\"max\":3}")).getOrThrow();
     var unbounded = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("{} ")).getOrThrow();

@@ -85,11 +85,17 @@ import net.neoforged.neoforge.common.crafting.ICustomIngredient;
         if path.name=='TinkerCommons.java':
             s=s.replace('  void registerRecipeSerializers(RegisterEvent event) {','''  void registerRecipeSerializers(RegisterEvent event) {
     event.register(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.INGREDIENT_TYPES,
-      helper -> helper.register(NoContainerIngredient.ID, NoContainerIngredient.TYPE));''')
+      helper -> {
+        helper.register(NoContainerIngredient.ID, NoContainerIngredient.TYPE);
+        helper.register(BlockTagIngredient.ID, BlockTagIngredient.TYPE);
+      });''')
             s=s.replace('      CraftingHelper.register(NoContainerIngredient.ID, NoContainerIngredient.Serializer.INSTANCE);\n','')
+            s=s.replace('      CraftingHelper.register(BlockTagIngredient.Serializer.ID, BlockTagIngredient.Serializer.INSTANCE);\n','')
+        if path.name=='SmelteryRecipeProvider.java':
+            s=s.replace('new BlockTagIngredient(BlockTags.CONVERTABLE_TO_MUD)', 'new BlockTagIngredient(BlockTags.CONVERTABLE_TO_MUD).toVanilla()')
         if path.name=='ShapedMaterialRecipe.java':
             s=s.replace('ingredient instanceof MaterialValueIngredient', 'ingredient.getCustomIngredient() instanceof MaterialValueIngredient')
         if path.name=='ShapedMaterialExtension.java':
             s=s.replace('inputs.get(i) instanceof MaterialValueIngredient','inputs.get(i).getCustomIngredient() instanceof MaterialValueIngredient')
         if s!=before:path.write_text(s);changed+=1
-    return {'consumer_files':changed,'ingredient_types':3}
+    return {'consumer_files':changed,'ingredient_types':4}

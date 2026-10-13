@@ -24,6 +24,7 @@ sourceSets.main.java {
  include 'slimeknights/tconstruct/library/recipe/ingredient/NestedIngredient.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/NestedIngredientCodec.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/NoContainerIngredient.java'
+ include 'slimeknights/tconstruct/library/recipe/ingredient/BlockTagIngredient.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/MaterialValueRange.java'
  include 'slimeknights/tconstruct/library/recipe/material/MaterialRecipePattern.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/SizedIngredient.java'
