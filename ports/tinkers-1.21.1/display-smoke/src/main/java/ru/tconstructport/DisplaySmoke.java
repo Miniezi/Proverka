@@ -46,6 +46,7 @@ public final class DisplaySmoke {
     WorldPacketSmoke.validate(event);
     NetworkSmoke.validate(event);
     TypedIdSmoke.validate(event);
+    IngredientSmoke.validate(event);
     event.getServer().halt(false);
   }
 }

@@ -56,6 +56,8 @@ from migrate_typed_ids import migrate as migrate_typed_ids
 api_stats["typed_ids"] = migrate_typed_ids(source)
 from migrate_loadables import migrate as migrate_loadables
 api_stats["loadables"] = migrate_loadables(source)
+from migrate_ingredients import migrate as migrate_ingredients
+api_stats['ingredients'] = migrate_ingredients(source)
 (ROOT/'api-migration-stats.json').write_text(json.dumps(api_stats,indent=2))
 shutil.copyfile(P/'tconstruct.build.gradle',source/'build.gradle')
 (source/'settings.gradle').write_text("pluginManagement { repositories { gradlePluginPortal(); maven { url='https://maven.neoforged.net/releases' } } }\nrootProject.name='TConstructNeoForgePort'\n")
