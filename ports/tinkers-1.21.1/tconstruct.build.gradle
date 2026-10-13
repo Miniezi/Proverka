@@ -13,6 +13,7 @@ repositories {
 }
 neoForge {
  version='21.1.238'
+ accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
  runs { server { server(); programArgument '--nogui' }; client { client() } }
  mods { tconstruct { sourceSet sourceSets.main } }
 }

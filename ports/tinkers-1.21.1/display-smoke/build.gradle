@@ -2,6 +2,7 @@ plugins { id 'java-library'; id 'io.freefair.lombok' version '8.6'; id 'net.neof
 java.toolchain.languageVersion=JavaLanguageVersion.of(21)
 neoForge {
  version='21.1.238'
+ accessTransformers = project.files('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/META-INF/accesstransformer.cfg')
  runs { server { server(); programArgument '--nogui'; gameDirectory=file('run') } }
  mods { tconstruct { sourceSet sourceSets.main } }
 }
@@ -16,6 +17,11 @@ sourceSets.main.java {
  include 'ru/tconstructport/EntityDataSmoke.java'
  include 'ru/tconstructport/WorldPacketSmoke.java'
  include 'ru/tconstructport/NetworkSmoke.java'
+ include 'ru/tconstructport/TypedIdSmoke.java'
+ include 'slimeknights/tconstruct/common/registration/TinkerRegistryAliases.java'
+ include 'slimeknights/tconstruct/library/utils/ResourceId.java'
+ include 'slimeknights/tconstruct/library/utils/IdParser.java'
+ include 'slimeknights/tconstruct/library/tools/stat/ToolStatId.java'
  include 'slimeknights/tconstruct/common/network/RecipeNetworkLookup.java'
  include 'slimeknights/tconstruct/common/network/TinkerPacketCodecs.java'
  include 'slimeknights/tconstruct/tools/network/FluidDataSerializer.java'
@@ -42,6 +48,7 @@ sourceSets.main.java {
  include 'slimeknights/tconstruct/common/registration/CastItemObject.java'
 }
 tasks.named('processResources') {
+ from('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/META-INF/accesstransformer.cfg') { into 'META-INF' }
  from('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/META-INF/enumextensions.json') { into 'META-INF' }
 }
 
