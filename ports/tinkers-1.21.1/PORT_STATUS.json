@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "1534141f05140b2127dc4314371495fb5f6a4388",
-  "validation_run": 38314682405,
+  "validated_commit": "b84a5e77d23a010dabf124d2d3f3c74e7ca74ef6",
+  "validation_run": 38319071524,
   "full_compile": "failed",
-  "compiler_diagnostics": 8283,
+  "compiler_diagnostics": 7966,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -23,13 +23,14 @@
     "nonliving_modifier_data": "lookup is empty and does not create attachment",
     "persistent_modifier_storage": "actual attachment save/load, death and nondeath copying, nested NBT isolation, empty-data omission passed",
     "persistent_data_payload": "registration, codec roundtrip, snapshot isolation, replacement, empty clearing, attachment identity passed",
-    "world_payloads": "two codecs, entity velocity and rotation application, missing entity handling, immutable block position passed"
+    "world_payloads": "two codecs, entity velocity and rotation application, missing entity handling, immutable block position passed",
+    "network_core": "item components, empty items, fluids, empty fluids, entity-fluid codec/copy, recipe-ID lookup and dynamic enchantment codec passed"
   },
   "remaining": [
     "item data components",
     "recipe codecs, crafting inputs and recipe lookup results",
     "capabilities and attachments",
-    "network payloads",
+    "full network integration and dependent gameplay classes",
     "GUI APIs",
     "dynamic enchantment registries",
     "access transformers",
@@ -38,5 +39,13 @@
   "note": "Fixture tests validate selected migrated production classes, not the complete mod or client.",
   "equipment_watcher": "Migrated client cache to transient attachment; client gameplay not validated. Remaining full-compile diagnostics include cascading Lombok failures.",
   "persistent_data_limitations": "Payload and storage pass isolated checks; no connected-client end-to-end test or old Forge world migration. Other network packets remain unported.",
-  "world_payload_limitations": "No connected-client test or neighbor-shape behavior test. Full mod remains uncompiled."
+  "world_payload_limitations": "No connected-client test or neighbor-shape behavior test. Full mod remains uncompiled.",
+  "network_migration": {
+    "registered_play_payloads": 30,
+    "newly_migrated_payloads": 27,
+    "complex_spawn_entities": 4,
+    "transport": "NeoForge PacketDistributor; typed payload routing; one registration owner",
+    "additional": "menu opening, fluid entity serializer, material/datapack sync, registry enchantment codec and recipe-ID lookup",
+    "status": "API migration checked; full mod and connected client remain blocked"
+  }
 }

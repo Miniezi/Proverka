@@ -37,3 +37,13 @@ Nine isolated server check groups pass. New checks cover registration, codec rou
 Validated source commit 1534141f05140b2127dc4314371495fb5f6a4388, run 38314682405. EntityMovementChangePacket and UpdateNeighborsPacket now use clientbound NeoForge payload registration and codecs. Receiving-world lookup replaces direct Minecraft singleton access; the erroneous server-sender gate on movement handling is removed. ExchangingModifier sends through PacketDistributor with a ServerPlayer guard. Legacy registrations for these packets are removed.
 
 Ten isolated check groups pass. Added tests cover both codec roundtrips, actual velocity/rotation application, absent entities and defensive copying of mutable block positions. Both packet classes have no full-compile diagnostics; the whole source set still fails with 8,283 diagnostics. Neighbor-shape effects and connected-client behavior remain untested. No playable JAR.
+
+## Complete registered network API migration (2026-10-13)
+
+Validated commit b84a5e77d23a010dabf124d2d3f3c74e7ca74ef6, Actions run 38319071524. Migrated the remaining 27 payloads: all 30 play packets now have unique NeoForge payload IDs and direction-specific registration. TinkerNetwork has one registration owner and delegates typed sending to PacketDistributor. Chunk tracking, entity tracking, direct player delivery and serverbound delivery preserve their recipient scope. Material and datapack synchronization retain the integrated-server memory-connection exemption.
+
+Moved four complex-spawn entities to IEntityWithComplexSpawn, removed obsolete spawn-packet overrides, migrated menu opening and registry-aware item serialization. Migrated the fluid entity serializer. Recipe packets now resolve IDs from RecipeHolder rather than removed Recipe.getId, and modifier sync uses the dynamic enchantment registry codec. Block-entity payload dispatch avoids loading missing chunks. Inventory updates validate slots and preserve item components.
+
+The isolated server fixture passes all eleven marker groups, including new item/fluid, entity-fluid, recipe-ID and enchantment wire tests. Static checks found all 30 unique packet IDs and no remaining legacy NetworkHooks, NetworkWrapper, NetworkDirection, IThreadsafePacket, additional-spawn interface or PacketTarget references.
+
+Full-source diagnostics decreased from 8,283 to 7,966. Remaining packet diagnostics refer to missing Lombok-generated constructors/getters in dependent uncompiled classes (tool menus, material stats, modifiers), rather than legacy network transport calls. This is not proof that all packet handlers work in-game. Full client/server connection, menu, projectile spawn and complete gameplay tests remain blocked by the unfinished full port. No playable JAR.
