@@ -45,7 +45,7 @@ public final class DisplaySmoke {
     EntityDataSmoke.validate(event);
     WorldPacketSmoke.validate(event);
     NetworkSmoke.validate(event);
-    TypedIdSmoke.validate();
+    TypedIdSmoke.validate(event);
     event.getServer().halt(false);
   }
 }
