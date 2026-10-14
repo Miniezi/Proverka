@@ -21,6 +21,12 @@ def migrate(root):
         if name.endswith('MaterialIdNBT.java'):
             s = s.replace('if (index < list.size()) {', 'if (index >= 0 && index < list.size()) {')
         if name.endswith('IMaterialItem.java'):
+            s = s.replace('  MaterialVariantId getMaterial(ItemStack stack);', '''  MaterialVariantId getMaterial(ItemStack stack);
+
+  /** Base rarity derived from material; items may opt out independently of vanilla components. */
+  default net.minecraft.world.item.Rarity getMaterialRarity(ItemStack stack) {
+    return MaterialRegistry.getMaterial(getMaterial(stack).getId()).getRarity();
+  }''')
             s = s.replace('    return stack;\n  }\n\n  /** Returns the item with the given material',
                           '    MaterialItem.refreshMaterial(stack);\n    return stack;\n  }\n\n  /** Returns the item with the given material', 1)
         if name.endswith('MaterialItem.java') and not name.endswith('IMaterialItem.java'):
@@ -41,7 +47,7 @@ def migrate(root):
       slimeknights.tconstruct.library.tools.nbt.ItemStackData.update(stack,
         current -> current.putString(IMaterialItem.MATERIAL_TAG, after.toString()));
     }
-    Rarity rarity = MaterialRegistry.getMaterial(after.getId()).getRarity();
+    Rarity rarity = ((IMaterialItem)stack.getItem()).getMaterialRarity(stack);
     if (stack.get(net.minecraft.core.component.DataComponents.RARITY) != rarity) {
       stack.set(net.minecraft.core.component.DataComponents.RARITY, rarity);
     }
@@ -66,4 +72,17 @@ def migrate(root):
     if (!level.isClientSide) MaterialItem.refreshMaterial(stack);
   }''')
         p.write_text(s)
-    return {'files': len(paths), 'storage': 'minecraft:custom_data', 'tool_stack_migrated': False}
+    subclasses = ['tools/item/FakeStorageBlockItem.java', 'tools/item/FakeIngotItem.java',
+                  'tools/item/RepairKitItem.java', 'library/tools/part/ToolPartItem.java',
+                  'library/tools/part/block/ToolPartBlockItem.java', 'tables/item/AnvilBlockItem.java']
+    for name in subclasses:
+        p = source/name
+        s = p.read_text().replace('public Rarity getRarity(ItemStack stack)', 'public Rarity getMaterialRarity(ItemStack stack)')
+        # These tooltip overrides do not otherwise use the former nullable world parameter.
+        import re
+        s = re.sub(r'public void appendHoverText\(ItemStack stack, @Nullable Level (?:world|level|worldIn),',
+                   'public void appendHoverText(ItemStack stack, TooltipContext context,', s)
+        s = re.sub(r'appendHoverText\(stack, (?:world|level|worldIn), tooltip, flag\)',
+                   'appendHoverText(stack, context, tooltip, flag)', s)
+        p.write_text(s)
+    return {'files': len(paths) + len(subclasses), 'storage': 'minecraft:custom_data', 'tool_stack_migrated': False}
