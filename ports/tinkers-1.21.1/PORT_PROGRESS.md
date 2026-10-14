@@ -138,3 +138,11 @@ Added production ToolInventoryData: copied insertion/replacement/removal, and at
 All 18 isolated server groups pass. New tests execute the real list-editing helper and cover input/replacement isolation, insert/replace/remove, relocation, duplicate and negative slots, zero/negative/insufficient capacity, and unchanged input after rejection. ToolInventoryData has zero full-source diagnostics. InventoryModule still has existing item serialization API and generated accessor/constructor failures. Complete item serialization, tool capabilities, live ToolStack ownership and gameplay are not validated by these tests.
 
 Full-source diagnostics remain 7,413. No playable JAR. This phase fixes mutation publication and validation behavior; it does not claim the complete inventory or ToolStack port is finished.
+
+## Registry-aware stored ammunition (2026-10-14 UTC)
+
+Validated source edc10d9f5330f49d349be3d5272f2f1f9367af18, Actions run 38612850335, artifact 11917673216. Added production StoredItemStack using the native ItemStack codec with an explicit HolderLookup.Provider. Encoding completes before callers replace their stored tag; empty stacks use an empty compound. Reading uses vanilla parseOptional with its invalid-item fallback. No global registry singleton or built-in-only lookup was substituted for the world's dynamic registries.
+
+Migrated three ammo writes in ModifiableBowItem/ModifiableCrossbowItem and the crossbow firing read to the owning level's registry access. This retains item components including dynamically registered enchantment holders. Context-free tooltip decoding and InventoryModule serialization remain unchanged until lookup context is threaded through those APIs; the ranged item classes retain other unported gameplay APIs.
+
+All 19 isolated server groups pass. The new group executes actual StoredItemStack against dedicated-server registries, covering count, custom name/data, a dynamic enchantment, source/decoded stack isolation, empty sentinels and unknown-item fallback. It does not test full bow/crossbow gameplay, ToolStack ownership or old-format data migration. StoredItemStack has zero full-source diagnostics. Full-source diagnostics decreased from 7,413 to 7,409. No playable JAR.
