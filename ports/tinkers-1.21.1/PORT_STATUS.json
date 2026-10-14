@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "86befaeca45c17c059b2cdbc6bf0eb4d03312166",
-  "validation_run": 38479996232,
+  "validated_commit": "2a008d763872a4a01835d8d81f20cada30aafba6",
+  "validation_run": 38645912953,
   "full_compile": "failed",
-  "compiler_diagnostics": 7476,
+  "compiler_diagnostics": 7381,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -87,5 +87,14 @@
       "instrument"
     ],
     "limitations": "Material registry predicates, ToolStack components, material recipe cache and full reload/gameplay tests remain blocked. MaterialValueIngredient full-compile diagnostics refer to Lombok-generated methods/constructors in uncompiled dependencies."
-  }
+  },
+  "latest_validation": {
+    "isolated_server_marker_groups": 21,
+    "artifact": 11931793879,
+    "local_logs": "run49",
+    "full_compile": "failed",
+    "playable_jar": false,
+    "scope": "Existing isolated production fixtures pass; changed worktable/stat gameplay classes remain blocked by full-project dependencies."
+  },
+  "nested_modifier_edits": "Detached stat compound edits and atomic worktable interaction list publication; ToolStack component owner not yet bound."
 }

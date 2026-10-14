@@ -170,3 +170,15 @@ Migrated shared durability APIs in ModifiableItem, ModifiableArmorItem, Modifiab
 All 21 isolated server groups pass. Added actual native arrow attribution checks for vanilla crossbows, a tagged fixture item, ordinary bows and no weapon, plus saved/reloaded weapon attribution. The mixin executes in the dedicated-server fixture. Full-source diagnostics decreased from 7,405 to 7,383; ToolDamageUtil and AbstractArrowMixin now have zero diagnostics. Ranged subclasses retain generated accessor/dependency errors; the base item classes still require other component/capability migration.
 
 Limitations: full damage/repair gameplay, client tooltip rendering, advancement awards, multiplayer and a distributable production JAR remain untested or blocked by the unfinished full port. ToolStack component ownership is not complete. No playable JAR.
+
+## Nested modifier mutation publication (2026-10-14 UTC)
+
+Validated source 2a008d763872a4a01835d8d81f20cada30aafba6, Actions run 38645912953, artifact 11931793879, local run49. Added guarded migration for StatOverrideModifier, ToggleInteractionWorktableRecipe and ModifierSetWorktableRecipe.
+
+Stat edits now copy existing nested compounds and publish only after writing the new value. Neutral-value removal republishes remaining stats, and removal of the last stat clears the group. Generic stat serialization finishes before publication, avoiding publication of an empty group if serialization throws. Existing return semantics remain unchanged.
+
+Worktable set edits use detached lists. Interaction toggling computes both lists before publishing them together through ModDataNBT.edit, preserving unrelated persistent data and explicitly clearing empty lists. This removes dependence on mutating getter-returned references.
+
+Source preparation and all 21 existing isolated server groups pass. Full compilation remains failed with 7,381 diagnostics (previous 7,383; fewer repeated getter call sites, not evidence that another subsystem compiles). These three full gameplay classes still have generated-accessor and worktable-constructor dependency errors. Existing storage transaction tests pass, but do not execute these worktable/stat classes. No claim of end-to-end gameplay validation or a playable JAR.
+
+Next: complete mutable nested-data audit, including SmeltingModule and RestrictedCompoundTag hooks, before binding ToolStack to item components. Smelting input/output key aliasing and explicit registry context for InventoryModule serialization require care; they were inspected but not modified in this block.
