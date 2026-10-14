@@ -87,3 +87,14 @@ Added a backward-compatible nested ingredient codec: inline item/tag inputs are 
 The isolated fixture tests actual no-container and block-tag types through the registered Ingredient codecs, native wrappers, JSON and network roundtrips, nested component predicates, item and tag inputs, invalid input rejection, and exact/bounded/unbounded/fractional range codecs. MaterialIngredient/MaterialValueIngredient still depend on the unfinished material registry, recipe cache and item-component port; their full gameplay and reload behavior are not validated. Remaining custom ingredient ports include ToolHookIngredient and InstrumentIngredient. Full mod remains uncompiled; no playable JAR.
 
 Validated source 86befaeca45c17c059b2cdbc6bf0eb4d03312166, Actions run 38479996232, artifact 11856158571. All 15 isolated check groups pass. Full-source diagnostics decreased from 7,599 to 7,476; this is not a completion percentage. MaterialIngredient, MaterialIngredientFilter, NestedIngredientCodec, NoContainerIngredient, BlockTagIngredient, MaterialValueRange and ShapedMaterialRecipe have no diagnostics in this run. MaterialValueIngredient retains dependent Lombok constructor/accessor errors; these were not replaced with manual stubs.
+
+
+## Instrument components and tool-hook ingredients (2026-10-14 UTC)
+
+Validated source d89ba2c3a67ce996e7ef6e020eff8e64494f7496, Actions run 38546003854, artifact 11883789519. Migrated the final two legacy ingredient types to ICustomIngredient with registered MapCodec/registry-aware network codecs. All six original custom ingredient types now use native NeoForge registration and vanilla wrappers.
+
+InstrumentIngredient reads DataComponents.INSTRUMENT instead of removed stack NBT APIs. Exact instrument keys and excluded tags are preserved, including the absent-component behavior for exclusions. Display stacks carry matching components; missing exact registry keys produce no fabricated display item. JSON requires a non-air item and exactly one selector. ToolHookIngredient evaluates current tool definitions and tags rather than reducing its predicate to cached item IDs; empty displays no longer fabricate barrier items.
+
+All 15 isolated server check groups pass, including added actual instrument matching, missing/wrong components, excluded instrument tags, display validity, ambiguous/missing selector rejection, JSON and native wire roundtrips. InstrumentIngredient has zero full-source diagnostics. ToolHookIngredient has one dependent error: missing Lombok-generated ToolDefinition.getData(); its full tool-definition runtime remains unvalidated.
+
+Full-source diagnostics decreased from 7,476 to 7,430. These counts include cascading failures and are not completion percentages. No playable JAR. Next major work remains ToolStack/item components, remaining recipe/datagen APIs and GUI/client migration.

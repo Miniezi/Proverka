@@ -9,4 +9,6 @@ First patch: 116 ResourceLocation constructor calls changed to parse/fromNamespa
 
 The local build runner expects downloaded Gradle 9.2.1, Azul JDK21 under runtime, extracted pinned Mantle under upstream, and a runtime/build-cacerts truststore derived from the JDK defaults plus the environment CA. Those machine-specific dependencies and certificates are intentionally not committed.
 
-Remaining: finish Mantle compilation, migrate TConstruct build/metadata to NeoForge, migrate tool NBT and capabilities, recipes, packets, fluids and rendering; compile and test client/server. ResourceId still subclasses the former ResourceLocation API and needs separate redesign. This checkpoint is not a completed port.
+Current state: Mantle builds on 1.21.1 and the port has NeoForge metadata, registered payloads, attachments, typed IDs, contextual loadables, quantity-aware ingredients and material recipe codecs. See PORT_PROGRESS.md for validated commits and test scope.
+
+Remaining: tool item components and ToolStack, remaining capabilities, recipe/datagen APIs, GUI/client rendering and broader resource migration. Full-source compilation still fails; isolated server checks are not a playable mod or a completion percentage.
