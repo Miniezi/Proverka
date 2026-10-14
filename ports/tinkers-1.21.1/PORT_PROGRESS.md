@@ -156,3 +156,17 @@ Both bow and crossbow arrow factories receive the actual firing ItemStack requir
 All 20 isolated server groups pass. The new fixture checks actual projectile velocity against the shooter's view, symmetric angular spread, speed, targeted direction and native arrow owner assignment. The first run failed because its fixed world-axis expectation did not match the fixture shooter's view; the corrected test initializes head rotation and checks the actual view vector rather than assuming a world axis. The production launch implementation was unchanged between those runs.
 
 ProjectileAim has zero full-source diagnostics; full-source diagnostics are 7,405 (previous 7,409). These checks do not cover modifier damage/effects, crossbow attribution, ammunition consumption, mob AI integration or complete ranged gameplay. No playable JAR.
+
+## Crossbow lifecycle and shared durability API (2026-10-15 Asia/Yekaterinburg)
+
+Validated source 9a42abc0f8c97a9a543d13eebe1989f81c168339, Actions run 38645053039, artifact 11931892286. Intermediate crossbow source 54024f2f7e63a9819acdaab1e16f9339fe097d31 and shared durability source 47d8e383ce832e1a0766d5cddc9eb3bc56fdbcbb were followed by the complete validation run. Local diagnostics: run47 and run48.
+
+Inspected Mojang's official 1.21.1 client and mappings: AbstractArrow.shotFromCrossbow tests its saved firedFromWeapon against Items.CROSSBOW, not a mutable boolean. Added a narrowly scoped required RETURN mixin that retains true vanilla results and recognizes the tconstruct:modifiable/ranged/crossbows item tag. It uses the actual saved weapon, with no fake vanilla weapon replacement. Removed the obsolete setter. Migrated the bundled crossbow tag to tags/item and registered the mixin in both production metadata and the explicitly separate fixture.
+
+Migrated the launcher use-duration override and bow/crossbow calls to include the living entity. Crossbow ammo tooltip decoding now uses the player's registry access or Mantle's guarded client-world lookup, preserving components/enchantments. With no available world, detailed nested ammo decoding is skipped without altering stored data.
+
+Migrated shared durability APIs in ModifiableItem, ModifiableArmorItem, ModifiableLauncherItem and ToolDamageUtil: item-stack-sensitive isDamageable, Consumer<Item> break callbacks, raw broken-flag custom-data reads/writes, current tooltip contexts, and onEquippedItemBroken for equipment and hand animations. Existing custom durability calculation remains; this does not replace ToolStack with vanilla durability or delete broken tools.
+
+All 21 isolated server groups pass. Added actual native arrow attribution checks for vanilla crossbows, a tagged fixture item, ordinary bows and no weapon, plus saved/reloaded weapon attribution. The mixin executes in the dedicated-server fixture. Full-source diagnostics decreased from 7,405 to 7,383; ToolDamageUtil and AbstractArrowMixin now have zero diagnostics. Ranged subclasses retain generated accessor/dependency errors; the base item classes still require other component/capability migration.
+
+Limitations: full damage/repair gameplay, client tooltip rendering, advancement awards, multiplayer and a distributable production JAR remain untested or blocked by the unfinished full port. ToolStack component ownership is not complete. No playable JAR.
