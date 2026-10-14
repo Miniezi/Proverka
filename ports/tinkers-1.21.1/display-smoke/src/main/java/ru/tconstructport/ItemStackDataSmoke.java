@@ -49,6 +49,29 @@ final class ItemStackDataSmoke {
     if (copy.has(DataComponents.CUSTOM_DATA) || !stack.has(DataComponents.CUSTOM_DATA)) fail("empty removal");
     ItemStackData.update(ItemStack.EMPTY, data -> data.putInt("invalid",1));
     if (ItemStack.EMPTY.has(DataComponents.CUSTOM_DATA)) fail("empty singleton mutation");
+    var working = new CompoundTag();
+    var snapshots = new java.util.ArrayList<CompoundTag>();
+    var storage = new slimeknights.tconstruct.library.tools.nbt.ModifierDataStorage(working, snapshots::add);
+    storage.edit(data -> data.putString("modifier", "first"));
+    if (snapshots.size()!=1 || !working.getString("modifier").equals("first")) fail("modifier publication");
+    storage.replace(working);
+    if (!working.getString("modifier").equals("first")) fail("modifier self-copy");
+    snapshots.get(0).putString("modifier", "external");
+    if (!working.getString("modifier").equals("first")) fail("published snapshot aliases working data");
+    int count = snapshots.size();
+    try {
+      storage.edit(data -> { data.remove("modifier"); throw new IllegalArgumentException("abort"); });
+      fail("missing transaction exception");
+    } catch (IllegalArgumentException expected) {}
+    if (snapshots.size()!=count || !working.getString("modifier").equals("first")) fail("failed modifier edit committed");
+    var replacement = new CompoundTag();
+    var child = new CompoundTag(); child.putInt("charge",3); replacement.put("nested",child);
+    storage.replace(replacement);
+    child.putInt("charge",99);
+    if (working.contains("modifier") || working.getCompound("nested").getInt("charge")!=3) fail("replacement isolation");
+    storage.edit(data -> data.getCompound("nested").putInt("charge",4));
+    if (snapshots.get(snapshots.size()-1).getCompound("nested").getInt("charge")!=4) fail("nested publication");
+    System.out.println("TCONSTRUCT_MODIFIER_DATA_OK snapshots=1 self_copy=1 nested=1 atomic=1");
     System.out.println("TCONSTRUCT_ITEM_DATA_OK isolation=1 atomic=1 preservation=1 persistence=1 wire=1");
   }
   private static void fail(String message) {throw new IllegalStateException(message);}

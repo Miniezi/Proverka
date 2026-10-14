@@ -64,6 +64,8 @@ from migrate_custom_ingredients import migrate as migrate_custom_ingredients
 api_stats['custom_ingredients'] = migrate_custom_ingredients(source)
 from migrate_item_material_data import migrate as migrate_item_material_data
 api_stats['item_material_data'] = migrate_item_material_data(source)
+from migrate_modifier_data import migrate as migrate_modifier_data
+api_stats['modifier_data'] = migrate_modifier_data(source)
 (ROOT/'api-migration-stats.json').write_text(json.dumps(api_stats,indent=2))
 shutil.copyfile(P/'tconstruct.build.gradle',source/'build.gradle')
 (source/'settings.gradle').write_text("pluginManagement { repositories { gradlePluginPortal(); maven { url='https://maven.neoforged.net/releases' } } }\nrootProject.name='TConstructNeoForgePort'\n")

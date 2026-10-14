@@ -22,6 +22,7 @@ sourceSets.main.java {
  include 'ru/tconstructport/MaterialPatternSmoke.java'
  include 'ru/tconstructport/CustomIngredientSmoke.java'
  include 'ru/tconstructport/ItemStackDataSmoke.java'
+ include 'slimeknights/tconstruct/library/tools/nbt/ModifierDataStorage.java'
  include 'slimeknights/tconstruct/library/tools/nbt/ItemStackData.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/NestedIngredient.java'
  include 'slimeknights/tconstruct/library/recipe/ingredient/NestedIngredientCodec.java'
