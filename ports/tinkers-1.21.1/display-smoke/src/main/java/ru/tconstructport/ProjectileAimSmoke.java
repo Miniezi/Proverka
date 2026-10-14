@@ -11,16 +11,17 @@ final class ProjectileAimSmoke {
   static void validate(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
     var level = event.getServer().overworld();
     var shooter = new ArmorStand(level,0,64,0);
-    shooter.setXRot(0); shooter.setYRot(0);
+    shooter.setXRot(0); shooter.setYRot(0); shooter.setYHeadRot(0);
     var straight = new Snowball(level,shooter);
     ProjectileAim.shoot(shooter,straight,3,0,0,null);
     var v=straight.getDeltaMovement();
-    if (Math.abs(v.length()-3)>1e-5 || Math.abs(v.x)>1e-5 || v.z<2.99) fail("straight launch");
+    var expected = shooter.getViewVector(1.0F).normalize().scale(3);
+    if (v.subtract(expected).length()>1e-5) fail("straight launch: actual="+v+" expected="+expected);
     var left = new Snowball(level,shooter); var right = new Snowball(level,shooter);
     ProjectileAim.shoot(shooter,left,3,0,-10,null);
     ProjectileAim.shoot(shooter,right,3,0,10,null);
-    if (Math.abs(left.getDeltaMovement().x+right.getDeltaMovement().x)>1e-5
-        || left.getDeltaMovement().x*right.getDeltaMovement().x>=0
+    if (left.getDeltaMovement().add(right.getDeltaMovement()).subtract(expected.scale(2*Math.cos(Math.toRadians(10)))).length()>1e-5
+        || left.getDeltaMovement().subtract(right.getDeltaMovement()).length()<0.1
         || Math.abs(left.getDeltaMovement().length()-3)>1e-5) fail("angular spread");
     var target = new ArmorStand(level,10,64,0);
     var aimed = new Snowball(level,shooter);
