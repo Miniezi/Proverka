@@ -23,6 +23,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/CustomIngredientSmoke.java'
  include 'ru/tconstructport/ItemStackDataSmoke.java'
  include 'ru/tconstructport/StoredItemStackSmoke.java'
+ include 'ru/tconstructport/ProjectileAimSmoke.java'
+ include 'slimeknights/tconstruct/library/tools/nbt/ProjectileAim.java'
  include 'slimeknights/tconstruct/library/tools/nbt/StoredItemStack.java'
  include 'ru/tconstructport/ToolInventoryDataSmoke.java'
  include 'slimeknights/tconstruct/library/tools/nbt/ToolInventoryData.java'

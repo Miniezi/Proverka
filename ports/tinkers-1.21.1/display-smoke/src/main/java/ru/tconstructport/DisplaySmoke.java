@@ -51,6 +51,7 @@ public final class DisplaySmoke {
     CustomIngredientSmoke.validate(event);
     ItemStackDataSmoke.validate(event);
     StoredItemStackSmoke.validate(event);
+    ProjectileAimSmoke.validate(event);
     ToolInventoryDataSmoke.validate();
     event.getServer().halt(false);
   }

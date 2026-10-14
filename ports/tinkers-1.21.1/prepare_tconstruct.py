@@ -70,6 +70,8 @@ from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
 api_stats['stored_ammo'] = migrate_stored_ammo(source)
+from migrate_projectile_launch import migrate as migrate_projectile_launch
+api_stats['projectile_launch'] = migrate_projectile_launch(source)
 (ROOT/'api-migration-stats.json').write_text(json.dumps(api_stats,indent=2))
 shutil.copyfile(P/'tconstruct.build.gradle',source/'build.gradle')
 (source/'settings.gradle').write_text("pluginManagement { repositories { gradlePluginPortal(); maven { url='https://maven.neoforged.net/releases' } } }\nrootProject.name='TConstructNeoForgePort'\n")
