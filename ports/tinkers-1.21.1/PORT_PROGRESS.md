@@ -146,3 +146,13 @@ Validated source edc10d9f5330f49d349be3d5272f2f1f9367af18, Actions run 386128503
 Migrated three ammo writes in ModifiableBowItem/ModifiableCrossbowItem and the crossbow firing read to the owning level's registry access. This retains item components including dynamically registered enchantment holders. Context-free tooltip decoding and InventoryModule serialization remain unchanged until lookup context is threaded through those APIs; the ranged item classes retain other unported gameplay APIs.
 
 All 19 isolated server groups pass. The new group executes actual StoredItemStack against dedicated-server registries, covering count, custom name/data, a dynamic enchantment, source/decoded stack isolation, empty sentinels and unknown-item fallback. It does not test full bow/crossbow gameplay, ToolStack ownership or old-format data migration. StoredItemStack has zero full-source diagnostics. Full-source diagnostics decreased from 7,413 to 7,409. No playable JAR.
+
+## Projectile launch API (2026-10-14 UTC)
+
+Validated source ba6b0db4e4d9778d250cb5bbc96f1b76495ca7fa, Actions run 38614147603, artifact 11918484550. Implemented ProjectileWeaponItem's new shootProjectile entry point in ModifiableLauncherItem using a production ProjectileAim helper. It supports view-based angular spread and an optional target with elevation compensation. Existing crossbow player shooting shares the same view-axis rotation and retains its existing speed, accuracy and angles. Existing bow player release logic is retained.
+
+Both bow and crossbow arrow factories receive the actual firing ItemStack required by 1.21.1. Migrated the trident sound holder access and nested crossbow tooltip context. The removed setShotFromCrossbow call is deliberately still an explicit outstanding compile failure until its replacement semantics for modded weapons are verified. Context-free ammo tooltip decoding and the broader ranged item APIs remain unfinished.
+
+All 20 isolated server groups pass. The new fixture checks actual projectile velocity against the shooter's view, symmetric angular spread, speed, targeted direction and native arrow owner assignment. The first run failed because its fixed world-axis expectation did not match the fixture shooter's view; the corrected test initializes head rotation and checks the actual view vector rather than assuming a world axis. The production launch implementation was unchanged between those runs.
+
+ProjectileAim has zero full-source diagnostics; full-source diagnostics are 7,405 (previous 7,409). These checks do not cover modifier damage/effects, crossbow attribution, ammunition consumption, mob AI integration or complete ranged gameplay. No playable JAR.
