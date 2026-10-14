@@ -20,5 +20,7 @@ def migrate(root):
     s=s.replace('stack.getOrCreateTag().putBoolean(ToolStack.TAG_BROKEN, true);',
                 'slimeknights.tconstruct.library.tools.nbt.ItemStackData.update(stack, data -> data.putBoolean(ToolStack.TAG_BROKEN, true));')
     s=s.replace('stack.getTag()', 'slimeknights.tconstruct.library.tools.nbt.ItemStackData.read(stack)')
+    s=s.replace('entity.broadcastBreakEvent(slot);', 'entity.onEquippedItemBroken(entity.getItemBySlot(slot).getItem(), slot);')
+    s=s.replace('entity.broadcastBreakEvent(hand);', 'entity.onEquippedItemBroken(entity.getItemInHand(hand).getItem(), hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);')
     p.write_text(s)
     return {'files':4,'full_toolstack_damage_validated':False}
