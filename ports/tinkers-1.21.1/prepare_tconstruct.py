@@ -66,6 +66,8 @@ from migrate_item_material_data import migrate as migrate_item_material_data
 api_stats['item_material_data'] = migrate_item_material_data(source)
 from migrate_modifier_data import migrate as migrate_modifier_data
 api_stats['modifier_data'] = migrate_modifier_data(source)
+from migrate_nested_modifier_edits import migrate as migrate_nested_modifier_edits
+api_stats['nested_modifier_edits'] = migrate_nested_modifier_edits(source)
 from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
