@@ -22,6 +22,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/MaterialPatternSmoke.java'
  include 'ru/tconstructport/CustomIngredientSmoke.java'
  include 'ru/tconstructport/ItemStackDataSmoke.java'
+ include 'ru/tconstructport/StoredItemStackSmoke.java'
+ include 'slimeknights/tconstruct/library/tools/nbt/StoredItemStack.java'
  include 'ru/tconstructport/ToolInventoryDataSmoke.java'
  include 'slimeknights/tconstruct/library/tools/nbt/ToolInventoryData.java'
  include 'slimeknights/tconstruct/library/tools/nbt/ModifierDataStorage.java'
