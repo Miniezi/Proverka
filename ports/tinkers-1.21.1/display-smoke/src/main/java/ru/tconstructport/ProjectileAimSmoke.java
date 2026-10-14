@@ -30,6 +30,17 @@ final class ProjectileAimSmoke {
         || Math.abs(aimed.getDeltaMovement().length()-2)>1e-5) fail("target aim");
     var arrow = ((ArrowItem)Items.ARROW).createArrow(level,new ItemStack(Items.ARROW),shooter,new ItemStack(Items.CROSSBOW));
     if (arrow.getOwner()!=shooter) fail("arrow owner");
+    if (!arrow.shotFromCrossbow()) fail("vanilla crossbow attribution");
+    var tagged = ((ArrowItem)Items.ARROW).createArrow(level,new ItemStack(Items.ARROW),shooter,new ItemStack(Items.STICK));
+    var bow = ((ArrowItem)Items.ARROW).createArrow(level,new ItemStack(Items.ARROW),shooter,new ItemStack(Items.BOW));
+    var noWeapon = ((ArrowItem)Items.ARROW).createArrow(level,new ItemStack(Items.ARROW),shooter,null);
+    if (!tagged.shotFromCrossbow() || bow.shotFromCrossbow() || noWeapon.shotFromCrossbow()) fail("tagged crossbow attribution");
+    var saved = new net.minecraft.nbt.CompoundTag();
+    tagged.saveWithoutId(saved);
+    var loaded = ((ArrowItem)Items.ARROW).createArrow(level,new ItemStack(Items.ARROW),shooter,null);
+    loaded.load(saved);
+    if (!loaded.shotFromCrossbow() || loaded.getWeaponItem()==null || !loaded.getWeaponItem().is(Items.STICK)) fail("saved weapon attribution");
+    System.out.println("TCONSTRUCT_CROSSBOW_ATTRIBUTION_OK vanilla=1 tagged=1 exclusions=1 persistence=1");
     System.out.println("TCONSTRUCT_PROJECTILE_AIM_OK direction=1 spread=1 target=1 arrow=1");
   }
   private static void fail(String message) {throw new IllegalStateException(message);}

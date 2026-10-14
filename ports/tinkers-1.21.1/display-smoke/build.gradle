@@ -24,6 +24,7 @@ sourceSets.main.java {
  include 'ru/tconstructport/ItemStackDataSmoke.java'
  include 'ru/tconstructport/StoredItemStackSmoke.java'
  include 'ru/tconstructport/ProjectileAimSmoke.java'
+ include 'slimeknights/tconstruct/mixin/AbstractArrowMixin.java'
  include 'slimeknights/tconstruct/library/tools/nbt/ProjectileAim.java'
  include 'slimeknights/tconstruct/library/tools/nbt/StoredItemStack.java'
  include 'ru/tconstructport/ToolInventoryDataSmoke.java'
@@ -74,6 +75,7 @@ sourceSets.main.java {
  include 'slimeknights/tconstruct/common/registration/CastItemObject.java'
 }
 tasks.named('processResources') {
+ from('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/tconstruct-port.mixins.json')
  from('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/META-INF/accesstransformer.cfg') { into 'META-INF' }
  from('../work/TinkersConstruct-215e687e687c4fa2a6a3db0237562d15eefed4c9/src/main/resources/META-INF/enumextensions.json') { into 'META-INF' }
 }

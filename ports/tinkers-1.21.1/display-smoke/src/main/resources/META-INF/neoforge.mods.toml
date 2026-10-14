@@ -6,3 +6,6 @@ modId="tconstruct"
 version="0.0.0-test-fixture"
 displayName="TConstruct display migration TEST FIXTURE - not the mod"
 enumExtensions="META-INF/enumextensions.json"
+
+[[mixins]]
+config="tconstruct-port.mixins.json"
