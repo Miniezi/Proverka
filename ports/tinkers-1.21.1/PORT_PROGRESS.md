@@ -98,3 +98,13 @@ InstrumentIngredient reads DataComponents.INSTRUMENT instead of removed stack NB
 All 15 isolated server check groups pass, including added actual instrument matching, missing/wrong components, excluded instrument tags, display validity, ambiguous/missing selector rejection, JSON and native wire roundtrips. InstrumentIngredient has zero full-source diagnostics. ToolHookIngredient has one dependent error: missing Lombok-generated ToolDefinition.getData(); its full tool-definition runtime remains unvalidated.
 
 Full-source diagnostics decreased from 7,476 to 7,430. These counts include cascading failures and are not completion percentages. No playable JAR. Next major work remains ToolStack/item components, remaining recipe/datagen APIs and GUI/client migration.
+
+## Material item component storage (2026-10-14 UTC)
+
+Validated source f96434a4299fbf506bb0478c2d6947d699decaab, Actions run 38547441244, artifact 11885651119. Added production ItemStackData copy-on-write access to minecraft:custom_data. Reads return detached snapshots without creating components. Updates preserve unrelated custom keys, commit only after successful callbacks, remove empty components and avoid mutating ItemStack.EMPTY.
+
+Migrated material writes in IMaterialItem, material reads in MaterialItem/MaterialBlockItem, and material-list reads/writes in MaterialIdNBT. Preserved existing Material/tic_materials field formats. Fixed negative-index handling in the direct material-list lookup. No manual replacement of Lombok methods or fake dependency implementations.
+
+All 16 isolated server groups pass. The new group executes the real storage helper and verifies nested snapshot isolation, stack-copy isolation, atomic failure, name/damage preservation, empty-component cleanup, native item persistence and registry-aware item network roundtrips. ItemStackData, IMaterialItem and MaterialIdNBT have no full-source diagnostics. MaterialItem/MaterialBlockItem still require rarity, tooltip and load-hook API migration; this phase does not validate complete material-item gameplay or old-world imports.
+
+Full-source diagnostics: 7,424 (previous 7,430). No playable JAR. ToolStack itself is deliberately NOT mechanically migrated: it retains live mutable NBT views used by persistent modifier data and raw-data hooks. Replacing those with snapshots without explicit commit semantics would silently lose updates. Remaining next work includes that live-view redesign, vanilla damage/unbreakable/name components, remaining recipes/datagen and client APIs.
