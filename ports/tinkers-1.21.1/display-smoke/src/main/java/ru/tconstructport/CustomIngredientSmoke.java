@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueRange;
 import slimeknights.tconstruct.library.recipe.ingredient.BlockTagIngredient;
+import slimeknights.tconstruct.library.recipe.ingredient.InstrumentIngredient;
 
 final class CustomIngredientSmoke {
   static void init(IEventBus bus) { bus.addListener(CustomIngredientSmoke::register); }
@@ -22,6 +23,7 @@ final class CustomIngredientSmoke {
     event.register(NeoForgeRegistries.Keys.INGREDIENT_TYPES, helper -> {
       helper.register(NoContainerIngredient.ID,NoContainerIngredient.TYPE);
       helper.register(BlockTagIngredient.ID,BlockTagIngredient.TYPE);
+      helper.register(InstrumentIngredient.ID,InstrumentIngredient.TYPE);
     });
   }
   static void validate(net.neoforged.neoforge.event.server.ServerStartedEvent event) {
@@ -62,6 +64,30 @@ final class CustomIngredientSmoke {
       if (!Ingredient.CONTENTS_STREAM_CODEC.decode(blockBuf).test(new ItemStack(Items.DIRT)) || blockBuf.isReadable()) fail("block tag wire");
     } finally {blockBuf.release();}
     if (new BlockTagIngredient(net.minecraft.tags.BlockTags.FIRE).getItems().findAny().isPresent()) fail("air item forms");
+    var horn = new ItemStack(Items.GOAT_HORN);
+    var ponder = net.minecraft.world.item.Instruments.PONDER_GOAT_HORN;
+    horn.set(DataComponents.INSTRUMENT,net.minecraft.core.registries.BuiltInRegistries.INSTRUMENT.getHolderOrThrow(ponder));
+    var instrument = InstrumentIngredient.of(Items.GOAT_HORN,ponder);
+    var absent = horn.copy(); absent.remove(DataComponents.INSTRUMENT);
+    var wrong = horn.copy(); wrong.set(DataComponents.INSTRUMENT,net.minecraft.core.registries.BuiltInRegistries.INSTRUMENT.getHolderOrThrow(net.minecraft.world.item.Instruments.SING_GOAT_HORN));
+    var excluded = InstrumentIngredient.of(Items.GOAT_HORN,net.minecraft.tags.InstrumentTags.GOAT_HORNS);
+    if (!instrument.test(horn) || instrument.test(absent) || instrument.test(wrong)
+        || instrument.test(new ItemStack(Items.STICK)) || instrument.isSimple()
+        || excluded.test(horn) || !excluded.test(absent)) fail("instrument component predicate");
+    for (var value : java.util.List.of(instrument,excluded)) {
+      var copy = Ingredient.CODEC.parse(ops,Ingredient.CODEC.encodeStart(ops,value).getOrThrow()).getOrThrow();
+      if (copy.test(horn)!=value.test(horn) || copy.test(absent)!=value.test(absent)) fail("instrument JSON");
+      if (java.util.Arrays.stream(value.getItems()).anyMatch(stack -> !value.test(stack))) fail("instrument display");
+      var wire = new RegistryFriendlyByteBuf(Unpooled.buffer(),event.getServer().registryAccess());
+      try {
+        Ingredient.CONTENTS_STREAM_CODEC.encode(wire,value);
+        var decoded = Ingredient.CONTENTS_STREAM_CODEC.decode(wire);
+        if (decoded.test(horn)!=value.test(horn) || decoded.test(absent)!=value.test(absent) || wire.isReadable()) fail("instrument wire");
+      } finally {wire.release();}
+    }
+    for (String fields : new String[]{"",",\"instrument\":\"minecraft:ponder_goat_horn\",\"ignore\":\"minecraft:goat_horns\""}) {
+      if (Ingredient.CODEC.parse(ops,JsonParser.parseString("{\"type\":\"tconstruct:instrument\",\"item\":\"minecraft:goat_horn\""+fields+"}")).isSuccess()) fail("invalid instrument selector");
+    }
     var exact = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("2")).getOrThrow();
     var range = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("{\"min\":1,\"max\":3}")).getOrThrow();
     var unbounded = MaterialValueRange.CODEC.parse(JsonOps.INSTANCE,JsonParser.parseString("{} ")).getOrThrow();

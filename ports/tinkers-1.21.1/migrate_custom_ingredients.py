@@ -88,9 +88,16 @@ import net.neoforged.neoforge.common.crafting.ICustomIngredient;
       helper -> {
         helper.register(NoContainerIngredient.ID, NoContainerIngredient.TYPE);
         helper.register(BlockTagIngredient.ID, BlockTagIngredient.TYPE);
+        helper.register(InstrumentIngredient.ID, InstrumentIngredient.TYPE);
       });''')
             s=s.replace('      CraftingHelper.register(NoContainerIngredient.ID, NoContainerIngredient.Serializer.INSTANCE);\n','')
             s=s.replace('      CraftingHelper.register(BlockTagIngredient.Serializer.ID, BlockTagIngredient.Serializer.INSTANCE);\n','')
+            s=s.replace('      CraftingHelper.register(InstrumentIngredient.ID, InstrumentIngredient.SERIALIZER);\n','')
+        if path.name=='TinkerTools.java':
+            s=s.replace('  void registerRecipeSerializers(RegisterEvent event) {','''  void registerRecipeSerializers(RegisterEvent event) {
+    event.register(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.INGREDIENT_TYPES,
+      helper -> helper.register(ToolHookIngredient.ID, ToolHookIngredient.TYPE));''')
+            s=re.sub(r'\s*CraftingHelper.register\(ToolHookIngredient.Serializer.ID, ToolHookIngredient.Serializer.INSTANCE\);','',s)
         if path.name=='SmelteryRecipeProvider.java':
             s=s.replace('new BlockTagIngredient(BlockTags.CONVERTABLE_TO_MUD)', 'new BlockTagIngredient(BlockTags.CONVERTABLE_TO_MUD).toVanilla()')
         if path.name=='ShapedMaterialRecipe.java':
@@ -98,4 +105,4 @@ import net.neoforged.neoforge.common.crafting.ICustomIngredient;
         if path.name=='ShapedMaterialExtension.java':
             s=s.replace('inputs.get(i) instanceof MaterialValueIngredient','inputs.get(i).getCustomIngredient() instanceof MaterialValueIngredient')
         if s!=before:path.write_text(s);changed+=1
-    return {'consumer_files':changed,'ingredient_types':4}
+    return {'consumer_files':changed,'ingredient_types':6}
