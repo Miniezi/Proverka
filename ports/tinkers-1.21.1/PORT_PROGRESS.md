@@ -128,3 +128,13 @@ ModDataNBT mutators and ToolDataNBT slot writes now notify an optional owner cal
 All 17 isolated server groups pass. The new group tests the actual ModifierDataStorage implementation: snapshot isolation, self-copy, replacement cleanup, nested changes and failed-edit rollback. It does not execute the entire ModDataNBT/ToolDataNBT API because their SlotType/tool-stat dependencies are still unported. ModifierDataStorage and ModDataNBT have no full-source diagnostics; ToolDataNBT retains the preexisting missing generated getData/getName accessor errors. Full-source diagnostics: 7,413 (previous 7,416).
 
 This is a foundation, not a completed ToolStack migration: no ItemStack component owner is bound yet. Legacy mutable getter results still exist and changes through those references do not automatically publish. Remaining callers (inventory lists, ranged ammo, raw-data hooks) must be audited or converted to explicit edits before enabling component binding. No playable JAR.
+
+## Detached tool inventory edits (2026-10-14 UTC)
+
+Validated source 8da6daff5846e366a4ed4f21a73248f74aa8a01e, Actions run 38602574085, artifact 11915190942. InventoryModule.setStack now builds a detached list and publishes its completed contents through ModDataNBT.put/remove. Previously a newly created list could be published before insertion, and existing list changes never notified the new owner callback. Failed serialization cannot partially clear a stored stack. Empty lists are removed.
+
+Added production ToolInventoryData: copied insertion/replacement/removal, and atomic slot fitting that retains valid indices and relocates negative, missing, duplicate or out-of-range indices. Fitting rejects insufficient capacity without changing the input. Ordinary edits retain additional entries even in corrupted duplicate-slot input; validation can relocate those entries instead of silently dropping them. Inventory reads now reject negative indices before array access. Validation publishes only after successful fitting.
+
+All 18 isolated server groups pass. New tests execute the real list-editing helper and cover input/replacement isolation, insert/replace/remove, relocation, duplicate and negative slots, zero/negative/insufficient capacity, and unchanged input after rejection. ToolInventoryData has zero full-source diagnostics. InventoryModule still has existing item serialization API and generated accessor/constructor failures. Complete item serialization, tool capabilities, live ToolStack ownership and gameplay are not validated by these tests.
+
+Full-source diagnostics remain 7,413. No playable JAR. This phase fixes mutation publication and validation behavior; it does not claim the complete inventory or ToolStack port is finished.
