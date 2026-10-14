@@ -49,6 +49,7 @@ public final class DisplaySmoke {
     IngredientSmoke.validate(event);
     MaterialPatternSmoke.validate(event);
     CustomIngredientSmoke.validate(event);
+    ItemStackDataSmoke.validate(event);
     event.getServer().halt(false);
   }
 }
