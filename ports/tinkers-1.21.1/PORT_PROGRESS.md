@@ -238,3 +238,11 @@ Validated source 0bed63298b546be22c501f64a9e117b9be46e694, Actions run 387526967
 All 24 existing isolated server groups pass; full-source diagnostics are 7,235 (previous 7,240). No diagnostics involving the new registry-aware melting persistence calls were reported. The affected classes retain other recipe/capability/generated-accessor errors. Existing StoredItemStack checks validate the shared codec, not full melting-module gameplay. Complete melting, fuel consumption, alloying and casting are not yet runtime validated. No playable JAR.
 
 Next core blockers: recipe-holder lookup and recipe codecs, fluid/item capabilities and tank connections, then an actual server test of melting and casting. ToolStack component ownership remains another primary blocker. No cosmetic work is planned.
+
+## Core smeltery recipe holder lookup (2026-10-15 UTC)
+
+Validated source 6fc90d45dda0fdafebb3a29674d0ee320e4411b5, Actions run 38758842145, artifact 11984103791, local run58. MeltingModule and CastingBlockEntity now use RecipeManager's ID-hinted getRecipeFor overload and unwrap RecipeHolder values for melting, casting and molding. Caches retain manager-owned IDs instead of directly trusting old recipe objects. No-match clears the hint. Thus a subsequent lookup resolves the current recipe definition after data reload.
+
+Casting tracks the active recipe ID separately from search hints, sets it at each recipe assignment, clears it on reset, and writes that ID instead of calling removed Recipe.getId(). Loading resolves byKey and checks both recipe type and ICastingRecipe interface. Loading a missing or wrong-type recipe clears previous active state. This does not dynamically replace a recipe already processing mid-cast; the change concerns fresh lookup and load behavior.
+
+All 25 isolated server groups pass. The additional native RecipeManager test uses an isolated manager and vanilla smelting recipes to check ID lookup, replacing a recipe under the same ID, and removing it. The server's own recipes are not modified. It validates the lookup API semantics used by production, not an end-to-end smeltery. Full-source diagnostics are 7,233 (previous 7,235); no diagnostics on the new getRecipeFor/byKey/holder/active-ID code were reported. Recipe codecs, fluid capabilities and full casting/melting gameplay remain unfinished. No playable JAR.

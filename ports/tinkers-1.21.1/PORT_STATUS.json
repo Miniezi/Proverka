@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "0bed63298b546be22c501f64a9e117b9be46e694",
-  "validation_run": 38752696788,
+  "validated_commit": "6fc90d45dda0fdafebb3a29674d0ee320e4411b5",
+  "validation_run": 38758842145,
   "full_compile": "failed",
-  "compiler_diagnostics": 7235,
+  "compiler_diagnostics": 7233,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -89,12 +89,12 @@
     "limitations": "Material registry predicates, ToolStack components, material recipe cache and full reload/gameplay tests remain blocked. MaterialValueIngredient full-compile diagnostics refer to Lombok-generated methods/constructors in uncompiled dependencies."
   },
   "latest_validation": {
-    "isolated_server_marker_groups": 24,
-    "artifact": 11982052500,
-    "local_logs": "run57",
+    "isolated_server_marker_groups": 25,
+    "artifact": 11984103791,
+    "local_logs": "run58",
     "full_compile": "failed",
     "playable_jar": false,
-    "scope": "Registry-aware melting persistence calls migrated; existing shared item-codec checks pass, but full melting gameplay remains unvalidated."
+    "scope": "ID-based recipe lookup reload semantics pass native server tests; complete smeltery behavior remains unvalidated."
   },
   "nested_modifier_edits": "Detached stat compound edits and atomic worktable interaction list publication; ToolStack component owner not yet bound.",
   "restricted_raw_data": "Snapshot getters, copied writes, optional publication, atomic edits and refreshed ToolStack wrapper; addon nested edits require explicit put.",
@@ -103,5 +103,6 @@
   "dispensers": "Six BlockSource consumers migrated; current armor stand spawn overload; component-aware placement and success-dependent consumption.",
   "block_entity_io": "Registry providers threaded through 45 lifecycle methods in 20 classes; nested serializers remain incomplete.",
   "priority": "Core mechanics only: tools/modifiers and melting/alloying/casting. Defer decorative/cosmetic work unless required to unblock core.",
-  "melting_storage": "Controller-to-slot registry propagation; component-aware stored item codec; empty-slot heat reset; registry-aware melter tank IO."
+  "melting_storage": "Controller-to-slot registry propagation; component-aware stored item codec; empty-slot heat reset; registry-aware melter tank IO.",
+  "smeltery_recipe_lookup": "Melting/casting/molding use holder IDs; active casting recipe ID is separately persisted and type-checked on restore."
 }
