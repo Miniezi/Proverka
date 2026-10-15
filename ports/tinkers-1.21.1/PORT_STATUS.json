@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "b1aa6c7b3174ea68dd703523a14cfd39577009d0",
-  "validation_run": 38720417830,
+  "validated_commit": "5f8704d287549844c8b685ae8053f4e6787084a8",
+  "validation_run": 38727710625,
   "full_compile": "failed",
-  "compiler_diagnostics": 7359,
+  "compiler_diagnostics": 7327,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -90,13 +90,14 @@
   },
   "latest_validation": {
     "isolated_server_marker_groups": 23,
-    "artifact": 11964910592,
-    "local_logs": "run53",
+    "artifact": 11969460466,
+    "local_logs": "run54",
     "full_compile": "failed",
     "playable_jar": false,
-    "scope": "Five actual glass/pane classes pass codec and behavior checks; full integration and client rendering remain unvalidated."
+    "scope": "Existing isolated checks pass; four seared classes have no compiler diagnostics, but their runtime behavior remains unvalidated."
   },
   "nested_modifier_edits": "Detached stat compound edits and atomic worktable interaction list publication; ToolStack component owner not yet bound.",
   "restricted_raw_data": "Snapshot getters, copied writes, optional publication, atomic edits and refreshed ToolStack wrapper; addon nested edits require explicit put.",
-  "glass_blocks": "TransparentBlock base classes, ARGB beacon tint, five concrete codecs and soul-glass pathfinding migrated."
+  "glass_blocks": "TransparentBlock base classes, ARGB beacon tint, five concrete codecs and soul-glass pathfinding migrated.",
+  "block_paths": "PathType and six pathfinding overrides migrated; four seared component codecs added across 15 changed classes."
 }
