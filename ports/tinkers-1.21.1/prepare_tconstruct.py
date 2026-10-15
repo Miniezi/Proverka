@@ -72,6 +72,8 @@ from migrate_restricted_data import migrate as migrate_restricted_data
 api_stats['restricted_data'] = migrate_restricted_data(source)
 from migrate_glass_blocks import migrate as migrate_glass_blocks
 api_stats['glass_blocks'] = migrate_glass_blocks(source)
+from migrate_block_paths import migrate as migrate_block_paths
+api_stats['block_paths'] = migrate_block_paths(source)
 from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
