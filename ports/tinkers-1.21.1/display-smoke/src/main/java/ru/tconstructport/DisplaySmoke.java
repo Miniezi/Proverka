@@ -52,6 +52,7 @@ public final class DisplaySmoke {
     ItemStackDataSmoke.validate(event);
     RestrictedDataSmoke.validate();
     GlassBlockSmoke.validate(event);
+    DispenserSmoke.validate(event);
     StoredItemStackSmoke.validate(event);
     ProjectileAimSmoke.validate(event);
     ToolInventoryDataSmoke.validate();

@@ -24,6 +24,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/ItemStackDataSmoke.java'
  include 'ru/tconstructport/RestrictedDataSmoke.java'
  include 'ru/tconstructport/GlassBlockSmoke.java'
+ include 'ru/tconstructport/DispenserSmoke.java'
+ include 'slimeknights/tconstruct/shared/block/PlaceBlockDispenserBehavior.java'
  include 'slimeknights/tconstruct/shared/block/ClearStainedGlassBlock.java'
  include 'slimeknights/tconstruct/shared/block/ClearStainedGlassPaneBlock.java'
  include 'slimeknights/tconstruct/shared/block/SoulGlassBlock.java'
