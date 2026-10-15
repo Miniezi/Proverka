@@ -22,6 +22,8 @@ sourceSets.main.java {
  include 'ru/tconstructport/MaterialPatternSmoke.java'
  include 'ru/tconstructport/CustomIngredientSmoke.java'
  include 'ru/tconstructport/ItemStackDataSmoke.java'
+ include 'ru/tconstructport/RestrictedDataSmoke.java'
+ include 'slimeknights/tconstruct/library/utils/RestrictedCompoundTag.java'
  include 'ru/tconstructport/StoredItemStackSmoke.java'
  include 'ru/tconstructport/ProjectileAimSmoke.java'
  include 'slimeknights/tconstruct/mixin/AbstractArrowMixin.java'
