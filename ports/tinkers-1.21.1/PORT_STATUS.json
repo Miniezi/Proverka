@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "e0d7762a522f5a84e60aa00c38a8692d793bf569",
-  "validation_run": 38751529628,
+  "validated_commit": "0bed63298b546be22c501f64a9e117b9be46e694",
+  "validation_run": 38752696788,
   "full_compile": "failed",
-  "compiler_diagnostics": 7240,
+  "compiler_diagnostics": 7235,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -90,16 +90,18 @@
   },
   "latest_validation": {
     "isolated_server_marker_groups": 24,
-    "artifact": 11981692146,
-    "local_logs": "run56",
+    "artifact": 11982052500,
+    "local_logs": "run57",
     "full_compile": "failed",
     "playable_jar": false,
-    "scope": "Existing isolated checks pass; 45 block entity lifecycle methods migrated, but save/reload integration remains unvalidated."
+    "scope": "Registry-aware melting persistence calls migrated; existing shared item-codec checks pass, but full melting gameplay remains unvalidated."
   },
   "nested_modifier_edits": "Detached stat compound edits and atomic worktable interaction list publication; ToolStack component owner not yet bound.",
   "restricted_raw_data": "Snapshot getters, copied writes, optional publication, atomic edits and refreshed ToolStack wrapper; addon nested edits require explicit put.",
   "glass_blocks": "TransparentBlock base classes, ARGB beacon tint, five concrete codecs and soul-glass pathfinding migrated.",
   "block_paths": "PathType and six pathfinding overrides migrated; four seared component codecs added across 15 changed classes.",
   "dispensers": "Six BlockSource consumers migrated; current armor stand spawn overload; component-aware placement and success-dependent consumption.",
-  "block_entity_io": "Registry providers threaded through 45 lifecycle methods in 20 classes; nested serializers remain incomplete."
+  "block_entity_io": "Registry providers threaded through 45 lifecycle methods in 20 classes; nested serializers remain incomplete.",
+  "priority": "Core mechanics only: tools/modifiers and melting/alloying/casting. Defer decorative/cosmetic work unless required to unblock core.",
+  "melting_storage": "Controller-to-slot registry propagation; component-aware stored item codec; empty-slot heat reset; registry-aware melter tank IO."
 }
