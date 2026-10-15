@@ -23,7 +23,7 @@ final class GlassBlockSmoke {
       var paneJson = ClearStainedGlassPaneBlock.CODEC.codec().encodeStart(JsonOps.INSTANCE, pane).getOrThrow();
       var decodedPane = ClearStainedGlassPaneBlock.CODEC.codec().parse(JsonOps.INSTANCE, paneJson).getOrThrow();
       if (decodedPane.getBeaconColorMultiplier(decodedPane.defaultBlockState(), level, BlockPos.ZERO, BlockPos.ZERO) != expected) fail("pane color codec");
-      if (!block.skipRendering(block.defaultBlockState(), block.defaultBlockState(), Direction.NORTH)) fail("glass culling");
+      if (!block.defaultBlockState().skipRendering(block.defaultBlockState(), Direction.NORTH)) fail("glass culling");
     }
     var soul = SoulGlassBlock.CODEC.codec().parse(JsonOps.INSTANCE, SoulGlassBlock.CODEC.codec()
       .encodeStart(JsonOps.INSTANCE, new SoulGlassBlock(BlockBehaviour.Properties.of().noCollission())).getOrThrow()).getOrThrow();
