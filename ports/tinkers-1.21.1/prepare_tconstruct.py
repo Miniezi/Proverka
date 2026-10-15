@@ -70,6 +70,8 @@ from migrate_nested_modifier_edits import migrate as migrate_nested_modifier_edi
 api_stats['nested_modifier_edits'] = migrate_nested_modifier_edits(source)
 from migrate_restricted_data import migrate as migrate_restricted_data
 api_stats['restricted_data'] = migrate_restricted_data(source)
+from migrate_glass_blocks import migrate as migrate_glass_blocks
+api_stats['glass_blocks'] = migrate_glass_blocks(source)
 from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
