@@ -212,3 +212,13 @@ Validated source 5f8704d287549844c8b685ae8053f4e6787084a8, Actions run 387277106
 Added concrete codecs for SearedBlock, SearedGlassBlock, SearedTintedGlassBlock and SearedSoulGlassBlock. The base codec explicitly encodes required_block_entity, preserving the distinction between always-present and structure-dependent block entities. Subclass codecs retain their constructors and specialized behavior. No structure notification or block entity lifecycle logic was removed.
 
 Preparation succeeds; all 23 existing isolated server groups still pass. Full-source diagnostics decrease from 7,359 to 7,327. The four seared classes now have no full-source diagnostics. These classes are not in the isolated runtime fixture: codec roundtrips, smeltery structure behavior, navigation and lighting still need actual gameplay/integration validation. Full mod compilation remains failed and there is no playable JAR.
+
+## Dispenser source and placement components (2026-10-15 UTC)
+
+Validated source 695dbe7968bdd6c371f3e033c3bda57bf27153a8, Actions run 38730688347, artifact 11970160479, local run55. Migrated all six BlockSource consumers to net.minecraft.core.dispenser.BlockSource and its record accessors. Fancy armor stand spawning uses the current consumer overload and retains appendDefaultStackConfig to apply the item configuration. Official local 1.21.1 mappings confirm these signatures.
+
+PlaceBlockDispenserBehavior resets its success flag for each attempt, requires successful block placement before consuming an item, and applies ItemStack components to the created block entity after its custom block-entity tag. Existing placement callbacks, game event and sound remain. This preserves named block entities in the new component format and prevents consumption on rejected placement.
+
+All 24 isolated server groups pass. New checks execute the production placement behavior in a dedicated-server world with vanilla blocks: successful stone placement consumes one item; an occupied target does not consume another; a named chest transfers its custom name; a non-block item remains unchanged. The test clears its temporary dispenser and target afterward. It does not exercise protection-mod cancellation, multiblock placement or the fancy armor stand/projectile behaviors.
+
+Full-source diagnostics decrease from 7,327 to 7,313. PlaceBlockDispenserBehavior, DispenseFancyArmorStand and ModifiableShurikenDispenserBehavior have no diagnostics in this run; ShootProjectileDispenserBehavior retains a generated-constructor dependency error. These facts do not establish complete gameplay integration. Full compilation still fails; no playable JAR.
