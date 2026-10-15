@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "695dbe7968bdd6c371f3e033c3bda57bf27153a8",
-  "validation_run": 38730688347,
+  "validated_commit": "e0d7762a522f5a84e60aa00c38a8692d793bf569",
+  "validation_run": 38751529628,
   "full_compile": "failed",
-  "compiler_diagnostics": 7313,
+  "compiler_diagnostics": 7240,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -90,15 +90,16 @@
   },
   "latest_validation": {
     "isolated_server_marker_groups": 24,
-    "artifact": 11970160479,
-    "local_logs": "run55",
+    "artifact": 11981692146,
+    "local_logs": "run56",
     "full_compile": "failed",
     "playable_jar": false,
-    "scope": "Production dispenser block placement passes server tests; other dispenser behavior integration remains unvalidated."
+    "scope": "Existing isolated checks pass; 45 block entity lifecycle methods migrated, but save/reload integration remains unvalidated."
   },
   "nested_modifier_edits": "Detached stat compound edits and atomic worktable interaction list publication; ToolStack component owner not yet bound.",
   "restricted_raw_data": "Snapshot getters, copied writes, optional publication, atomic edits and refreshed ToolStack wrapper; addon nested edits require explicit put.",
   "glass_blocks": "TransparentBlock base classes, ARGB beacon tint, five concrete codecs and soul-glass pathfinding migrated.",
   "block_paths": "PathType and six pathfinding overrides migrated; four seared component codecs added across 15 changed classes.",
-  "dispensers": "Six BlockSource consumers migrated; current armor stand spawn overload; component-aware placement and success-dependent consumption."
+  "dispensers": "Six BlockSource consumers migrated; current armor stand spawn overload; component-aware placement and success-dependent consumption.",
+  "block_entity_io": "Registry providers threaded through 45 lifecycle methods in 20 classes; nested serializers remain incomplete."
 }
