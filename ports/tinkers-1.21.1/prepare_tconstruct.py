@@ -82,6 +82,8 @@ from migrate_melting_storage import migrate as migrate_melting_storage
 api_stats['melting_storage'] = migrate_melting_storage(source)
 from migrate_smeltery_recipe_lookup import migrate as migrate_smeltery_recipe_lookup
 api_stats['smeltery_recipe_lookup'] = migrate_smeltery_recipe_lookup(source)
+from migrate_casting_tank import migrate as migrate_casting_tank
+api_stats['casting_tank'] = migrate_casting_tank(source)
 from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
