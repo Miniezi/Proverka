@@ -182,3 +182,15 @@ Worktable set edits use detached lists. Interaction toggling computes both lists
 Source preparation and all 21 existing isolated server groups pass. Full compilation remains failed with 7,381 diagnostics (previous 7,383; fewer repeated getter call sites, not evidence that another subsystem compiles). These three full gameplay classes still have generated-accessor and worktable-constructor dependency errors. Existing storage transaction tests pass, but do not execute these worktable/stat classes. No claim of end-to-end gameplay validation or a playable JAR.
 
 Next: complete mutable nested-data audit, including SmeltingModule and RestrictedCompoundTag hooks, before binding ToolStack to item components. Smelting input/output key aliasing and explicit registry context for InventoryModule serialization require care; they were inspected but not modified in this block.
+
+## Restricted raw-data boundaries (2026-10-15 UTC)
+
+Validated source 6c92f68c03d7e55d12cb2d1f4cab1f26eab47e2b, Actions run 38708062406, artifact 11959042350, local run50. RestrictedCompoundTag now has explicit constructors and an optional snapshot publication callback. Mutable tag/compound/list getters return detached copies and put() copies its input. All allowed mutators notify the owner when one is supplied. The restricted key set is copied to prevent later caller changes from removing protections.
+
+Added edit(Consumer<RestrictedCompoundTag>) for successful all-at-once edits. A failing editor leaves root data unchanged and sends no publication; retained editors cannot mutate the committed tree. Protected fields remain inaccessible within the editor. ToolStack.refreshTag also invalidates its cached restricted wrapper after replacing the underlying NBT.
+
+Audited all bundled RawDataModifierHook implementations (HeadlightModule, TheOneProbeModule and EmbellishmentModule). None depend on mutable getter results. Compatibility note for future ported addons: modify a returned snapshot and explicitly put it back, or use edit(); nested getter mutation alone no longer changes the tool.
+
+All 22 isolated server marker groups pass, including the actual migrated RestrictedCompoundTag class. New tests cover restricted reads/writes, externally modified key sets, compound/list/input/publication aliasing, retained editors, atomic commit, and exception rollback. RestrictedCompoundTag has zero full-source diagnostics. Full compilation still fails with 7,380 diagnostics (previous 7,381). ToolStack's cache invalidation is source-reviewed but cannot be gameplay-tested until its component migration and dependencies are complete.
+
+No playable JAR. The optional raw-data publication callback is not yet bound to ToolStack's component owner. Smelting/inventory registry context, ToolStack ownership, native vanilla component semantics and full gameplay integration remain outstanding.
