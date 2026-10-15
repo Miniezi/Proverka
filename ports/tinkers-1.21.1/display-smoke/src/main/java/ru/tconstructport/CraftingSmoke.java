@@ -37,6 +37,20 @@ final class CraftingSmoke {
     var smelting=manager.getRecipeFor(RecipeType.SMELTING,ore,level).orElseThrow().value();
     if(!smelting.assemble(ore,level.registryAccess()).is(Items.IRON_INGOT)) fail("smelting input");
     if(manager.getRecipeFor(RecipeType.SMELTING,new SingleRecipeInput(new ItemStack(Items.STICK)),level).isPresent()) fail("invalid smelting input");
+    // Use a separate manager: reload checks must not replace the server's recipes.
+    var isolated = new net.minecraft.world.item.crafting.RecipeManager(level.registryAccess());
+    var ironHolder = manager.getRecipeFor(RecipeType.SMELTING, ore, level).orElseThrow();
+    var goldInput = new SingleRecipeInput(new ItemStack(Items.RAW_GOLD));
+    var goldHolder = manager.getRecipeFor(RecipeType.SMELTING, goldInput, level).orElseThrow();
+    isolated.replaceRecipes(java.util.List.of(ironHolder));
+    if (isolated.getRecipeFor(RecipeType.SMELTING, ore, level, ironHolder.id()).orElseThrow().value() != ironHolder.value()) fail("cached ID lookup");
+    var replacement = new net.minecraft.world.item.crafting.RecipeHolder<>(ironHolder.id(), goldHolder.value());
+    isolated.replaceRecipes(java.util.List.of(replacement));
+    if (isolated.getRecipeFor(RecipeType.SMELTING, ore, level, ironHolder.id()).isPresent()) fail("stale recipe after reload");
+    if (isolated.getRecipeFor(RecipeType.SMELTING, goldInput, level, ironHolder.id()).orElseThrow().value() != goldHolder.value()) fail("reloaded recipe not used");
+    isolated.replaceRecipes(java.util.List.of());
+    if (isolated.getRecipeFor(RecipeType.SMELTING, goldInput, level, ironHolder.id()).isPresent()) fail("removed recipe still cached");
+    System.out.println("TCONSTRUCT_RECIPE_ID_CACHE_OK lookup=1 replacement=1 removal=1");
     System.out.println("TCONSTRUCT_CRAFTING_OK shifted_shape=1 remainder_offset=1 smelting=1 no_mutation=1");
   }
   private static void fail(String reason) { throw new IllegalStateException(reason); }
