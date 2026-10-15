@@ -76,6 +76,8 @@ from migrate_block_paths import migrate as migrate_block_paths
 api_stats['block_paths'] = migrate_block_paths(source)
 from migrate_dispensers import migrate as migrate_dispensers
 api_stats['dispensers'] = migrate_dispensers(source)
+from migrate_block_entity_io import migrate as migrate_block_entity_io
+api_stats['block_entity_io'] = migrate_block_entity_io(source)
 from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
