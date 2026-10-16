@@ -246,3 +246,15 @@ Validated source 6fc90d45dda0fdafebb3a29674d0ee320e4411b5, Actions run 387588421
 Casting tracks the active recipe ID separately from search hints, sets it at each recipe assignment, clears it on reset, and writes that ID instead of calling removed Recipe.getId(). Loading resolves byKey and checks both recipe type and ICastingRecipe interface. Loading a missing or wrong-type recipe clears previous active state. This does not dynamically replace a recipe already processing mid-cast; the change concerns fresh lookup and load behavior.
 
 All 25 isolated server groups pass. The additional native RecipeManager test uses an isolated manager and vanilla smelting recipes to check ID lookup, replacing a recipe under the same ID, and removing it. The server's own recipes are not modified. It validates the lookup API semantics used by production, not an end-to-end smeltery. Full-source diagnostics are 7,233 (previous 7,235); no diagnostics on the new getRecipeFor/byKey/holder/active-ID code were reported. Recipe codecs, fluid capabilities and full casting/melting gameplay remain unfinished. No playable JAR.
+
+## Casting fluid transfer and persistence (2026-10-15 UTC)
+
+Validated source f913833c9a24f42feb1c6f2d005d937d6055b8a7, Actions run 38762438288, artifact 11986696923, local run59. Ported the actual CastingFluidHandler to component-preserving copyWithAmount and isSameFluidSameComponents. Constructor now accepts begin/reset/change callbacks; CastingBlockEntity supplies its existing methods. This removes the hard entity dependency from the handler without replacing gameplay logic with a stub and enables isolated execution of the real production handler.
+
+Added registry-aware fluid serialization, replacement loading that clears absent fields, nonnegative saved capacity, safe parsing of malformed/missing filter IDs, removal of stale fluid/filter fields when writing into a reused tag, and zero capacity for invalid tank indices. Wired the new persistence signatures through CastingBlockEntity.
+
+All 26 server marker groups pass. New tests directly execute CastingFluidHandler for simulated and executed fill/drain, capacity limiting, source/output isolation, rejection of wrong fluid or different components, persistence roundtrip, empty-drain reset callback, replacement loading, invalid filter input and negative drain. Callbacks in the fixture provide a fixed recipe capacity and reset notification; actual recipe selection, fluid capability registration and complete casting remain outside this test.
+
+Full-source diagnostics: 7,228 (previous 7,233), zero in CastingFluidHandler itself. Full compile still fails. No playable JAR.
+
+Progress display requested by user: show a short approximate overall bar in subsequent final updates. Current rough estimate remains about 20% complete / 80% remaining, low confidence, not a measured percentage and not derived from diagnostic counts. Do not increase automatically per turn. Advance the estimate only with meaningful verified core milestones (integrated tools/modifiers, melting/casting/alloying, full build, client/server gameplay). Keep core-mechanics-only priority.
