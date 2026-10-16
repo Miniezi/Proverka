@@ -258,3 +258,11 @@ All 26 server marker groups pass. New tests directly execute CastingFluidHandler
 Full-source diagnostics: 7,228 (previous 7,233), zero in CastingFluidHandler itself. Full compile still fails. No playable JAR.
 
 Progress display requested by user: show a short approximate overall bar in subsequent final updates. Current rough estimate remains about 20% complete / 80% remaining, low confidence, not a measured percentage and not derived from diagnostic counts. Do not increase automatically per turn. Advance the estimate only with meaningful verified core milestones (integrated tools/modifiers, melting/casting/alloying, full build, client/server gameplay). Keep core-mechanics-only priority.
+
+## Smeltery multi-fluid storage (2026-10-16 UTC)
+
+Validated source 2434dbf68ed680372786f4c2092075b6f0969aa9, Actions run 38919831587, artifact 12053468703, local run60. SmelteryTank now uses component-sensitive equality for merging, resource-specific draining and first-fluid change detection. Fluid list serialization uses the registry-aware native FluidStack codec, with providers passed from HeatingStructureBlockEntity. Saved order and amounts remain; empty/invalid entries are skipped and negative saved capacity is clamped to zero.
+
+setFluids copies incoming entries before clearing internal storage, fixing self-list replacement and preventing external packet/list fluid mutations from changing tank contents through shared references. Existing notifications and order-change behavior remain.
+
+All 26 existing isolated server groups pass. Full-source diagnostics: 7,226 (previous 7,228). SmelteryTank retains a generated SmelteryTankUpdatePacket constructor error; no errors on the new storage/equality calls. The main multi-fluid tank is not directly included in the isolated runtime fixture, so these changes are source/compile reviewed, not a full smeltery runtime validation. Full build and complete melting-to-casting cycle remain blocked. No playable JAR. Rough overall progress remains approximately 20%, low confidence; do not increment per turn without verified integrated milestones.

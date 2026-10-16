@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "f913833c9a24f42feb1c6f2d005d937d6055b8a7",
-  "validation_run": 38762438288,
+  "validated_commit": "2434dbf68ed680372786f4c2092075b6f0969aa9",
+  "validation_run": 38919831587,
   "full_compile": "failed",
-  "compiler_diagnostics": 7228,
+  "compiler_diagnostics": 7226,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -90,11 +90,11 @@
   },
   "latest_validation": {
     "isolated_server_marker_groups": 26,
-    "artifact": 11986696923,
-    "local_logs": "run59",
+    "artifact": 12053468703,
+    "local_logs": "run60",
     "full_compile": "failed",
     "playable_jar": false,
-    "scope": "Actual casting fluid handler transfer and persistence pass; complete casting and capability wiring remain unvalidated."
+    "scope": "Existing checks pass; main multi-fluid tank persistence and equality migrated, not directly runtime-tested."
   },
   "nested_modifier_edits": "Detached stat compound edits and atomic worktable interaction list publication; ToolStack component owner not yet bound.",
   "restricted_raw_data": "Snapshot getters, copied writes, optional publication, atomic edits and refreshed ToolStack wrapper; addon nested edits require explicit put.",
@@ -112,5 +112,6 @@
     "basis": "rough core-mechanic milestone estimate, not diagnostics",
     "advance_only_on_verified_milestones": true
   },
-  "casting_tank": "Component-sensitive fill/drain, registry persistence, replacement load, callback wiring; real handler tested."
+  "casting_tank": "Component-sensitive fill/drain, registry persistence, replacement load, callback wiring; real handler tested.",
+  "smeltery_tank": "Registry-aware ordered fluid persistence; component-sensitive merge/drain; detached list replacement including self-list safety."
 }
