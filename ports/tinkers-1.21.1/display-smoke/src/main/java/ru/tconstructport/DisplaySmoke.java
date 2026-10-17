@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.TinkerItemDisplays;
 /** Tests migrated enum declarations and cast holder semantics. Never distribute this fixture as TConstruct. */
 @Mod("tconstruct")
 public final class DisplaySmoke {
-  public DisplaySmoke(net.neoforged.bus.api.IEventBus bus) { SmelteryCapabilitySmoke.init(bus); GlassBlockSmoke.init(bus); PotionSmoke.init(bus); EffectSmoke.init(bus); EntityDataSmoke.init(bus); WorldPacketSmoke.init(bus); NetworkSmoke.init(bus); CustomIngredientSmoke.init(bus); bus.addListener(slimeknights.tconstruct.common.registration.TinkerRegistryAliases::register); NeoForge.EVENT_BUS.addListener(this::validate); }
+  public DisplaySmoke(net.neoforged.bus.api.IEventBus bus) { SmelteryFuelSmoke.init(bus); SmelteryCapabilitySmoke.init(bus); GlassBlockSmoke.init(bus); PotionSmoke.init(bus); EffectSmoke.init(bus); EntityDataSmoke.init(bus); WorldPacketSmoke.init(bus); NetworkSmoke.init(bus); CustomIngredientSmoke.init(bus); bus.addListener(slimeknights.tconstruct.common.registration.TinkerRegistryAliases::register); NeoForge.EVENT_BUS.addListener(this::validate); }
   private void validate(ServerStartedEvent event) {
     ItemDisplayContext[] contexts={TinkerItemDisplays.MELTER,TinkerItemDisplays.TABLE,TinkerItemDisplays.CASTING_TABLE,TinkerItemDisplays.CASTING_BASIN,TinkerItemDisplays.FLUID_CANNON,TinkerItemDisplays.THROWN};
     String[] names={"melter","table","casting_table","casting_basin","fluid_cannon","thrown"};
@@ -55,6 +55,7 @@ public final class DisplaySmoke {
     DispenserSmoke.validate(event);
     CastingTankSmoke.validate(event);
     SmelteryCapabilitySmoke.validate(event);
+    SmelteryFuelSmoke.validate(event);
     StoredItemStackSmoke.validate(event);
     ProjectileAimSmoke.validate(event);
     ToolInventoryDataSmoke.validate();

@@ -94,6 +94,8 @@ from migrate_smeltery_inventory import migrate as migrate_smeltery_inventory
 api_stats['smeltery_inventory'] = migrate_smeltery_inventory(source)
 from migrate_multiblock_positions import migrate as migrate_multiblock_positions
 api_stats['multiblock_positions'] = migrate_multiblock_positions(source)
+from migrate_fuel_recipes import migrate as migrate_fuel_recipes
+api_stats['fuel_recipes'] = migrate_fuel_recipes(source)
 from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
