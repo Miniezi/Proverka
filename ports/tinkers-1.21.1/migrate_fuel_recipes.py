@@ -1,5 +1,6 @@
 """Native fuel recipe codecs, world-owned lookup, datagen and fuel execution context."""
 import re
+import json
 from migrate_nested_modifier_edits import replace_once
 from migrate_smeltery_capabilities import replace_method
 
@@ -49,4 +50,16 @@ def migrate(root):
     s=replace_once(s,'consumer.accept(new LoadableFinishedRecipe<>(new MeltingFuel(id, input, duration, temperature, rate), MeltingFuel.LOADER, advancementId));',
                      'consumer.accept(id, new MeltingFuel(input, duration, temperature, rate), advancement);')
     p.write_text(s)
-    return {'world_owned_fuel_lookup':True,'native_recipe_serializer':True,'recipe_output_builder':True,'fuel_progress_persistence':True}
+    resources = []
+    for folder in [root/'src/main/resources', root/'src/generated/resources']:
+        if not folder.exists(): continue
+        for recipe in list(folder.glob('data/*/recipes/**/*.json')):
+            if json.loads(recipe.read_text()).get('type') != 'tconstruct:melting_fuel': continue
+            parts = list(recipe.relative_to(folder).parts)
+            parts[2] = 'recipe'
+            target = folder.joinpath(*parts)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            assert not target.exists(), target
+            recipe.rename(target)
+            resources.append(str(target.relative_to(root)))
+    return {'world_owned_fuel_lookup':True,'native_recipe_serializer':True,'recipe_output_builder':True,'fuel_progress_persistence':True,'native_fuel_resources':resources}
