@@ -3,10 +3,10 @@
   "loader": "NeoForge 21.1.238",
   "state": "unfinished_source_port",
   "playable_jar": false,
-  "validated_commit": "4b37fceb91900761b6fe8e50e93c57a7ecbef6cf",
-  "validation_run": 39046473036,
+  "validated_commit": "c1ac24f84b70ed8eccd84b104d7f36d332032718",
+  "validation_run": 39056474863,
   "full_compile": "failed",
-  "compiler_diagnostics": 6977,
+  "compiler_diagnostics": 6937,
   "diagnostics_are_not_completion_percentage": true,
   "isolated_server_checks": {
     "display_contexts": 6,
@@ -89,12 +89,12 @@
     "limitations": "Material registry predicates, ToolStack components, material recipe cache and full reload/gameplay tests remain blocked. MaterialValueIngredient full-compile diagnostics refer to Lombok-generated methods/constructors in uncompiled dependencies."
   },
   "latest_validation": {
-    "isolated_server_marker_groups": 27,
-    "artifact": 12105513239,
-    "local_logs": "run65",
+    "isolated_server_marker_groups": 28,
+    "artifact": 12109003846,
+    "local_logs": "run68",
     "full_compile": "failed",
     "playable_jar": false,
-    "scope": "Real capability infrastructure, resolving views, buffered transfer, duct filters and position codecs pass server tests; real smeltery controllers and full gameplay are not yet runnable."
+    "scope": "Original fuel datapacks, native codecs and real FuelModule/SolidFuelModule liquid/solid consumption pass; complete melter/controller and melting/casting remain unvalidated."
   },
   "nested_modifier_edits": "Detached stat compound edits and atomic worktable interaction list publication; ToolStack component owner not yet bound.",
   "restricted_raw_data": "Snapshot getters, copied writes, optional publication, atomic edits and refreshed ToolStack wrapper; addon nested edits require explicit put.",
@@ -107,9 +107,9 @@
   "smeltery_recipe_lookup": "Melting/casting/molding use holder IDs; active casting recipe ID is separately persisted and type-checked on restore.",
   "progress_display": {
     "requested": true,
-    "approximate_percent": 20,
+    "approximate_percent": 22,
     "confidence": "low",
-    "basis": "rough core-mechanic milestone estimate, not diagnostics",
+    "basis": "rough milestones; native fuel recipe-to-consumption-to-persistence lifecycle now tested",
     "advance_only_on_verified_milestones": true
   },
   "casting_tank": "Component-sensitive fill/drain, registry persistence, replacement load, callback wiring; real handler tested.",
@@ -123,5 +123,12 @@
     "multiblock_persistence": "native/legacy position reads and servant lifecycle",
     "remaining": "recipe codecs/registration, controller dependencies, channel/gauge consumers, real core gameplay test"
   },
-  "work_style": "Finish connected core subsystems in larger blocks; do not substitute a list of small cosmetic fixes for functional milestones."
+  "work_style": "Finish connected core subsystems in larger blocks; do not substitute a list of small cosmetic fixes for functional milestones.",
+  "fuel_recipes": {
+    "registration": "native shared recipe type/serializer, no constructor cache",
+    "lookup": "world manager owned with reload/removal and isolation checks",
+    "resources": "three original fuels moved to recipe/; original lava and solid files runtime tested",
+    "execution": "actual liquid/solid fuel modules, final portions, persistence and failed extraction verified",
+    "remaining": "full controller execution and item melting/casting/alloying"
+  }
 }
