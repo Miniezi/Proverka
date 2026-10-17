@@ -86,6 +86,10 @@ from migrate_casting_tank import migrate as migrate_casting_tank
 api_stats['casting_tank'] = migrate_casting_tank(source)
 from migrate_smeltery_tank import migrate as migrate_smeltery_tank
 api_stats['smeltery_tank'] = migrate_smeltery_tank(source)
+from migrate_smeltery_capabilities import migrate as migrate_smeltery_capabilities
+api_stats['smeltery_capabilities'] = migrate_smeltery_capabilities(source)
+from migrate_smeltery_consumers import migrate as migrate_smeltery_consumers
+api_stats['smeltery_consumers'] = migrate_smeltery_consumers(source)
 from migrate_inventory_edits import migrate as migrate_inventory_edits
 api_stats['inventory_edits'] = migrate_inventory_edits(source)
 from migrate_stored_ammo import migrate as migrate_stored_ammo
