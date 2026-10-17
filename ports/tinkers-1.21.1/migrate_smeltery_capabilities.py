@@ -105,9 +105,10 @@ def migrate(root):
     start=s.index('  /**\n   * Gets the capability to store in this IO block.');end=s.index('  /* Retexturing */',start)
     s=s[:start]+'''  @Nullable
   protected T resolveHandler() {
-    if (level == null || isRemoved() || !validateMaster()) return null;
+    if (level == null || isRemoved()) return null;
     BlockPos master = getMasterPos();
     if (master == null || master.equals(worldPosition) || !level.hasChunkAt(master)) return null;
+    if (!validateMaster()) return null;
     return level.getCapability(capability, master, null);
   }
 
