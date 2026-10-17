@@ -73,7 +73,25 @@ final class SmelteryCapabilitySmoke {
     if (BufferedFluidTransfer.fillFromBuffer(partial, buffer, 100) != 37 || buffer.getAmount() != 63 || partial.getFluidAmount() != 37) fail("partial execution loses fluid");
     if (!FluidStack.isSameFluidSameComponents(buffer, partial.getFluid())) fail("buffer components lost");
     if (BufferedFluidTransfer.fillFromBuffer(partial, buffer, -1) != 0 || buffer.getAmount() != 63) fail("invalid transfer limit");
-    System.out.println("TCONSTRUCT_SMELTERY_CAPABILITIES_OK registration=1 sides=1 invalidation=1 replacement=1 forwarding=1 conservation=1");
+    var firstTank = new FluidTank(1000);
+    firstTank.fill(new FluidStack(Fluids.WATER, 500), IFluidHandler.FluidAction.EXECUTE);
+    var secondTank = new FluidTank(1000);
+    secondTank.fill(new FluidStack(Fluids.LAVA, 400), IFluidHandler.FluidAction.EXECUTE);
+    IFluidHandler[] activeTank = { firstTank };
+    FluidStack[] filter = { new FluidStack(Fluids.WATER, 1) };
+    var filtered = new slimeknights.tconstruct.smeltery.block.entity.inventory.DuctTankWrapper(
+      new ResolvingFluidHandler(() -> activeTank[0]), () -> filter[0]);
+    if (filtered.getTanks() != 1 || filtered.getFluidInTank(0).getAmount() != 500) fail("duct filter mapping");
+    activeTank[0] = secondTank;
+    if (filtered.getTanks() != 0 || !filtered.drain(50, IFluidHandler.FluidAction.EXECUTE).isEmpty()) fail("duct retained old mapping");
+    filter[0] = new FluidStack(Fluids.LAVA, 1);
+    if (filtered.getTanks() != 1 || filtered.drain(50, IFluidHandler.FluidAction.SIMULATE).getAmount() != 50
+        || secondTank.getFluidAmount() != 400) fail("duct replacement or simulation");
+    filter[0].set(DataComponents.CUSTOM_NAME, Component.literal("different lava"));
+    if (filtered.getTanks() != 0 || filtered.fill(filter[0], IFluidHandler.FluidAction.EXECUTE) != 0) fail("duct component mismatch");
+    activeTank[0] = null;
+    if (filtered.getTanks() != 0 || filtered.getTankCapacity(0) != 0 || !filtered.drain(-1, IFluidHandler.FluidAction.EXECUTE).isEmpty()) fail("duct missing controller");
+    System.out.println("TCONSTRUCT_SMELTERY_CAPABILITIES_OK registration=1 sides=1 invalidation=1 replacement=1 forwarding=1 conservation=1 filters=1");
   }
   private static void fail(String reason) { throw new IllegalStateException(reason); }
 }

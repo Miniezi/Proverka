@@ -7,7 +7,7 @@ BASE='net.neoforged.neoforge.capabilities.BlockCapability'
 
 
 def replace_method(s, name, replacement):
-    pattern=re.compile(r'(?:  |\t)(?:@[^\n]+\n\s*)*(?:public|protected|private) [^\n{};=]+\b'+name+r'\([^)]*\)\s*\{')
+    pattern=re.compile(r'(?:  |\t)(?:@[^\n]+\n\s*)*(?:public|protected|private) [^\n{};=]*\b'+name+r'\([^)]*\)\s*\{')
     matches=list(pattern.finditer(s))
     assert len(matches)==1,(name,len(matches))
     m=matches[0];end=m.end();depth=1

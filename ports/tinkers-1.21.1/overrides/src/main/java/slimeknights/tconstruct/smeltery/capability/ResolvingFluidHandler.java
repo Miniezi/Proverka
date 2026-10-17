@@ -13,7 +13,10 @@ public final class ResolvingFluidHandler implements IFluidHandler {
     IFluidHandler current = resolve.get();
     return current == null || current == this ? EmptyFluidHandler.INSTANCE : current;
   }
-  @Override public int getTanks() { return handler().getTanks(); }
+  @Override public int getTanks() {
+    IFluidHandler current = resolve.get();
+    return current == null || current == this ? 0 : current.getTanks();
+  }
   @Override public FluidStack getFluidInTank(int tank) { return handler().getFluidInTank(tank); }
   @Override public int getTankCapacity(int tank) { return handler().getTankCapacity(tank); }
   @Override public boolean isFluidValid(int tank, FluidStack stack) { return handler().isFluidValid(tank, stack); }

@@ -30,6 +30,28 @@ def migrate(root):
     s=s.replace('new FluidStack(fluid, maxDrain)','fluid.copyWithAmount(maxDrain)')
     s=replace_once(s,'return FluidStack.isSameFluidSameComponents(itemHandler.getFluid(), stack);',
                      'return tank >= 0 && tank < getTanks() && !stack.isEmpty() && FluidStack.isSameFluidSameComponents(itemHandler.getFluid(), stack);')
+    s=replace_once(s, 'private final DuctItemHandler itemHandler;', 'private final java.util.function.Supplier<FluidStack> filter;')
+    s=replace_method(s, 'DuctTankWrapper', """  public DuctTankWrapper(IFluidHandler parent, java.util.function.Supplier<FluidStack> filter) {
+    this.parent = parent;
+    this.filter = filter;
+  }""")
+    s=s.replace('itemHandler.getFluid()', 'filter.get()')
+    s=replace_method(s, 'getTankMapping', """  private int[] getTankMapping() {
+    FluidStack selected = filter.get();
+    int count = parent.getTanks();
+    if (count <= 0) return new int[0];
+    if (selected.isEmpty()) return parent.getFluidInTank(count - 1).isEmpty() ? new int[] {count - 1} : new int[0];
+    IntList matching = new IntArrayList(count);
+    for (int i = 0; i < count; i++) {
+      FluidStack contained = parent.getFluidInTank(i);
+      if (contained.isEmpty() || FluidStack.isSameFluidSameComponents(selected, contained)) matching.add(i);
+    }
+    return matching.toIntArray();
+  }""")
+    s=s.replace('    if (fluid.isEmpty()) {', '    if (maxDrain <= 0 || fluid.isEmpty()) {')
+    p.write_text(s)
+    p=base/'component/DuctBlockEntity.java'
+    s=replace_once(p.read_text(), 'new DuctTankWrapper(capability, itemHandler)', 'new DuctTankWrapper(capability, itemHandler::getFluid)')
     p.write_text(s)
     for rel,field,key in [('ProxyTankBlockEntity.java','itemTank','TAG_ITEM'),('component/DuctBlockEntity.java','itemHandler','TAG_ITEM')]:
         p=base/rel;s=p.read_text()
