@@ -102,6 +102,10 @@ final class SmelteryFuelSmoke {
       if (restored.getFuel() != 85 || restored.getFuelQuality() != 100 || restored.getRate() != 10 || restored.getTemperature() != 1000) fail("fuel progress persistence");
       restored.readFromTag(new CompoundTag());
       if (restored.getFuel() != 0 || restored.getRate() != 0 || restored.getTemperature() != 0) fail("empty fuel state did not replace");
+      source.setFluid(lava.copyWithAmount(50));
+      var lastLiquid = new SolidFuelModule(parent, fuelPos);
+      if (lastLiquid.findFuel(true) != 1000 || lastLiquid.getFuel() != 100 || !source.isEmpty()) fail("last liquid portion lost without heat");
+      source.setFluid(lava.copyWithAmount(150));
       level.removeBlock(fuelPos, false);
       level.setBlockAndUpdate(fuelPos, Blocks.FURNACE.defaultBlockState());
       var furnace = (FurnaceBlockEntity)level.getBlockEntity(fuelPos);
@@ -110,6 +114,8 @@ final class SmelteryFuelSmoke {
       if (solidModule.findFuel(false) != 800 || furnace.getItem(1).getCount() != 2) fail("solid simulation");
       if (solidModule.findFuel(true) != 800 || furnace.getItem(1).getCount() != 1 || solidModule.getFuel() != 400
           || solidModule.getRate() != 8 || source.getFluidAmount() != 150) fail("solid fuel or stale fluid handler");
+      var lastSolid = new SolidFuelModule(parent, fuelPos);
+      if (lastSolid.findFuel(true) != 800 || lastSolid.getFuel() != 400 || !furnace.getItem(1).isEmpty()) fail("last coal lost without heat");
       var broken = new FluidTank(2000) {
         @Override public FluidStack drain(FluidStack resource, FluidAction action) { return FluidStack.EMPTY; }
       };

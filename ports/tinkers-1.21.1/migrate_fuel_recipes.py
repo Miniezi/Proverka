@@ -31,12 +31,23 @@ def migrate(root):
     fluidHandler = null;
   }''')
     s=replace_once(s,'    nbt.putInt(TAG_FUEL, fuel);','    nbt.putInt(TAG_FUEL, fuel);\n    nbt.putInt("fuel_quality", fuelQuality);')
+    s=replace_once(s, 'FluidStack drained = handler.drain(fluid.copyWithAmount(amount), FluidAction.EXECUTE);',
+                     'FluidStack expected = fluid.copyWithAmount(amount);\n          FluidStack drained = handler.drain(expected.copy(), FluidAction.EXECUTE);')
+    s=replace_once(s, '!FluidStack.isSameFluidSameComponents(drained, fluid)', '!FluidStack.isSameFluidSameComponents(drained, expected)')
+
     p.write_text(s)
     p=base/'smeltery/block/entity/module/SolidFuelModule.java';s=p.read_text()
     s=s.replace('import slimeknights.tconstruct.TConstruct;\n','').replace('import slimeknights.tconstruct.library.utils.Util;\n','').replace('import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;\n','')
     s=s.replace('TConstruct.LOG.error(', 'com.mojang.logging.LogUtils.getLogger().error(')
     s=s.replace('TinkerRecipeTypes.FUEL.get()', 'slimeknights.tconstruct.library.recipe.fuel.SmelteryFuelRecipes.TYPE.get()')
     s=replace_once(s,'MeltingFuel solid = MeltingFuelLookup.getSolid();','MeltingFuel solid = MeltingFuelLookup.getSolid(getLevel());\n        if (solid == null) return 0;')
+    s=replace_once(s, '          ItemStack extracted = handler.extractItem(i, 1, false);',
+                     '          ItemStack expected = stack.copyWithCount(1);\n          ItemStack extracted = handler.extractItem(i, 1, false);')
+    s=replace_once(s, 'if (ItemStack.isSameItem(extracted, stack)) {',
+                     'if (extracted.getCount() == 1 && ItemStack.isSameItemSameComponents(extracted, expected)) {')
+    s=replace_once(s, 'com.mojang.logging.LogUtils.getLogger().error("Invalid item removed from solid fuel handler");',
+                     'com.mojang.logging.LogUtils.getLogger().error("Invalid item removed from solid fuel handler");\n            return 0;')
+
     p.write_text(s)
     p=base/'tools/modules/OverburnModule.java';s=replace_once(p.read_text(),'MeltingFuelLookup.findFuel(fluid.getFluid())','MeltingFuelLookup.findFuel(world, fluid.getFluid())');p.write_text(s)
     p=base/'plugin/jei/melting/MeltingCategory.java';s=p.read_text()
