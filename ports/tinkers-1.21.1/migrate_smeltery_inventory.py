@@ -36,6 +36,7 @@ def migrate(root):
     this.filter = filter;
   }""")
     s=s.replace('itemHandler.getFluid()', 'filter.get()')
+    s=s.replace('import slimeknights.tconstruct.library.fluid.IMultitankListChange;\n', '').replace('import java.util.function.Consumer;\n', '').replace('  private int[] tankMapping;\n', '')
     s=replace_method(s, 'getTankMapping', """  private int[] getTankMapping() {
     FluidStack selected = filter.get();
     int count = parent.getTanks();

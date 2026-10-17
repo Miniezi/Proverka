@@ -27,6 +27,7 @@ sourceSets.main.java {
  include 'ru/tconstructport/DispenserSmoke.java'
  include 'ru/tconstructport/CastingTankSmoke.java'
  include 'ru/tconstructport/SmelteryCapabilitySmoke.java'
+ include 'slimeknights/tconstruct/common/multiblock/MultiblockPositionData.java'
  include 'slimeknights/tconstruct/smeltery/block/entity/inventory/DuctTankWrapper.java'
  include 'slimeknights/tconstruct/smeltery/capability/ResolvingFluidHandler.java'
  include 'slimeknights/tconstruct/smeltery/capability/ResolvingItemHandler.java'

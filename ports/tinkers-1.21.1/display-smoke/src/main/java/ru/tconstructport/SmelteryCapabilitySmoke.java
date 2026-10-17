@@ -91,7 +91,16 @@ final class SmelteryCapabilitySmoke {
     if (filtered.getTanks() != 0 || filtered.fill(filter[0], IFluidHandler.FluidAction.EXECUTE) != 0) fail("duct component mismatch");
     activeTank[0] = null;
     if (filtered.getTanks() != 0 || filtered.getTankCapacity(0) != 0 || !filtered.drain(-1, IFluidHandler.FluidAction.EXECUTE).isEmpty()) fail("duct missing controller");
-    System.out.println("TCONSTRUCT_SMELTERY_CAPABILITIES_OK registration=1 sides=1 invalidation=1 replacement=1 forwarding=1 conservation=1 filters=1");
+    var relative = new BlockPos(-7, 12, 31);
+    if (!relative.equals(slimeknights.tconstruct.common.multiblock.MultiblockPositionData.read(net.minecraft.nbt.NbtUtils.writeBlockPos(relative)))) fail("native position array");
+    var oldPosition = new net.minecraft.nbt.CompoundTag();
+    oldPosition.putInt("X", -7); oldPosition.putInt("Y", 12); oldPosition.putInt("Z", 31);
+    if (!relative.equals(slimeknights.tconstruct.common.multiblock.MultiblockPositionData.read(oldPosition))) fail("legacy position compound");
+    oldPosition.remove("Y");
+    if (slimeknights.tconstruct.common.multiblock.MultiblockPositionData.read(oldPosition) != null
+        || slimeknights.tconstruct.common.multiblock.MultiblockPositionData.read(new net.minecraft.nbt.IntArrayTag(new int[]{1, 2})) != null
+        || slimeknights.tconstruct.common.multiblock.MultiblockPositionData.read(null) != null) fail("invalid position accepted");
+    System.out.println("TCONSTRUCT_SMELTERY_CAPABILITIES_OK registration=1 sides=1 invalidation=1 replacement=1 forwarding=1 conservation=1 filters=1 positions=1");
   }
   private static void fail(String reason) { throw new IllegalStateException(reason); }
 }
